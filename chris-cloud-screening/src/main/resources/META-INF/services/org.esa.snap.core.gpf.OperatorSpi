@@ -1,0 +1,4 @@
+org.esa.chris.operators.ExtractFeaturesOp$Spi
+org.esa.chris.operators.ExtractEndmembersOp$Spi
+org.esa.chris.operators.ClassifyOp$Spi
+org.esa.chris.operators.FindClustersOp$Spi
