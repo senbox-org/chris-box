@@ -15,9 +15,10 @@
   * chris-geometric-correction ✔
   * chris-noise-reduction ✔   
 * check if all packages have been renamed
-  * org.esa.beam -> org.esa.chris
+  * org.esa.beam -> org.esa.chris ✔
+* check for beam occurrences
 * GUI stuff
-  * migrate module.xml and actions 
+  * migrate module.xml and actions ~ 
   * fix createInternalFrame, disposeInternalFrame in LabelingDialog
   * use Bundle strings
 * move cris reader help page from snap-help 
@@ -29,4 +30,4 @@
 * Add Travis yaml file ✔
 * Deploy to maven nexus from travis
 * replace TiePointGeoCoding
-*check for todos in code
+* check for todos in code

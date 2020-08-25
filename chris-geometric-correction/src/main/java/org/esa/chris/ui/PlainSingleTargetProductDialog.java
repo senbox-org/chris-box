@@ -56,8 +56,6 @@ import java.util.Map;
 /**
  * Plain single target product dialog.
  * <p/>
- * NOTE: This class has been cloned from {@code org.esa.beam.framework.gpf.ui.DefaultSingleTargetProductDialog},
- * simplified in some aspects, and refactored. // todo: rq/rq - merge with origin or move to package of origin
  *
  * @author Ralf Quast
  * @since CHRIS-Box 1.5
@@ -126,8 +124,6 @@ class PlainSingleTargetProductDialog extends SingleTargetProductDialog {
         }
     }
 
-    // method not exists in {@code org.esa.beam.framework.gpf.ui.DefaultSingleTargetProductDialog}
-
     public Object getParameterValue(String name) {
         return parameterMap.get(name);
     }
@@ -160,12 +156,8 @@ class PlainSingleTargetProductDialog extends SingleTargetProductDialog {
         return GPF.createProduct(operatorName, parameterMap, sourceProducts);
     }
 
-    // method not exists in {@code org.esa.beam.framework.gpf.ui.DefaultSingleTargetProductDialog}
-
     protected void initProperties(PropertySet propertySet) {
     }
-
-    // method not exists in {@code org.esa.beam.framework.gpf.ui.DefaultSingleTargetProductDialog}
 
     protected PropertyEditor findPropertyEditor(PropertyDescriptor descriptor) {
         return PropertyEditorRegistry.getInstance().findPropertyEditor(descriptor);
@@ -195,13 +187,7 @@ class PlainSingleTargetProductDialog extends SingleTargetProductDialog {
                 label = annotation.alias();
             }
             if (label == null) {
-                final String name;
-                if (annotation.alias().isEmpty()) {
-                    name = field.getName();
-                } else {
-                    name = annotation.alias();
-                }
-                label = PropertyDescriptor.createDisplayName(name);
+                label = PropertyDescriptor.createDisplayName(field.getName());
             }
             if (!label.endsWith(":")) {
                 label += ":";
@@ -221,8 +207,6 @@ class PlainSingleTargetProductDialog extends SingleTargetProductDialog {
             }
         }
     }
-
-    // method not exists in {@code org.esa.beam.framework.gpf.ui.DefaultSingleTargetProductDialog}
 
     private JPanel createParametersPanel(PropertyContainer propertyContainer) {
         final BindingContext bindingContext = new BindingContext(propertyContainer);
@@ -287,7 +271,7 @@ class PlainSingleTargetProductDialog extends SingleTargetProductDialog {
         return sourceProductMap;
     }
 
-    // handler has less functionality than in {@code org.esa.beam.framework.gpf.ui.DefaultSingleTargetProductDialog}
+    // handler has less functionality than in {@code org.esa.snap.core.gpf.ui.DefaultSingleTargetProductDialog}
 
     private class ProductSelectionChangeHandler extends AbstractSelectionChangeListener {
 
