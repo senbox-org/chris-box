@@ -13,7 +13,7 @@
   * chris-toa-reflectance-computation ✔
   * chris-cloud-screening ✔   
   * chris-geometric-correction ✔
-  * chris-noise-reduction ~   
+  * chris-noise-reduction ✔   
 * check if all packages have been renamed
   * org.esa.beam -> org.esa.chris
 * GUI stuff
@@ -26,6 +26,7 @@
 * place chrisbox-ac-lut-formatted-1nm.img somewhere and update location in readme.txt
 * remove from apidoc: @version $Revision: 2572 $ $Date: 2008-07-10 11:01:58 +0200 (Thu, 10 Jul 2008) $
 * updatt @since apidoc
-* Add Travis yaml file
+* Add Travis yaml file ✔
+* Deploy to maven nexus from travis
 * replace TiePointGeoCoding
 *check for todos in code
