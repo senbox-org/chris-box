@@ -1,4 +1,4 @@
-# CHRIS-Box for SNAP
+# CHRIS-Box for SNAP [![Build Status](https://travis-ci.org/senbox-org/chris-box.svg?branch=master)](https://travis-ci.org/senbox-org/chris-box)
 
 
 
