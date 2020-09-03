@@ -22,6 +22,7 @@
   * fix createInternalFrame, disposeInternalFrame in LabelingDialog
   * use Bundle strings
 * move cris reader help page from snap-help 
+    Check if help is working
 * Migrate wiki pages from the old confluence and update, maybe move some content to the help pages.
 * update links in manifest.mf files
 * place chrisbox-ac-lut-formatted-1nm.img somewhere and update location in readme.txt
