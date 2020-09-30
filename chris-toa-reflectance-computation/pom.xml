@@ -9,7 +9,7 @@
         <version>3.0.0-SNAPSHOT</version>
     </parent>
 
-    <name>CHRIS/Proba TOA Reflectance Computation Tool</name>
+    <name>CHRIS/Proba TOA Reflectance Computation</name>
     <artifactId>chris-toa-reflectance-computation</artifactId>
     <description>CHRIS/Proba TOA Reflectance Computation Tool</description>
     <packaging>nbm</packaging>

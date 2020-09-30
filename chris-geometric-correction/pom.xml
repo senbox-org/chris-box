@@ -9,7 +9,7 @@
         <version>3.0.0-SNAPSHOT</version>
     </parent>
 
-    <name>CHRIS/Proba Geometric Correction Tool</name>
+    <name>CHRIS/Proba Geometric Correction</name>
     <artifactId>chris-geometric-correction</artifactId>
     <description>CHRIS/Proba Geometric Correction Tool</description>
     <packaging>nbm</packaging>

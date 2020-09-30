@@ -10,7 +10,7 @@
     </parent>
 
 
-    <name>CHRIS/Proba Cloud Screening Tools</name>
+    <name>CHRIS/Proba Cloud Screening</name>
     <artifactId>chris-cloud-screening</artifactId>
     <description>CHRIS/Proba Cloud Screening Tools</description>
     <packaging>nbm</packaging>

@@ -9,7 +9,7 @@
         <version>3.0.0-SNAPSHOT</version>
     </parent>
 
-    <name>CHRIS/Proba Atmospheric Correction Tool</name>
+    <name>CHRIS/Proba Atmospheric Correction</name>
     <artifactId>chris-atmospheric-correction</artifactId>
     <description>CHRIS/Proba Atmospheric Correction Tool</description>
     <packaging>nbm</packaging>
