@@ -18,7 +18,7 @@ package org.esa.chris.ui;
 import com.bc.ceres.core.ProgressMonitor;
 import com.bc.ceres.core.SubProgressMonitor;
 import org.esa.chris.operators.ClassifyOp;
-import org.esa.chris.operators.ComputeToaReflectancesOp;
+import org.esa.chris.refl.operators.ComputeToaReflectancesOp;
 import org.esa.chris.operators.ExtractEndmembersOp;
 import org.esa.chris.operators.ExtractFeaturesOp;
 import org.esa.chris.operators.FindClustersOp;

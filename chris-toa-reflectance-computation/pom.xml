@@ -75,7 +75,7 @@
                 <artifactId>nbm-maven-plugin</artifactId>
                 <configuration>
                     <publicPackages>
-                        <package>org.esa.chris.operators.*</package>
+                        <package>org.esa.chris.refl.operators.*</package>
                     </publicPackages>
                 </configuration>
 
