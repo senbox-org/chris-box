@@ -24,7 +24,6 @@ import org.esa.snap.ui.AppContext;
 import org.esa.snap.ui.ModelessDialog;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
-import org.openide.awt.ActionReferences;
 import org.openide.awt.ActionRegistration;
 import org.openide.util.ContextAwareAction;
 import org.openide.util.Lookup;
@@ -45,12 +44,10 @@ import java.util.concurrent.atomic.AtomicReference;
         displayName = "#CTL_PerformAtmosphericCorrectionAction_MenuText",
         popupText = "#CTL_PerformAtmosphericCorrectionAction_ShortDescription"
 )
-@ActionReferences({
-        @ActionReference(
-                path = "Menu/Optical/CHRIS-Proba Tools",
-                position = 303
-        )
-})
+@ActionReference(
+        path = "Menu/Optical/CHRIS-Proba Tools",
+        position = 303
+)
 @NbBundle.Messages({
         "CTL_PerformAtmosphericCorrectionAction_MenuText=Atmospheric Correction...",
         "CTL_PerformAtmosphericCorrectionAction_ShortDescription=Calculates surface reflectances for the selected CHRIS/Proba product"

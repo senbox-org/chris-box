@@ -50,12 +50,10 @@ import java.util.concurrent.atomic.AtomicReference;
         displayName = "#CTL_PerformGeometricCorrectionAction_MenuText",
         popupText = "#CTL_PerformGeometricCorrectionAction_ShortDescription"
 )
-@ActionReferences({
         @ActionReference(
                 path = "Menu/Optical/CHRIS-Proba Tools",
                 position = 304
         )
-})
 @NbBundle.Messages({
         "CTL_PerformGeometricCorrectionAction_MenuText=Geometric Correction...",
         "CTL_PerformGeometricCorrectionAction_ShortDescription=Performs the geometric correction for the selected CHRIS/Proba product"

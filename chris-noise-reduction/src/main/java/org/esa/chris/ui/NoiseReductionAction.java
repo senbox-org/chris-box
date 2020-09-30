@@ -27,11 +27,9 @@ import org.esa.snap.rcp.actions.file.SaveProductAsAction;
 import org.esa.snap.ui.ModalDialog;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
-import org.openide.awt.ActionReferences;
 import org.openide.awt.ActionRegistration;
 import org.openide.util.ContextAwareAction;
 import org.openide.util.Lookup;
-import org.openide.util.NbBundle;
 
 import javax.swing.Action;
 import javax.swing.JOptionPane;
@@ -54,19 +52,13 @@ import java.util.Map;
         id = "NoiseReductionAction"
 )
 @ActionRegistration(
-        displayName = "#CTL_NoiseReductionAction_MenuText",
-        popupText = "#CTL_NoiseReductionAction_ShortDescription"
+        displayName = "Noise Reduction...",
+        popupText = "Performs the noise reduction for the selected CHRIS/Proba product"
 )
-@ActionReferences({
-        @ActionReference(
-                path = "Menu/Optical/CHRIS-Proba Tools",
-                position = 304
-        )
-})
-@NbBundle.Messages({
-        "CTL_NoiseReductionAction_MenuText=Noise Reduction...",
-        "CTL_NoiseReductionAction_ShortDescription=Performs the noise reduction for the selected CHRIS/Proba product"
-})
+@ActionReference(
+        path = "Menu/Optical/CHRIS-Proba Tools",
+        position = 304
+)
 
 public class NoiseReductionAction extends AbstractSnapAction implements ContextAwareAction {
 
@@ -76,8 +68,8 @@ public class NoiseReductionAction extends AbstractSnapAction implements ContextA
     private static final String SOURCE_NAME_REGEX = "\\$\\{sourceName}";
 
     public NoiseReductionAction() {
-        putValue(Action.NAME, Bundle.CTL_NoiseReductionAction_MenuText());
-        putValue(Action.SHORT_DESCRIPTION, Bundle.CTL_NoiseReductionAction_ShortDescription());
+        putValue(Action.NAME, "Noise Reduction...");
+        putValue(Action.SHORT_DESCRIPTION, "Performs the noise reduction for the selected CHRIS/Proba product");
         setHelpId("chrisNoiseReductionTool");
     }
 
@@ -85,7 +77,7 @@ public class NoiseReductionAction extends AbstractSnapAction implements ContextA
     public void actionPerformed(ActionEvent e) {
         final Product[] acquisitionSet = new AcquisitionSetProvider().getAcquisitionSet(getAppContext());
 
-        final NoiseReductionPresenter presenter = new NoiseReductionPresenter(getAppContext(), 
+        final NoiseReductionPresenter presenter = new NoiseReductionPresenter(getAppContext(),
                                                                               acquisitionSet,
                                                                               new AdvancedSettingsPresenter());
         final NoiseReductionForm noiseReductionForm = new NoiseReductionForm(presenter);

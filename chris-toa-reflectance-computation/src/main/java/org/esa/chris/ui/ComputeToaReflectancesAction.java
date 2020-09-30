@@ -24,7 +24,6 @@ import org.esa.snap.ui.AppContext;
 import org.esa.snap.ui.ModelessDialog;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
-import org.openide.awt.ActionReferences;
 import org.openide.awt.ActionRegistration;
 import org.openide.util.ContextAwareAction;
 import org.openide.util.Lookup;
@@ -45,12 +44,10 @@ import java.util.concurrent.atomic.AtomicReference;
         displayName = "#CTL_ComputeToaReflectancesAction_MenuText",
         popupText = "#CTL_ComputeToaReflectancesAction_ShortDescription"
 )
-@ActionReferences({
-        @ActionReference(
-                path = "Menu/Optical/CHRIS-Proba Tools",
-                position = 304
-        )
-})
+@ActionReference(
+        path = "Menu/Optical/CHRIS-Proba Tools",
+        position = 304
+)
 @NbBundle.Messages({
         "CTL_ComputeToaReflectancesAction_MenuText=TOA Reflectance Computation...",
         "CTL_ComputeToaReflectancesAction_ShortDescription=Computes TOA reflectances for the selected CHRIS/Proba product"
