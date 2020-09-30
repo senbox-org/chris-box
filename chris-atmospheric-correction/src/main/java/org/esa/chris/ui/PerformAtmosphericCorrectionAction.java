@@ -46,7 +46,7 @@ import java.util.concurrent.atomic.AtomicReference;
 )
 @ActionReference(
         path = "Menu/Optical/CHRIS-Proba Tools",
-        position = 303
+        position = 3
 )
 @NbBundle.Messages({
         "CTL_PerformAtmosphericCorrectionAction_MenuText=Atmospheric Correction...",

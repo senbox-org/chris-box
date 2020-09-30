@@ -45,7 +45,7 @@ import java.util.concurrent.atomic.AtomicReference;
 )
 @ActionReference(
         path = "Menu/Optical/CHRIS-Proba Tools",
-        position = 300
+        position = 2
 )
 @NbBundle.Messages({
         "CTL_CloudScreeningAction_MenuText=Cloud Screening...",

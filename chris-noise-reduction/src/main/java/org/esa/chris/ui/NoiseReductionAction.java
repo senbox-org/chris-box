@@ -57,7 +57,7 @@ import java.util.Map;
 )
 @ActionReference(
         path = "Menu/Optical/CHRIS-Proba Tools",
-        position = 304
+        position = 1
 )
 
 public class NoiseReductionAction extends AbstractSnapAction implements ContextAwareAction {
