@@ -13,31 +13,26 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see http://www.gnu.org/licenses/
  */
-package org.esa.chris.ui;
+package org.esa.chris.noise.ui;
 
-
-import org.esa.snap.core.datamodel.Product;
-import org.esa.snap.core.datamodel.ProductFilter;
+import java.io.File;
+import java.io.FileFilter;
 
 /**
- * Acquisition set product filter.
+ * Acquisition set file filter.
  *
  * @author Ralf Quast
  * @version $Revision$ $Date$
  */
-class AcquisitionSetProductFilter implements ProductFilter {
+class AcquisitionSetFileFilter implements FileFilter {
     private final AcquisitionSetFilter acquisitionSetFilter;
-    private final String referenceProductType;
 
-    public AcquisitionSetProductFilter(Product referenceProduct) {
-        this.acquisitionSetFilter = new AcquisitionSetFilter(referenceProduct.getName());
-        this.referenceProductType = referenceProduct.getProductType();
+    public AcquisitionSetFileFilter(File referenceFile) {
+        acquisitionSetFilter = new AcquisitionSetFilter(referenceFile.getName());
     }
 
     @Override
-    public boolean accept(Product product) {
-        return product != null &&
-                referenceProductType.equals(product.getProductType()) &&
-                acquisitionSetFilter.accept(product.getName());
+    public boolean accept(File file) {
+        return file != null && acquisitionSetFilter.accept(file.getName());
     }
 }

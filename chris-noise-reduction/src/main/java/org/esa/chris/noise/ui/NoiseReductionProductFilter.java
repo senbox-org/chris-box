@@ -13,16 +13,21 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see http://www.gnu.org/licenses/
  */
+package org.esa.chris.noise.ui;
 
-package org.esa.chris.ui;
+import org.esa.snap.core.datamodel.Product;
+import org.esa.snap.core.datamodel.ProductFilter;
 
-class NoiseReductionValidationException extends Exception {
+/**
+ * Filters CHRIS/Proba products suitable for the noise correction.
+ *
+ * @author Ralf Quast
+ * @version $Revision$ $Date$
+ */
+class NoiseReductionProductFilter implements ProductFilter {
 
-    public NoiseReductionValidationException(String message) {
-        super(message);
-    }
-
-    public NoiseReductionValidationException(String message, Throwable cause) {
-        super(message, cause);
+    @Override
+    public boolean accept(Product product) {
+        return product != null && product.getProductType().matches("CHRIS_M[12345][0A]?");
     }
 }

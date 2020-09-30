@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see http://www.gnu.org/licenses/
  */
-package org.esa.chris.operators;
+package org.esa.chris.noise.operators;
 
 import com.bc.ceres.core.Assert;
 import com.bc.ceres.core.ProgressMonitor;

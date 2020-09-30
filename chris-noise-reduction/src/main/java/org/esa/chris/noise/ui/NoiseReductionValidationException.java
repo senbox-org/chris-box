@@ -13,26 +13,16 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see http://www.gnu.org/licenses/
  */
-package org.esa.chris.ui;
 
-import java.io.File;
-import java.io.FileFilter;
+package org.esa.chris.noise.ui;
 
-/**
- * Acquisition set file filter.
- *
- * @author Ralf Quast
- * @version $Revision$ $Date$
- */
-class AcquisitionSetFileFilter implements FileFilter {
-    private final AcquisitionSetFilter acquisitionSetFilter;
+class NoiseReductionValidationException extends Exception {
 
-    public AcquisitionSetFileFilter(File referenceFile) {
-        acquisitionSetFilter = new AcquisitionSetFilter(referenceFile.getName());
+    public NoiseReductionValidationException(String message) {
+        super(message);
     }
 
-    @Override
-    public boolean accept(File file) {
-        return file != null && acquisitionSetFilter.accept(file.getName());
+    public NoiseReductionValidationException(String message, Throwable cause) {
+        super(message, cause);
     }
 }

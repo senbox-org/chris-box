@@ -14,7 +14,7 @@
  * with this program; if not, see http://www.gnu.org/licenses/
  */
 
-package org.esa.chris.ui;
+package org.esa.chris.noise.ui;
 
 import com.bc.ceres.swing.binding.BindingContext;
 

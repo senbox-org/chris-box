@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see http://www.gnu.org/licenses/
  */
-package org.esa.chris.ui;
+package org.esa.chris.noise.ui;
 
 import org.esa.snap.core.datamodel.Product;
 import org.esa.snap.core.gpf.ui.TargetProductSelectorModel;
@@ -30,6 +30,7 @@ import org.openide.awt.ActionReference;
 import org.openide.awt.ActionRegistration;
 import org.openide.util.ContextAwareAction;
 import org.openide.util.Lookup;
+import org.openide.util.NbBundle;
 
 import javax.swing.Action;
 import javax.swing.JOptionPane;
@@ -52,14 +53,17 @@ import java.util.Map;
         id = "NoiseReductionAction"
 )
 @ActionRegistration(
-        displayName = "Noise Reduction...",
-        popupText = "Performs the noise reduction for the selected CHRIS/Proba product"
+        displayName = "#CTL_NoiseReductionAction_MenuText",
+        popupText = "#CTL_NoiseReductionAction_ShortDescription"
 )
 @ActionReference(
         path = "Menu/Optical/CHRIS-Proba Tools",
         position = 1
 )
-
+@NbBundle.Messages({
+        "CTL_NoiseReductionAction_MenuText=Noise Reduction...",
+        "CTL_NoiseReductionAction_ShortDescription=Performs the noise reduction for the selected CHRIS/Proba product"
+})
 public class NoiseReductionAction extends AbstractSnapAction implements ContextAwareAction {
 
     static final String SOURCE_NAME_PATTERN = "${sourceName}";
@@ -68,8 +72,8 @@ public class NoiseReductionAction extends AbstractSnapAction implements ContextA
     private static final String SOURCE_NAME_REGEX = "\\$\\{sourceName}";
 
     public NoiseReductionAction() {
-        putValue(Action.NAME, "Noise Reduction...");
-        putValue(Action.SHORT_DESCRIPTION, "Performs the noise reduction for the selected CHRIS/Proba product");
+        putValue(Action.NAME, Bundle.CTL_NoiseReductionAction_MenuText());
+        putValue(Action.SHORT_DESCRIPTION, Bundle.CTL_NoiseReductionAction_ShortDescription());
         setHelpId("chrisNoiseReductionTool");
     }
 

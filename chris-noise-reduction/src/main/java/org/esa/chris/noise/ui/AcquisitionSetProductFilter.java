@@ -13,21 +13,31 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see http://www.gnu.org/licenses/
  */
-package org.esa.chris.ui;
+package org.esa.chris.noise.ui;
+
 
 import org.esa.snap.core.datamodel.Product;
 import org.esa.snap.core.datamodel.ProductFilter;
 
 /**
- * Filters CHRIS/Proba products suitable for the noise correction.
+ * Acquisition set product filter.
  *
  * @author Ralf Quast
  * @version $Revision$ $Date$
  */
-class NoiseReductionProductFilter implements ProductFilter {
+class AcquisitionSetProductFilter implements ProductFilter {
+    private final AcquisitionSetFilter acquisitionSetFilter;
+    private final String referenceProductType;
+
+    public AcquisitionSetProductFilter(Product referenceProduct) {
+        this.acquisitionSetFilter = new AcquisitionSetFilter(referenceProduct.getName());
+        this.referenceProductType = referenceProduct.getProductType();
+    }
 
     @Override
     public boolean accept(Product product) {
-        return product != null && product.getProductType().matches("CHRIS_M[12345][0A]?");
+        return product != null &&
+                referenceProductType.equals(product.getProductType()) &&
+                acquisitionSetFilter.accept(product.getName());
     }
 }

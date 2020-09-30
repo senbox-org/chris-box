@@ -14,11 +14,11 @@
  * with this program; if not, see http://www.gnu.org/licenses/
  */
 
-package org.esa.chris.ui;
+package org.esa.chris.noise.ui;
 
 import com.bc.ceres.binding.PropertyContainer;
-import org.esa.chris.operators.ComputeDestripingFactorsOp;
-import org.esa.chris.operators.CorrectDropoutsOp;
+import org.esa.chris.noise.operators.ComputeDestripingFactorsOp;
+import org.esa.chris.noise.operators.CorrectDropoutsOp;
 import org.esa.snap.core.gpf.annotations.ParameterDescriptorFactory;
 
 import java.util.HashMap;

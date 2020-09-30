@@ -3,7 +3,7 @@
 
     <node>
         <id>factors</id>
-        <operator>org.esa.chris.operators.ComputeDestripingFactorsOp$Spi</operator>
+        <operator>org.esa.chris.noise.operators.ComputeDestripingFactorsOp$Spi</operator>
         <sources>
             <input>${input}</input>
         </sources>
@@ -15,7 +15,7 @@
 
     <node>
         <id>destriping</id>
-        <operator>org.esa.chris.operators.ApplyDestripingFactorsOp$Spi</operator>
+        <operator>org.esa.chris.noise.operators.ApplyDestripingFactorsOp$Spi</operator>
         <sources>
             <input>${input}</input>
             <factors>factors</factors>
@@ -24,7 +24,7 @@
 
     <node>
         <id>dropout</id>
-        <operator>org.esa.chris.operators.CorrectDropoutsOp$Spi</operator>
+        <operator>org.esa.chris.noise.operators.CorrectDropoutsOp$Spi</operator>
         <sources>
             <input>destriping</input>
         </sources>

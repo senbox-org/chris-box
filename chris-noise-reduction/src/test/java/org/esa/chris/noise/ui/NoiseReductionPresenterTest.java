@@ -14,7 +14,7 @@
  * with this program; if not, see http://www.gnu.org/licenses/
  */
 
-package org.esa.chris.ui;
+package org.esa.chris.noise.ui;
 
 import org.esa.chris.dataio.ChrisConstants;
 import org.esa.snap.core.datamodel.GeoPos;

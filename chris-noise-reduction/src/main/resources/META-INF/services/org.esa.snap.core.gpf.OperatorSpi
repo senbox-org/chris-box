@@ -1,3 +1,3 @@
-org.esa.chris.operators.ApplyDestripingFactorsOp$Spi
-org.esa.chris.operators.ComputeDestripingFactorsOp$Spi
-org.esa.chris.operators.CorrectDropoutsOp$Spi
+org.esa.chris.noise.operators.ApplyDestripingFactorsOp$Spi
+org.esa.chris.noise.operators.ComputeDestripingFactorsOp$Spi
+org.esa.chris.noise.operators.CorrectDropoutsOp$Spi
