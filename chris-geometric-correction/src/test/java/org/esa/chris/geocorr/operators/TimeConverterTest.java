@@ -13,9 +13,8 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see http://www.gnu.org/licenses/
  */
-package org.esa.chris.operators;
+package org.esa.chris.geocorr.operators;
 
-import org.esa.chris.geocorr.operators.TimeConverter;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -25,7 +24,10 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
 
 /**
  * Tests for class {@link TimeConverter}.

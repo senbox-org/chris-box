@@ -13,15 +13,13 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see http://www.gnu.org/licenses/
  */
-package org.esa.chris.operators;
-
-import java.io.InputStream;
-import java.io.IOException;
-import java.util.List;
+package org.esa.chris.geocorr.operators;
 
 import junit.framework.TestCase;
-import org.esa.chris.geocorr.operators.GpsDataRecord;
-import org.esa.chris.geocorr.operators.TimeConverter;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
 
 
 public class GpsDataReaderTest extends TestCase {

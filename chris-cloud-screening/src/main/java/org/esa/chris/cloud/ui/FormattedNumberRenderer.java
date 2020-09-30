@@ -13,18 +13,20 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see http://www.gnu.org/licenses/
  */
+package org.esa.chris.cloud.ui;
 
-package org.esa.chris.geocorr.operators;
+import javax.swing.table.DefaultTableCellRenderer;
+import java.text.NumberFormat;
 
-import org.junit.Test;
+class FormattedNumberRenderer extends DefaultTableCellRenderer {
+    private final NumberFormat numberFormat;
 
-import static org.junit.Assert.assertEquals;
+    FormattedNumberRenderer(NumberFormat numberFormat) {
+        this.numberFormat = numberFormat;
+    }
 
-public class GcpTest {
-
-    @Test
-    public void testParseAltitude() {
-        final double alt = GCP.parseAltitude("Madrid (alt[m] = 750)", 0.5);
-        assertEquals(0.75, alt, 0.0);
+    @Override
+    public void setValue(Object value) {
+        setText(value == null ? "" : numberFormat.format(value));
     }
 }

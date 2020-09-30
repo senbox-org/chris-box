@@ -13,18 +13,26 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see http://www.gnu.org/licenses/
  */
+package org.esa.chris.cloud.operators;
 
-package org.esa.chris.geocorr.operators;
+import org.esa.chris.util.BandFilter;
+import org.esa.snap.core.datamodel.Band;
 
-import org.junit.Test;
+/**
+ * Exclusive multi band filter.
+ *
+ * @author Ralf Quast
+ * @version $Revision$ $Date$
+ */
+class ExclusiveMultiBandFilter implements BandFilter {
+    private final InclusiveMultiBandFilter inclusiveMultiBandFilter;
 
-import static org.junit.Assert.assertEquals;
+    ExclusiveMultiBandFilter(double[]... wavelengthIntervals) {
+        inclusiveMultiBandFilter = new InclusiveMultiBandFilter(wavelengthIntervals);
+    }
 
-public class GcpTest {
-
-    @Test
-    public void testParseAltitude() {
-        final double alt = GCP.parseAltitude("Madrid (alt[m] = 750)", 0.5);
-        assertEquals(0.75, alt, 0.0);
+    @Override
+    public boolean accept(Band band) {
+        return !inclusiveMultiBandFilter.accept(band);
     }
 }

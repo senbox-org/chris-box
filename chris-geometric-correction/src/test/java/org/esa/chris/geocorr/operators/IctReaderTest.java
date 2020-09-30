@@ -14,14 +14,12 @@
  * with this program; if not, see http://www.gnu.org/licenses/
  */
 
-package org.esa.chris.operators;
-
-import java.io.InputStream;
-import java.io.IOException;
+package org.esa.chris.geocorr.operators;
 
 import junit.framework.TestCase;
-import org.esa.chris.geocorr.operators.IctDataRecord;
-import org.esa.chris.geocorr.operators.TimeConverter;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 public class IctReaderTest extends TestCase {
 

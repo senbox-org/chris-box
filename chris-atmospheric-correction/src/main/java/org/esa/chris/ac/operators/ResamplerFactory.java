@@ -14,17 +14,27 @@
  * with this program; if not, see http://www.gnu.org/licenses/
  */
 
-package org.esa.chris.geocorr.operators;
+package org.esa.chris.ac.operators;
 
-import org.junit.Test;
+/**
+ * Creates a {@link Resampler}.
+ *
+ * @author Ralf Quast
+ * @since BEAM 4.2
+ */
+class ResamplerFactory {
 
-import static org.junit.Assert.assertEquals;
+    private final double[] sourceWavelengths;
+    private final double[] targetWavelengths;
+    private final double[] targetBandwidths;
 
-public class GcpTest {
+    ResamplerFactory(double[] sourceWavelengths, double[] targetWavelengths, double[] targetBandwidths) {
+        this.sourceWavelengths = sourceWavelengths;
+        this.targetWavelengths = targetWavelengths;
+        this.targetBandwidths = targetBandwidths;
+    }
 
-    @Test
-    public void testParseAltitude() {
-        final double alt = GCP.parseAltitude("Madrid (alt[m] = 750)", 0.5);
-        assertEquals(0.75, alt, 0.0);
+    Resampler createResampler(double wavlengthShift) {
+        return new Resampler(sourceWavelengths, targetWavelengths, targetBandwidths, wavlengthShift);
     }
 }

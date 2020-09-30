@@ -21,7 +21,8 @@
   * migrate module.xml and actions ~ 
   * fix createInternalFrame, disposeInternalFrame in LabelingDialog
   * use Bundle strings
-* Maybe provide a NoiseReduction Operator which combine the three steps, or document it and provide a graph 
+* Maybe provide a NoiseReduction Operator which combine the three steps, or document it 
+  and provide a graph. Same for cloud screening? 
 * move cris reader help page from snap-help ✔ 
     Check if help is working
 * Migrate wiki pages from the old confluence and update, maybe move some content to the help pages.

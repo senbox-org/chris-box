@@ -14,14 +14,8 @@
  * with this program; if not, see http://www.gnu.org/licenses/
  */
 
-package org.esa.chris.operators;
+package org.esa.chris.geocorr.operators;
 
-import org.esa.chris.geocorr.operators.AcquisitionInfo;
-import org.esa.chris.geocorr.operators.GCP;
-import org.esa.chris.geocorr.operators.GeometryCalculator;
-import org.esa.chris.geocorr.operators.GpsDataRecord;
-import org.esa.chris.geocorr.operators.IctDataRecord;
-import org.esa.chris.geocorr.operators.PerformGeometricCorrectionOp;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;

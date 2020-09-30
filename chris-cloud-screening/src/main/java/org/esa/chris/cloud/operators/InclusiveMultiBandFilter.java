@@ -14,17 +14,31 @@
  * with this program; if not, see http://www.gnu.org/licenses/
  */
 
-package org.esa.chris.geocorr.operators;
+package org.esa.chris.cloud.operators;
 
-import org.junit.Test;
+import org.esa.chris.util.BandFilter;
+import org.esa.snap.core.datamodel.Band;
 
-import static org.junit.Assert.assertEquals;
+/**
+ * @author Ralf Quast
+ */
+class InclusiveMultiBandFilter implements BandFilter {
 
-public class GcpTest {
+    private final double[][] wavelengthIntervals;
 
-    @Test
-    public void testParseAltitude() {
-        final double alt = GCP.parseAltitude("Madrid (alt[m] = 750)", 0.5);
-        assertEquals(0.75, alt, 0.0);
+    InclusiveMultiBandFilter(double[]... wavelengthIntervals) {
+        this.wavelengthIntervals = wavelengthIntervals;
+    }
+
+    @Override
+    public boolean accept(Band band) {
+        final float wavelength = band.getSpectralWavelength();
+
+        for (final double[] interval : wavelengthIntervals) {
+            if (wavelength > interval[0] && wavelength < interval[1]) {
+                return true;
+            }
+        }
+        return false;
     }
 }

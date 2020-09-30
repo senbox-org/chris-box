@@ -33,7 +33,7 @@
                 <artifactId>nbm-maven-plugin</artifactId>
                 <configuration>
                     <publicPackages>
-                        <package>org.esa.chris.operators.lut</package>
+                        <package>org.esa.chris.ac.lut</package>
                     </publicPackages>
                 </configuration>
 

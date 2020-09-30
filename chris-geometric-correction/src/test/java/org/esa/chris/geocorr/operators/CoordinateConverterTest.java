@@ -14,12 +14,11 @@
  * with this program; if not, see http://www.gnu.org/licenses/
  */
 
-package org.esa.chris.operators;
+package org.esa.chris.geocorr.operators;
+
+import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-
-import org.esa.chris.geocorr.operators.CoordinateConverter;
-import org.junit.Test;
 
 
 public class CoordinateConverterTest {

@@ -13,18 +13,31 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see http://www.gnu.org/licenses/
  */
+package org.esa.chris.cloud.operators.lut;
 
-package org.esa.chris.geocorr.operators;
+import org.esa.snap.cluster.IndexFilter;
 
-import org.junit.Test;
+/**
+ * Index filter excluding all indexes where any backing
+ * boolean array element is {@code true}.
+ *
+ * @author Ralf Quast
+ * @version $Revision$ $Date$
+ */
+public class ExclusiveIndexFilter implements IndexFilter {
+    private final IndexFilter inclusiveIndexFilter;
 
-import static org.junit.Assert.assertEquals;
+    /**
+     * Constructs a new instance of this class.
+     *
+     * @param booleans the backing boolean array(s).
+     */
+    public ExclusiveIndexFilter(boolean[]... booleans) {
+        inclusiveIndexFilter = new InclusiveIndexFilter(booleans);
+    }
 
-public class GcpTest {
-
-    @Test
-    public void testParseAltitude() {
-        final double alt = GCP.parseAltitude("Madrid (alt[m] = 750)", 0.5);
-        assertEquals(0.75, alt, 0.0);
+    @Override
+    public final boolean accept(int index) {
+        return !inclusiveIndexFilter.accept(index);
     }
 }

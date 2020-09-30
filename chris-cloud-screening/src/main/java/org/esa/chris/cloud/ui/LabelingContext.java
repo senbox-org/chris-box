@@ -13,18 +13,31 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see http://www.gnu.org/licenses/
  */
+package org.esa.chris.cloud.ui;
 
-package org.esa.chris.geocorr.operators;
+import java.awt.Color;
 
-import org.junit.Test;
+/**
+ * Cloud labeling context.
+ *
+ * @author Ralf Quast
+ * @version $Revision$ $Date$
+ */
+interface LabelingContext {
 
-import static org.junit.Assert.assertEquals;
+    int getClusterCount();
 
-public class GcpTest {
+    String getLabel(int index);
 
-    @Test
-    public void testParseAltitude() {
-        final double alt = GCP.parseAltitude("Madrid (alt[m] = 750)", 0.5);
-        assertEquals(0.75, alt, 0.0);
-    }
+    void setLabel(int index, String label);
+
+    Color getColor(int index);
+
+    void setColor(int index, Color color);
+
+    void regenerateClassView(boolean[] ignoreFlags);
+
+    void computeBrightnessValues(double[] brightnessValues, boolean[] ignoreFlags);
+
+    void computeOccurrenceValues(double[] occurrenceValues);
 }
