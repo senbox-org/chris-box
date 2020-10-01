@@ -23,7 +23,6 @@ import java.util.Arrays;
  * algorithm developed by Luis Gomez Chova.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  */
 public class MaskRefinement {
 

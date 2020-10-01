@@ -19,7 +19,6 @@ package org.esa.chris.util.math.internal;
  * Class for calculating Legendre polynomials.
  *
  * @author Ralf Quast
- * @version $Revision: 2402 $ $Date: 2008-07-02 21:14:58 +0200 (Wed, 02 Jul 2008) $
  */
 final public class LegendrePolynomials implements UnivariateFunctionSequence {
 

@@ -44,7 +44,6 @@ import static java.lang.Math.min;
  * Operator for computing the CHRIS/Proba dropout correction.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  */
 @OperatorMetadata(alias = "chris.CorrectDropouts",
                   version = "1.0",

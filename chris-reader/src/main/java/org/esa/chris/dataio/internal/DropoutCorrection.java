@@ -27,7 +27,6 @@ import static java.lang.Math.*;
  * algorithm developed by Luis Gomez Chova.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  */
 public class DropoutCorrection {
 

@@ -19,7 +19,6 @@ package org.esa.chris.util.math.internal;
  * Class with static methods for calculating integral powers.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  * @since CHRIS-BOX 1.0
  */
 public class Pow {

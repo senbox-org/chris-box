@@ -35,7 +35,6 @@ import java.awt.image.SampleModel;
  * Tests for class {@link RasterDataUtils}.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  * @since CHRIS-BOX 1.0
  */
 public class RasterDataUtilsTest {

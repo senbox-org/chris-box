@@ -27,7 +27,6 @@ import java.awt.image.*;
  * Cloud mask image.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  * @since CHRIS-BOX 1.0
  */
 class CloudMaskOpImage extends PointOpImage {

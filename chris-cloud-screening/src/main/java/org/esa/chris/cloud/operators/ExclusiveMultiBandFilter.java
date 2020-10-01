@@ -22,7 +22,6 @@ import org.esa.snap.core.datamodel.Band;
  * Exclusive multi band filter.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  */
 class ExclusiveMultiBandFilter implements BandFilter {
     private final InclusiveMultiBandFilter inclusiveMultiBandFilter;

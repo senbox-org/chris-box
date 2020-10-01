@@ -19,10 +19,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * todo - add API doc
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  * @since CHRIS-BOX 1.0
  */
 public class RegressionTest {

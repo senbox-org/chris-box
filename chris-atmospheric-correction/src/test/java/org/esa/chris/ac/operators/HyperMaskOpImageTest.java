@@ -28,7 +28,6 @@ import java.awt.image.RenderedImage;
  * Tests for class {@link HyperMaskOpImage}.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  * @since CHRIS-BOX 1.0
  */
 public class HyperMaskOpImageTest {

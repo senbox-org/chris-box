@@ -34,7 +34,6 @@ import java.awt.image.SampleModel;
  * Tests for class {@link ImageBand}.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  */
 public class ImageBandTest {
 

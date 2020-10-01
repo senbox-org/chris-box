@@ -27,7 +27,6 @@ import java.util.Random;
  * Expectation maximization (EM) cluster algorithm.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  */
 public class Clusterer {
 

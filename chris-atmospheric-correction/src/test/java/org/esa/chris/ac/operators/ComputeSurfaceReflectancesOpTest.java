@@ -27,7 +27,6 @@ import java.util.Scanner;
  * Tests for class {@link ComputeSurfaceReflectancesOp}.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  * @since CHRIS-BOX 1.0
  */
 public class ComputeSurfaceReflectancesOpTest {

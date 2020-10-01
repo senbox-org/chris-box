@@ -22,7 +22,6 @@ import org.junit.Test;
  * Tests for class {@link LegendrePolynomials}.
  *
  * @author Ralf Quast
- * @version $Revision: 2402 $ $Date: 2008-07-02 21:14:58 +0200 (Wed, 02 Jul 2008) $
  */
 public class LegendrePolynomialsTest {
 

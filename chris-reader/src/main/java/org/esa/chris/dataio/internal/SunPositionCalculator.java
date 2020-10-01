@@ -26,7 +26,6 @@ import static java.lang.Math.*;
  * Class for calculating the angular position of the Sun.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  */
 public class SunPositionCalculator {
 

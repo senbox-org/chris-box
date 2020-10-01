@@ -49,7 +49,6 @@ import java.util.Vector;
  *
  * @author Marco Peters
  * @author Ralf Quast
- * @version $Revision$ $Date$
  */
 class NoiseReductionPresenter {
 

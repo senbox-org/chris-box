@@ -36,7 +36,6 @@ import java.util.Comparator;
  * Clustering operator.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  */
 @OperatorMetadata(alias = "chris.FindClusters",
                   version = "1.0",

@@ -20,7 +20,6 @@ package org.esa.chris.dataio.internal;
  * Class representing the angular position of the Sun.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  */
 public class SunPosition {
 

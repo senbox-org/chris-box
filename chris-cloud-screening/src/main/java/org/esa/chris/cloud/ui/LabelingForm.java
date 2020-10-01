@@ -35,7 +35,6 @@ import java.text.NumberFormat;
  * Cloud labeling form.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  * @since CHRIS-BOX 1.0
  */
 class LabelingForm extends JPanel {

@@ -29,7 +29,6 @@ import static org.junit.Assert.assertTrue;
  * Tests for class {@link ScreeningForm}.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  * @since CHRIS-BOX 1.0
  */
 public class ScreeningFormTest {

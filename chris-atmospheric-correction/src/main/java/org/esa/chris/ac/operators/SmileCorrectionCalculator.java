@@ -28,7 +28,6 @@ import java.awt.image.RenderedImage;
  * Utility class for calculating the smile correction.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  * @since CHRIS-BOX 1.0
  */
 abstract class SmileCorrectionCalculator {

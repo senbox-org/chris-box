@@ -20,7 +20,6 @@ package org.esa.chris.dataio.internal;
  * Utility class for sorting numbers.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  */
 public class Sorter {
 

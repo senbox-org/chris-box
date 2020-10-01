@@ -34,7 +34,6 @@ import java.util.Vector;
  * Based on Guanter et al. (2006, Appl. Opt. 45, 2360).
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  * @since CHRIS-BOX 1.0
  */
 class SmileOpImage extends OpImage {

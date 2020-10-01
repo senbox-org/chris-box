@@ -23,7 +23,6 @@ import org.esa.snap.core.datamodel.ProductFilter;
  * Acquisition set product filter.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  */
 class AcquisitionSetProductFilter implements ProductFilter {
     private final AcquisitionSetFilter acquisitionSetFilter;

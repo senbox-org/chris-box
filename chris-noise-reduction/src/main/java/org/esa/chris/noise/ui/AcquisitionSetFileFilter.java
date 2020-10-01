@@ -22,7 +22,6 @@ import java.io.FileFilter;
  * Acquisition set file filter.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  */
 class AcquisitionSetFileFilter implements FileFilter {
     private final AcquisitionSetFilter acquisitionSetFilter;

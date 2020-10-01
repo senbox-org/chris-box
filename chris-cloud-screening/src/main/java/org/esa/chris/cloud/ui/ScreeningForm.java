@@ -34,7 +34,6 @@ import java.awt.BorderLayout;
  * Cloud screening form.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  * @since CHRIS-BOX 1.0
  */
 class ScreeningForm extends JPanel {

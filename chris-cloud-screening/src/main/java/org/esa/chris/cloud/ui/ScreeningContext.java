@@ -73,7 +73,6 @@ import java.util.Map;
  * Cloud screening context.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  */
 class ScreeningContext implements LabelingContext {
     private static final double WAVELENGTH_R = 650.0;

@@ -21,7 +21,6 @@ package org.esa.chris.util.math.internal;
  * Mendenhall & Sincich (1995, Statistics for Engineering and the Sciences).
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  * @since CHRIS-BOX 1.0
  */
 public class SimpleLinearRegression {

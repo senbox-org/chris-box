@@ -38,7 +38,6 @@ import java.util.Vector;
  * Hyper-spectral mask image.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  * @since CHRIS-BOX 1.0
  */
 class HyperMaskOpImage extends PointOpImage {

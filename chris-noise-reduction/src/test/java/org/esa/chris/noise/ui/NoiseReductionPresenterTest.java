@@ -40,7 +40,6 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * @author Ralf Quast
- * @version $Revision$ $Date$
  */
 public class NoiseReductionPresenterTest {
 

@@ -61,7 +61,6 @@ import java.util.Map;
  * Operator for performing the CHRIS atmospheric correction.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  * @since CHRIS-BOX 1.0
  */
 @OperatorMetadata(alias = "chris.ComputeSurfaceReflectances",

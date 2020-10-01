@@ -45,7 +45,6 @@ import static java.lang.Math.*;
  * images.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  */
 @OperatorMetadata(alias = "chris.ComputeToaReflectances",
                   version = "1.0",

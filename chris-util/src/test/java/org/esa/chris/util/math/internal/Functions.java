@@ -19,7 +19,6 @@ package org.esa.chris.util.math.internal;
  * Test functions.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  * @since CHRIS-BOX 1.0
  */
 class Functions {

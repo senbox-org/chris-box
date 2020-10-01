@@ -51,7 +51,6 @@ import static java.lang.Math.toRadians;
  * cloud screening.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  */
 @OperatorMetadata(alias = "chris.ExtractFeatures",
                   version = "1.0",

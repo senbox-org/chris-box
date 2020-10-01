@@ -28,7 +28,6 @@ import java.awt.image.RenderedImage;
  * raster.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  * @since CHRIS-BOX 1.0
  */
 class RasterDataUtils {

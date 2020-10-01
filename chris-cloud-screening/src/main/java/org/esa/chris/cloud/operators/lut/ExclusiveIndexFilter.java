@@ -22,7 +22,6 @@ import org.esa.snap.cluster.IndexFilter;
  * boolean array element is {@code true}.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  */
 public class ExclusiveIndexFilter implements IndexFilter {
     private final IndexFilter inclusiveIndexFilter;

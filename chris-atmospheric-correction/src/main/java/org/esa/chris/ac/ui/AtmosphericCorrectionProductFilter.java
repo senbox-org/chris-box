@@ -24,7 +24,6 @@ import org.esa.snap.core.datamodel.ProductFilter;
  * Filters CHRIS/Proba products suitable for the atmospheric correction.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  * @since CHRIS-BOX 1.0
  */
 class AtmosphericCorrectionProductFilter implements ProductFilter {

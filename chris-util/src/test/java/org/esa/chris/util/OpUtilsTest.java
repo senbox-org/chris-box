@@ -29,7 +29,6 @@ import java.util.Scanner;
  * Tests for class {@link OpUtils}.
  *
  * @author Marco Peters
- * @version $Revision$ $Date$
  * @since CHRIS-BOX 1.0
  */
 public class OpUtilsTest {

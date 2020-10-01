@@ -44,7 +44,6 @@ import java.util.Vector;
  * Cloud probability image.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  */
 public class CloudProbabilityOpImage extends PointOpImage {
 

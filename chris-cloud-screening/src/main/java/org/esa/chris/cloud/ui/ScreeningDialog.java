@@ -27,7 +27,6 @@ import java.util.concurrent.ExecutionException;
  * Cloud screening dialog.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  * @since CHRIS-BOX 1.0
  */
 class ScreeningDialog extends ModelessDialog {

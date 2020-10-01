@@ -19,7 +19,6 @@ package org.esa.chris.util.math.internal;
  * Interface for real-valued functions of more than one variable.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  * @since CHRIS-BOX 1.0
  */
 public interface MultivariateFunction {

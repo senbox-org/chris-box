@@ -48,7 +48,6 @@ import java.util.EventObject;
  *
  * @author Marco Peters
  * @author Ralf Quast
- * @version $Revision$ $Date$
  */
 class NoiseReductionForm extends JPanel {
 

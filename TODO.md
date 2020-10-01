@@ -16,13 +16,15 @@
   * chris-noise-reduction ✔   
 * check if all packages have been renamed ✔
   * org.esa.beam -> org.esa.chris ✔
-* check for beam occurrences
-* update @since apidoc
-* check for visat occurrences
+* check for beam occurrences ✔
+* update @since apidoc ✔
+* check for visat occurrences ✔
+* remove from apidoc: @version $Revision: ✔
 * GUI stuff
-  * migrate module.xml and actions ~ 
+  * migrate module.xml and actions ✔ 
+  * use Bundle strings ✔
+* GUI stuff
   * fix createInternalFrame, disposeInternalFrame in LabelingDialog
-  * use Bundle strings
 * Maybe provide a NoiseReduction Operator which combine the three steps, or document it 
   and provide a graph. Same for cloud screening? 
 * move cris reader help page from snap-help ✔ 
@@ -33,8 +35,11 @@
 * Migrate wiki pages from the old confluence and update, maybe move some content to the help pages.
 * update links in manifest.mf files
 * place chrisbox-ac-lut-formatted-1nm.img somewhere and update location in readme.txt
-* remove from apidoc: @version $Revision:
+
 * Add Travis yaml file ✔
 * Deploy to maven nexus from travis
 * replace TiePointGeoCoding
 * check for todos in code
+* check for beam occurrences again
+* check for visat occurrences again
+

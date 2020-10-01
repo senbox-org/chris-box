@@ -20,7 +20,6 @@ package org.esa.chris.dataio;
  * Class representing the scan line layout for CHRIS images.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  */
 class ScanLineLayout {
 

@@ -25,7 +25,6 @@ import java.util.Comparator;
  * central wavelength.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  */
 class BandComparator implements Comparator<Band> {
 

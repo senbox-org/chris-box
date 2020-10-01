@@ -26,7 +26,6 @@ import org.esa.snap.core.image.BandOpImage;
  * Tests for class {@link ExtractEndmembersOp}.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  */
 public class ExtractEndmembersOpTest {
 

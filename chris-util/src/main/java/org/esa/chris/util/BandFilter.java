@@ -22,7 +22,6 @@ import org.esa.snap.core.datamodel.Band;
  * Band filter interface.
  *
  * @author Ralf Quast
- * @version $Revision: 2530 $ $Date: 2008-07-09 13:10:39 +0200 (Wed, 09 Jul 2008) $
  */
 public interface BandFilter {
 

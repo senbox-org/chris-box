@@ -19,7 +19,6 @@ package org.esa.chris.util.math.internal;
  * Performs a linear regression fit.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  * @since CHRIS-BOX 1.0
  */
 public class Regression {

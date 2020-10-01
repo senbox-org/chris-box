@@ -31,7 +31,6 @@ import java.text.MessageFormat;
 /**
  * Model for labeling GUI.
  * @author Ralf Quast
- * @version $Revision$ $Date$
  * @since CHRIS-BOX 1.0
  */
 class LabelingFormModel {

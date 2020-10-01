@@ -30,7 +30,6 @@ import static org.junit.Assert.assertSame;
  * Tests for class {@link ScreeningDialog}.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  * @since CHRIS-BOX 1.0
  */
 public class ScreeningDialogTest {

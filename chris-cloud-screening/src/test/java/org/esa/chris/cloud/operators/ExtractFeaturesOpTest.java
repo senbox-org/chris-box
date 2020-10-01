@@ -29,7 +29,6 @@ import java.util.Scanner;
  * Tests for class {@link ExtractFeaturesOp}.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  */
 public class ExtractFeaturesOpTest {
 

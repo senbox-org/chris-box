@@ -22,7 +22,6 @@ import org.junit.Test;
  * Tests for class {@link Roots}.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  * @since CHRIS-BOX 1.0
  */
 public class RootsTest {

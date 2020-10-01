@@ -39,7 +39,6 @@ import java.text.MessageFormat;
  *
  * @author Ralf Quast
  * @author Marco Zühlke
- * @version $Revision$ $Date$
  */
 @OperatorMetadata(alias = "chris.ApplyDestripingFactors",
                   version = "1.0",

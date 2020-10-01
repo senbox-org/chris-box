@@ -24,7 +24,6 @@ import static java.lang.Math.min;
  * Methods for finding the minimum of an univariate function.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  * @since CHRIS-BOX 1.0
  */
 public class Min {

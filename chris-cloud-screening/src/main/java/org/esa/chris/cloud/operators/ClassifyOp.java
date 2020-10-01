@@ -34,7 +34,6 @@ import org.esa.snap.core.gpf.annotations.TargetProduct;
  * Operator for creating a classification product.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  * @since CHRIS-BOX 1.0
  */
 @OperatorMetadata(alias = "chris.Classify",

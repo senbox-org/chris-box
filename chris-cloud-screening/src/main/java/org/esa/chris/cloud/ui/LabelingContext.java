@@ -21,7 +21,6 @@ import java.awt.Color;
  * Cloud labeling context.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  */
 interface LabelingContext {
 

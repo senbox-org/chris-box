@@ -22,7 +22,6 @@ import org.esa.snap.core.datamodel.ProductFilter;
  * Filters CHRIS/Proba products suitable for the noise correction.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  */
 class NoiseReductionProductFilter implements ProductFilter {
 

@@ -29,7 +29,6 @@ import java.awt.image.RenderedImage;
  * Tests for class {@link CloudMaskOpImage}.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  * @since CHRIS-BOX 1.0
  */
 public class CloudMaskOpImageTest {

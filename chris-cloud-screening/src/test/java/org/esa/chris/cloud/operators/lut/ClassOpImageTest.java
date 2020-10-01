@@ -32,7 +32,6 @@ import java.awt.image.RenderedImage;
  * Tests for class {@link ClassOpImage}.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  * @since CHRIS-BOX 1.0
  */
 public class ClassOpImageTest {

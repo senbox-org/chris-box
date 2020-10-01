@@ -28,7 +28,6 @@ import java.awt.image.*;
  * Water mask image.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  * @since CHRIS-BOX 1.0
  */
 class WaterMaskOpImage extends PointOpImage {

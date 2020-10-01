@@ -19,7 +19,6 @@ package org.esa.chris.noise.ui;
  * Acquisition set filter.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  */
 class AcquisitionSetFilter {
     private final String referenceName;

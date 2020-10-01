@@ -25,7 +25,6 @@ import Jama.SingularValueDecomposition;
  * not corresponding to equidistant predictor values.
  *
  * @author Ralf Quast
- * @version $Revision: 2402 $ $Date: 2008-07-02 21:14:58 +0200 (Wed, 02 Jul 2008) $
  */
 public class LocalRegressionSmoother implements Smoother {
 

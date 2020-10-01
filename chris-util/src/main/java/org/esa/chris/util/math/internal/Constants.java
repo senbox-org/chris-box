@@ -20,7 +20,6 @@ package org.esa.chris.util.math.internal;
  * are the same.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  * @since CHRIS-BOX 1.0
  */
 class Constants {

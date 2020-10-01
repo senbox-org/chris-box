@@ -21,7 +21,6 @@ package org.esa.chris.cloud.operators.lut;
  * many pixels.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  */
 public interface PixelAccessor {
 

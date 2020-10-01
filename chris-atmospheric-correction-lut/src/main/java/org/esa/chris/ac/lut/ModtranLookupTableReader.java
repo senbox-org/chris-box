@@ -30,7 +30,6 @@ import java.text.MessageFormat;
  * Reader for the MODTRAN lookup table.
  *
  * @author Ralf Quast
- * @version $Revision: 2585 $ $Date: 2008-07-10 13:03:14 +0200 (Do, 10 Jul 2008) $
  * @since CHRIS-BOX 1.0
  */
 public class ModtranLookupTableReader {

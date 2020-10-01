@@ -24,7 +24,6 @@ import org.esa.snap.core.datamodel.ProductFilter;
  * Filters CHRIS/Proba products suitable for cloud screening.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  * @since CHRIS-BOX 1.0
  */
 class CloudScreeningProductFilter implements ProductFilter {

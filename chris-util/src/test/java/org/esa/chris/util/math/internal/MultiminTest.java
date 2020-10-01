@@ -22,7 +22,6 @@ import org.junit.Test;
  * Tests for class {@link org.esa.chris.util.math.internal.Multimin}.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  * @since CHRIS-BOX 1.0
  */
 public class MultiminTest {

@@ -22,7 +22,6 @@ import java.util.Arrays;
  * Regression weight calculator for locally weighted scatter plot smoothing.
  *
  * @author Ralf Quast
- * @version $Revision: 2530 $ $Date: 2008-07-09 13:10:39 +0200 (Wed, 09 Jul 2008) $
  * @since CHRIS-BOX 1.0
  */
 public class LowessRegressionWeightCalculator implements LocalRegressionWeightCalculator {

@@ -41,7 +41,6 @@ import java.util.concurrent.ExecutionException;
  * is disposed as soon as possible in order to save memory.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  */
 class NoiseReductionSwingWorker extends ProgressMonitorSwingWorker<Object, Product> {
 

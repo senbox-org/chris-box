@@ -28,7 +28,6 @@ import java.util.List;
  * Cloud screening form model.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  */
 class ScreeningFormModel {
 

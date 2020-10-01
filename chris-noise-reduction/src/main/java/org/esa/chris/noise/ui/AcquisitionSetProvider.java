@@ -31,7 +31,6 @@ import java.util.TreeSet;
  * Acquisition set provider.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  */
 class AcquisitionSetProvider {
 

@@ -23,7 +23,6 @@ import java.awt.Color;
  * the flags used by CHRIS images.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  */
 public enum Flags {
 

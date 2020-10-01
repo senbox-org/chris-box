@@ -19,7 +19,6 @@ package org.esa.chris.util.math.internal;
  * Methods for finding the minimum of an multivariate function.
  *
  * @author Ralf Quast
- * @version $Revision$ $Date$
  * @since CHRIS-BOX 1.0
  */
 public class Multimin {

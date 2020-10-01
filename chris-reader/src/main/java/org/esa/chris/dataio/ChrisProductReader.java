@@ -46,7 +46,6 @@ import static java.lang.Math.*;
  * @author Norman Fomferra
  * @author Ralf Quast
  * @author Marco Zuehlke
- * @version $Revision$ $Date$
  */
 public class ChrisProductReader extends AbstractProductReader {
 

@@ -56,7 +56,6 @@ import static java.lang.Math.sqrt;
  *
  * @author Ralf Quast
  * @author Marco Zühlke
- * @version $Revision$ $Date$
  */
 @OperatorMetadata(alias = "chris.ComputeDestripingFactors",
                   version = "1.0",
