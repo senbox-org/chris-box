@@ -85,7 +85,7 @@ public class ModtranLookupTable {
     }
 
     /**
-     * Returns the the ith dimension associated with the lookup table.
+     * Returns the ith dimension associated with the lookup table.
      *
      * @param i the index number of the dimension of interest
      *
