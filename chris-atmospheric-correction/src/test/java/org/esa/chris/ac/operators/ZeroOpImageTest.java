@@ -26,7 +26,7 @@ import java.awt.image.RenderedImage;
  *
  * @author Ralf Quast
  * @version $Revision$ $Date$
- * @since BEAM 4.2
+ * @since CHRIS-BOX 1.0
  */
 public class ZeroOpImageTest {
     private static final int W = 2;

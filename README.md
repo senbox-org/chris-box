@@ -33,6 +33,6 @@ You can submit bug reports and feature request to the [CHRIS-Box issue tracker](
 More Information
 The most important source of information for the CHRIS-Box project is the CHRIS-Box Wiki.
 
-Thank you for using the BEAM and the CHRIS-Box software!
+Thank you for using the SNAP and the CHRIS-Box software!
 
-Copyright © 2010 by Brockmann Consult (beam-issues@brockmann-consult.de). All rights reserved.
+Copyright © 2010-2020 by Brockmann Consult (info@brockmann-consult.de). All rights reserved.

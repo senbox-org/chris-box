@@ -20,7 +20,7 @@ package org.esa.chris.ac.operators;
  * Creates a {@link Resampler}.
  *
  * @author Ralf Quast
- * @since BEAM 4.2
+ * @since CHRIS-BOX 1.0
  */
 class ResamplerFactory {
 

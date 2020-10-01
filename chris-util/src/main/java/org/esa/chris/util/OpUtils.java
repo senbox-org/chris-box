@@ -36,7 +36,7 @@ import java.util.List;
  *
  * @author Ralf Quast
  * @version $Revision: 2572 $ $Date: 2008-07-10 11:01:58 +0200 (Thu, 10 Jul 2008) $
- * @since BEAM 4.2
+ * @since CHRIS-BOX 1.0
  */
 public class OpUtils {
 

@@ -25,7 +25,7 @@ import static java.lang.Math.min;
  *
  * @author Ralf Quast
  * @version $Revision$ $Date$
- * @since BEAM 4.2
+ * @since CHRIS-BOX 1.0
  */
 public class Min {
 

@@ -62,7 +62,7 @@ import java.util.Map;
  *
  * @author Ralf Quast
  * @version $Revision$ $Date$
- * @since BEAM 4.2
+ * @since CHRIS-BOX 1.0
  */
 @OperatorMetadata(alias = "chris.ComputeSurfaceReflectances",
                   version = "1.0",

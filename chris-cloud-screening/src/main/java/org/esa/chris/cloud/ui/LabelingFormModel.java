@@ -29,11 +29,10 @@ import java.awt.Color;
 import java.text.MessageFormat;
 
 /**
- * todo - add API doc
- *
+ * Model for labeling GUI.
  * @author Ralf Quast
  * @version $Revision$ $Date$
- * @since BEAM 4.5
+ * @since CHRIS-BOX 1.0
  */
 class LabelingFormModel {
     private final TableModel tableModel;

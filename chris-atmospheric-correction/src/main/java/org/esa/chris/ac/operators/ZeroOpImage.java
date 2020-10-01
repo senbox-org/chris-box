@@ -31,7 +31,7 @@ import java.util.Map;
  * Zero image.
  *
  * @author Ralf Quast
- * @since BEAM 4.2
+ * @since CHRIS-BOX 1.0
  */
 class ZeroOpImage extends SourcelessOpImage {
 

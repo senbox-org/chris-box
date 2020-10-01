@@ -35,7 +35,7 @@ import org.esa.snap.core.gpf.annotations.TargetProduct;
  *
  * @author Ralf Quast
  * @version $Revision$ $Date$
- * @since BEAM 4.2
+ * @since CHRIS-BOX 1.0
  */
 @OperatorMetadata(alias = "chris.Classify",
                   version = "1.0",

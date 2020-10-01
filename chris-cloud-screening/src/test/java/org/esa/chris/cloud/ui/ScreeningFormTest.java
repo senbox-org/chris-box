@@ -30,7 +30,7 @@ import static org.junit.Assert.assertTrue;
  *
  * @author Ralf Quast
  * @version $Revision$ $Date$
- * @since BEAM 4.5
+ * @since CHRIS-BOX 1.0
  */
 public class ScreeningFormTest {
 

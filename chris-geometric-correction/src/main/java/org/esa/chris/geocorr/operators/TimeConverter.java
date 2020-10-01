@@ -18,6 +18,8 @@ package org.esa.chris.geocorr.operators;
 
 import com.bc.ceres.core.ProgressMonitor;
 import com.bc.ceres.core.SubProgressMonitor;
+import org.esa.snap.core.util.SystemUtils;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedWriter;
@@ -363,19 +365,22 @@ public class TimeConverter {
     }
 
     private static Writer getWriter(String fileName) {
-        final File userDir = getUserDir(".beam", "chris-geometric-correction", "auxdata");
-        if (userDir != null) {
-            userDir.mkdirs();
-            final File file = new File(userDir, fileName);
-            try {
-                final OutputStream os = new FileOutputStream(file);
-                return new BufferedWriter(new OutputStreamWriter(os, StandardCharsets.US_ASCII));
-            } catch (FileNotFoundException e) {
-                // ignore
-            }
+        final File auxDataDir = getAuxdataDir();
+        auxDataDir.mkdirs();
+        final File file = new File(auxDataDir, fileName);
+        try {
+            final OutputStream os = new FileOutputStream(file);
+            return new BufferedWriter(new OutputStreamWriter(os, StandardCharsets.US_ASCII));
+        } catch (FileNotFoundException e) {
+            // ignore
         }
 
         return null;
+    }
+
+    @NotNull
+    private static File getAuxdataDir() {
+        return SystemUtils.getAuxDataPath().resolve("chris").resolve("geometric-correction").toFile();
     }
 
     private static String[] readLines(InputStream is, String taskName, ProgressMonitor pm) throws IOException {
@@ -421,26 +426,14 @@ public class TimeConverter {
     }
 
     private static File getFile(String fileName) {
-        final File timeFileDir = getUserDir(".beam", "chris-geometric-correction", "auxdata");
+        final File fileDir = getAuxdataDir();
 
-        if (timeFileDir != null) {
-            final File file = new File(timeFileDir, fileName);
-            if (file.canRead()) {
-                return file;
-            }
+        final File file = new File(fileDir, fileName);
+        if (file.canRead()) {
+            return file;
         }
 
         return null;
-    }
-
-    private static File getUserDir(String... children) {
-        File dir = new File(System.getProperty("user.home"));
-
-        for (final String child : children) {
-            dir = new File(dir, child);
-        }
-
-        return dir;
     }
 
     private static double interpolate(double mjd, Map.Entry<Double, Double> floor, Map.Entry<Double, Double> ceiling) {

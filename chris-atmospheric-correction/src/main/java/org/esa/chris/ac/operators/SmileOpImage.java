@@ -35,7 +35,7 @@ import java.util.Vector;
  *
  * @author Ralf Quast
  * @version $Revision$ $Date$
- * @since BEAM 4.2
+ * @since CHRIS-BOX 1.0
  */
 class SmileOpImage extends OpImage {
     private static final int MAX_ITER = 1000;

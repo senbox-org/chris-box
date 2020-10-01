@@ -20,11 +20,10 @@ package org.esa.chris.util.math.internal;
  *
  * @author Ralf Quast
  * @version $Revision$ $Date$
- * @since BEAM 4.2
+ * @since CHRIS-BOX 1.0
  */
 public class Regression {
     private final int m;
-    private final int n;
 
     private final double[][] a;
     private final double[][] u;
@@ -35,7 +34,7 @@ public class Regression {
 
     public Regression(double[]... x) {
         m = x[0].length;
-        n = x.length;
+        int n = x.length;
         a = new double[m][n];
 
         // build the design matrix

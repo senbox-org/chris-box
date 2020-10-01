@@ -36,7 +36,7 @@ import java.text.NumberFormat;
  *
  * @author Ralf Quast
  * @version $Revision$ $Date$
- * @since BEAM 4.5
+ * @since CHRIS-BOX 1.0
  */
 class LabelingForm extends JPanel {
 

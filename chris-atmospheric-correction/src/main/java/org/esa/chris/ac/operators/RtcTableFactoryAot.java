@@ -22,7 +22,7 @@ import org.esa.chris.ac.lut.RtcTable;
  * Creates an {@link RtcTable}.
  *
  * @author Ralf Quast
- * @since BEAM 4.2
+ * @since CHRIS-BOX 1.0
  */
 class RtcTableFactoryAot {
     private final double[] aot;

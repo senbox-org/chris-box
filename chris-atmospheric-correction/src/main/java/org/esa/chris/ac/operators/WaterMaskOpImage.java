@@ -29,7 +29,7 @@ import java.awt.image.*;
  *
  * @author Ralf Quast
  * @version $Revision$ $Date$
- * @since BEAM 4.2
+ * @since CHRIS-BOX 1.0
  */
 class WaterMaskOpImage extends PointOpImage {
 

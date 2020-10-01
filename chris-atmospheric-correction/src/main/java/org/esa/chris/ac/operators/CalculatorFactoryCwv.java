@@ -23,7 +23,7 @@ import org.esa.chris.ac.lut.RtcTable;
  * Creates a {@link Calculator}.
  *
  * @author Ralf Quast
- * @since BEAM 4.2
+ * @since CHRIS-BOX 1.0
  */
 class CalculatorFactoryCwv {
 

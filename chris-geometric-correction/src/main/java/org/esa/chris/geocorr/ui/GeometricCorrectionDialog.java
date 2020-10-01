@@ -33,7 +33,7 @@ import java.io.File;
  */
 class GeometricCorrectionDialog extends PlainSingleTargetProductDialog {
 
-    private static final String KEY_TELEMETRY_REPOSITORY = "beam.chris.telemetryRepository";
+    private static final String KEY_TELEMETRY_REPOSITORY = "snap.chris.telemetryRepository";
 
     GeometricCorrectionDialog(String operatorAlias, AppContext appContext, String title, String helpId) {
         super(operatorAlias, appContext, title, helpId);

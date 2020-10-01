@@ -22,7 +22,7 @@ import org.esa.snap.core.gpf.Tile;
  * Class for accessing individual pixels in a tile stack.
  *
  * @author Ralf Quast
- * @since BEAM 4.2
+ * @since CHRIS-BOX 1.0
  */
 class TilePixelAccessor implements PixelAccessor {
     private final Tile[] tiles;

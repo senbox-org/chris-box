@@ -21,7 +21,7 @@ package org.esa.chris.ac.lut;
  *
  * @author Ralf Quast
  * @version $Revision: 2703 $ $Date: 2008-07-15 11:42:48 +0200 (Di, 15 Jul 2008) $
- * @since BEAM 4.2
+ * @since CHRIS-BOX 1.0
  */
 public class RtcTable {
     private final double[] lpw;

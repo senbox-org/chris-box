@@ -30,7 +30,7 @@ import java.util.Scanner;
  *
  * @author Marco Peters
  * @version $Revision$ $Date$
- * @since BEAM 4.2
+ * @since CHRIS-BOX 1.0
  */
 public class OpUtilsTest {
 

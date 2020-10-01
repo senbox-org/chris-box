@@ -24,7 +24,7 @@ import org.junit.Test;
  *
  * @author Ralf Quast
  * @version $Revision: 2530 $ $Date: 2008-07-09 13:10:39 +0200 (Wed, 09 Jul 2008) $
- * @since BEAM 4.2
+ * @since CHRIS-BOX 1.0
  */
 public class StatisticsTest {
 

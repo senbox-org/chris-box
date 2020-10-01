@@ -21,7 +21,7 @@ package org.esa.chris.util.math.internal;
  *
  * @author Ralf Quast
  * @version $Revision$ $Date$
- * @since BEAM 4.2
+ * @since CHRIS-BOX 1.0
  */
 class Constants {
     public static final double DBL_EPSILON = 2.2204460492503131e-16;
