@@ -1,8 +1,8 @@
 # TODOs
 
-* Setup issue tracker - github or jira, depending on ESA answer
-* Migrate issues from old jira and add new migration issues
-* Setup wiki - github or confluence, depending on ESA answer
+* Setup issue tracker - github or jira, depending on ESA answer ✔
+* Setup wiki - github or confluence, depending on ESA answer ✔
+* Add Travis yaml file ✔
 * Migrate modules
   * chris-bootstrap - turn into chris-kit ✔   
   * chris-reader ✔       
@@ -23,12 +23,17 @@
 * GUI stuff
   * migrate module.xml and actions ✔ 
   * use Bundle strings ✔
+* move cris reader help page from snap-help ✔ 
+  
+* Check if help is working
+* Migrate issues from old jira and add new migration issues
+* check for todos in code
 * GUI stuff
   * fix createInternalFrame, disposeInternalFrame in LabelingDialog
 * Maybe provide a NoiseReduction Operator which combine the three steps, or document it 
   and provide a graph. Same for cloud screening? 
-* move cris reader help page from snap-help ✔ 
-    Check if help is working
+* replace TiePointGeoCoding
+
 * find place for 
   * http://www.brockmann-consult.de/beam/data/Archive_CHRIS_Tags_12000_38000_Telemetry_Data.zip
   * http://194.78.233.110/products/data/CHRIS_Additional_data/index.html
@@ -36,10 +41,8 @@
 * update links in manifest.mf files
 * place chrisbox-ac-lut-formatted-1nm.img somewhere and update location in readme.txt
 
-* Add Travis yaml file ✔
 * Deploy to maven nexus from travis
-* replace TiePointGeoCoding
-* check for todos in code
+
 * check for beam occurrences again
 * check for visat occurrences again
 
