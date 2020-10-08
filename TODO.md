@@ -24,8 +24,8 @@
   * migrate module.xml and actions ✔ 
   * use Bundle strings ✔
 * move cris reader help page from snap-help ✔ 
-  
-* Check if help is working
+* Check if help is working ✔
+
 * Migrate issues from old jira and add new migration issues
 * check for todos in code
 * GUI stuff
@@ -39,6 +39,7 @@
   * http://194.78.233.110/products/data/CHRIS_Additional_data/index.html
 * Migrate wiki pages from the old confluence and update, maybe move some content to the help pages.
 * update links in manifest.mf files
+* check references in help files (to other help files an external links)
 * place chrisbox-ac-lut-formatted-1nm.img somewhere and update location in readme.txt
 
 * Deploy to maven nexus from travis
