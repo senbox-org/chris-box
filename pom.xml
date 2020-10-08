@@ -148,6 +148,11 @@
             </dependency>
             <dependency>
                 <groupId>org.esa.snap</groupId>
+                <artifactId>snap-virtual-file-system</artifactId>
+                <version>${snap.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.esa.snap</groupId>
                 <artifactId>snap-gpf-ui</artifactId>
                 <version>${snap.version}</version>
             </dependency>
@@ -404,17 +409,6 @@
                          But it might indicate some problem.
                     -->
                     <enableAssertions>false</enableAssertions>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <descriptors>
-                        <descriptor>src/main/assembly/bin.xml</descriptor>
-                        <descriptor>src/main/assembly/project.xml</descriptor>
-                    </descriptors>
-                    <finalName>chris-box</finalName>
                 </configuration>
             </plugin>
 
