@@ -91,7 +91,7 @@ public class NoiseReductionAction extends AbstractSnapAction implements ContextA
         final TargetProductSelectorModel targetProductSelectorModel = noiseReductionForm.getTargetProductSelectorModel();
         final ModalDialog dialog =
                 new ModalDialog(SnapApp.getDefault().getMainFrame(), DIALOG_TITLE, ModalDialog.ID_OK_CANCEL_HELP,
-                                "chrisNoiseReductionTool") {
+                                getHelpId()) {
                     @Override
                     protected boolean verifyUserInput() {
                         if (!targetProductSelectorModel.getProductName().contains(SOURCE_NAME_PATTERN)) {
