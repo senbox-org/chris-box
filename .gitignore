@@ -4,6 +4,7 @@
 *.iml
 
 target
+userdir
 
 # Compiled class file
 *.class
