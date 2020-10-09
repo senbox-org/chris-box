@@ -27,7 +27,21 @@
 * Check if help is working ✔
 * Migrate issues from old jira and add new migration issues ✔
 
+* Check results are the same as in BEAM
+  * Vertical striping correction ✔
+  * noise-reduction ✔   
+  * cloud screening
+    * rgb image and classified image are not opened for labeling
+    * final cloud_product image is not opened 
+    * results are the same
+    * storing cloud_product does not work with "Save As...". 
+      https://senbox.atlassian.net/browse/CHRIS-17
+    * Performing AC on NR product lead to exception:  
+      https://senbox.atlassian.net/browse/CHRIS-18
+    
 
+* https://senbox.atlassian.net/browse/CHRIS-17
+* https://senbox.atlassian.net/browse/CHRIS-18
 * check for todos in code
 * fix enable state of actions (depending on selected product)
 * GUI stuff
@@ -43,6 +57,7 @@
 * update links in manifest.mf files
 * check references in help files (to other help files an external links)
 * place chrisbox-ac-lut-formatted-1nm.img somewhere and update location in readme.txt
+* update copyright year in ops and where else?
 
 * Deploy to maven nexus from travis
 
