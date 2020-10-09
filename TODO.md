@@ -25,9 +25,11 @@
   * use Bundle strings ✔
 * move cris reader help page from snap-help ✔ 
 * Check if help is working ✔
-* Migrate issues from old jira and add new migration issues
+* Migrate issues from old jira and add new migration issues ✔
+
 
 * check for todos in code
+* fix enable state of actions (depending on selected product)
 * GUI stuff
   * fix createInternalFrame, disposeInternalFrame in LabelingDialog
 * Maybe provide a NoiseReduction Operator which combine the three steps, or document it 
