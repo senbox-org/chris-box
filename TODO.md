@@ -25,8 +25,8 @@
   * use Bundle strings ✔
 * move cris reader help page from snap-help ✔ 
 * Check if help is working ✔
-
 * Migrate issues from old jira and add new migration issues
+
 * check for todos in code
 * GUI stuff
   * fix createInternalFrame, disposeInternalFrame in LabelingDialog
