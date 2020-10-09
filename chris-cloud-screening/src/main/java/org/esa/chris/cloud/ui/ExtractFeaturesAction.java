@@ -46,7 +46,7 @@ import java.util.concurrent.atomic.AtomicReference;
 )
 @ActionReference(
         path = "Menu/Optical/CHRIS-Proba Tools",
-        position = 6
+        position = 7
 )
 @NbBundle.Messages({
         "CTL_ExtractFeaturesAction_MenuText=Feature Extraction...",

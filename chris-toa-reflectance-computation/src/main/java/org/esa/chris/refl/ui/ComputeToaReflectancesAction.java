@@ -46,7 +46,8 @@ import java.util.concurrent.atomic.AtomicReference;
 )
 @ActionReference(
         path = "Menu/Optical/CHRIS-Proba Tools",
-        position = 5
+        position = 6,
+        separatorBefore = 5
 )
 @NbBundle.Messages({
         "CTL_ComputeToaReflectancesAction_MenuText=TOA Reflectance Computation...",
