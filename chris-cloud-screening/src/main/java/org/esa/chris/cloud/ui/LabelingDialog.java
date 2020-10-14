@@ -20,21 +20,21 @@ import com.bc.ceres.glayer.support.ImageLayer;
 import com.bc.ceres.swing.progress.ProgressMonitorSwingWorker;
 import org.esa.snap.core.datamodel.Band;
 import org.esa.snap.core.datamodel.Product;
+import org.esa.snap.core.datamodel.RasterDataNode;
+import org.esa.snap.netbeans.docwin.DocumentWindowManager;
+import org.esa.snap.netbeans.docwin.WindowUtilities;
 import org.esa.snap.rcp.SnapApp;
+import org.esa.snap.rcp.actions.window.OpenImageViewAction;
 import org.esa.snap.rcp.util.Dialogs;
+import org.esa.snap.rcp.windows.ProductSceneViewTopComponent;
 import org.esa.snap.ui.AppContext;
 import org.esa.snap.ui.ModelessDialog;
 import org.esa.snap.ui.PixelPositionListener;
-import org.esa.snap.ui.UIUtils;
 import org.esa.snap.ui.product.ProductSceneView;
+import org.openide.awt.UndoRedo;
 
 import javax.swing.AbstractButton;
-import javax.swing.Icon;
-import javax.swing.JInternalFrame;
-import java.awt.Container;
 import java.awt.event.MouseEvent;
-import java.beans.PropertyVetoException;
-import java.beans.VetoableChangeListener;
 import java.text.MessageFormat;
 import java.util.concurrent.ExecutionException;
 
@@ -47,6 +47,7 @@ import java.util.concurrent.ExecutionException;
  */
 class LabelingDialog extends ModelessDialog {
 
+    private static final DocumentWindowManager WINDOW_MANAGER = SnapApp.getDefault().getDocumentWindowManager();
     private final AppContext appContext;
     private final ScreeningContext screeningContext;
 
@@ -54,10 +55,10 @@ class LabelingDialog extends ModelessDialog {
     private final LabelingForm form;
 
     private final PixelPositionListener pixelPositionListener;
-    private final VetoableChangeListener frameClosedListener;
 
-    private final JInternalFrame colorFrame;
-    private final JInternalFrame classFrame;
+    private final VetoableClosePsvTopComponent colorFrame;
+    private final VetoableClosePsvTopComponent classFrame;
+    private final DocumentWindowManager.Listener<Object, ProductSceneView> viewListener;
 
     LabelingDialog(final AppContext appContext, final ScreeningContext screeningContext) {
         super(appContext.getApplicationWindow(),
@@ -93,27 +94,22 @@ class LabelingDialog extends ModelessDialog {
             }
         };
 
-        frameClosedListener = evt -> {
-            if (JInternalFrame.IS_CLOSED_PROPERTY.equals(evt.getPropertyName())) {
-                if ((Boolean) evt.getNewValue()) {
-                    final Dialogs.Answer answer = Dialogs.requestDecision("Question",
-                                                               "All windows associated with the cloud labeling dialog will be closed. Do you really want to close the cloud labeling dialog?",
-                                                               false, null);
-                    if (answer == Dialogs.Answer.YES) {
-                        close();
-                    } else {
-                        throw new PropertyVetoException("Do not close.", evt);
-                    }
+        final String radianceProductName = screeningContext.getRadianceProduct().getName();
+        final String rgbFrameTitle = MessageFormat.format("{0} - RGB", radianceProductName);
+        colorFrame = createTopComponent(screeningContext.getColorView(), rgbFrameTitle);
+
+        final String classFrameTitle = MessageFormat.format("{0} - Classes", radianceProductName);
+        classFrame = createTopComponent(screeningContext.getClassView(), classFrameTitle);
+
+        viewListener = new DocumentWindowManager.Listener<Object, ProductSceneView>() {
+            @Override
+            public void windowClosed(DocumentWindowManager.Event e) {
+                if (colorFrame == e.getWindow() || classFrame == e.getWindow()) {
+                    LabelingDialog.this.forceClose();
                 }
             }
         };
-
-        final String radianceProductName = screeningContext.getRadianceProduct().getName();
-        final String rgbFrameTitle = MessageFormat.format("{0} - RGB", radianceProductName);
-        colorFrame = createInternalFrame(screeningContext.getColorView(), rgbFrameTitle);
-
-        final String classFrameTitle = MessageFormat.format("{0} - Classes", radianceProductName);
-        classFrame = createInternalFrame(screeningContext.getClassView(), classFrameTitle);
+        WINDOW_MANAGER.addListener(viewListener);
 
         final AbstractButton button = getButton(ID_APPLY);
         button.setText("Run");
@@ -131,8 +127,8 @@ class LabelingDialog extends ModelessDialog {
     public void hide() {
         form.prepareHide();
 
-        classFrame.hide();
-        colorFrame.hide();
+        classFrame.setVisible(false);
+        colorFrame.setVisible(false);
 
         super.hide();
     }
@@ -142,8 +138,8 @@ class LabelingDialog extends ModelessDialog {
         form.prepareShow();
         setContent(form);
 
-        colorFrame.show();
-        classFrame.show();
+        colorFrame.setVisible(true);
+        classFrame.setVisible(true);
 
         return super.show();
     }
@@ -153,44 +149,41 @@ class LabelingDialog extends ModelessDialog {
         close();
     }
 
-    @Override
     public void close() {
-        disposeInternalFrame(classFrame);
-        disposeInternalFrame(colorFrame);
-
-        getJDialog().dispose();
+        forceClose();
     }
 
-    private JInternalFrame createInternalFrame(ProductSceneView view, String title) {
-        final SnapApp snapApp = SnapApp.getDefault();
-        // TODO - fix this
-//        view.setCommandUIFactory(snapApp.getCommandUIFactory());
+    private void forceClose() {
+        disposeTopComponent(classFrame);
+        disposeTopComponent(colorFrame);
+
+        getJDialog().dispose();
+        WINDOW_MANAGER.removeListener(viewListener);
+    }
+
+    private VetoableClosePsvTopComponent createTopComponent(ProductSceneView view, String title) {
         view.setNoDataOverlayEnabled(false);
         view.setGraticuleOverlayEnabled(false);
         view.setPinOverlayEnabled(false);
-//        view.setLayerProperties(snapApp.getPreferences());
         view.addPixelPositionListener(pixelPositionListener);
 
-        final Icon icon = UIUtils.loadImageIcon("icons/RsBandAsSwath16.gif");
+        UndoRedo.Manager undoManager = SnapApp.getDefault().getUndoManager(view.getProduct());
+        VetoableClosePsvTopComponent psvTopComponent = new VetoableClosePsvTopComponent(view, undoManager);
+        psvTopComponent.setDisplayName(title);
+        WINDOW_MANAGER.openWindow(psvTopComponent);
+        psvTopComponent.requestSelected();
 
-//        final JInternalFrame frame = snapApp.getDocumentWindowManager(title, icon, view, "");
 
-        final JInternalFrame frame = new JInternalFrame(title);
-        frame.addVetoableChangeListener(frameClosedListener);
-
-        return frame;
+        return psvTopComponent;
     }
 
-    private void disposeInternalFrame(JInternalFrame frame) {
-        if (frame != null && !frame.isClosed()) {
-            frame.removeVetoableChangeListener(frameClosedListener);
-
-            final Container contentPane = frame.getContentPane();
-            if (contentPane instanceof ProductSceneView) {
-                final ProductSceneView view = (ProductSceneView) contentPane;
+    private void disposeTopComponent(VetoableClosePsvTopComponent topComponent) {
+        if (topComponent != null && topComponent.isOpened()) {
+            topComponent.setVetoAllowed(false);
+            final ProductSceneView view = topComponent.getView();
+            if (view != null) {
                 view.removePixelPositionListener(pixelPositionListener);
-                // todo - fix this
-                // VisatApp.getApp().getDesktopPane().closeFrame(frame);
+                WINDOW_MANAGER.closeWindow(topComponent);
             }
         }
     }
@@ -221,16 +214,12 @@ class LabelingDialog extends ModelessDialog {
                 final Band newBand = get();
                 if (radianceProduct.containsBand(newBand.getName())) {
                     final Band oldBand = radianceProduct.getBand(newBand.getName());
-                    // todo - fix this
-//                    final JInternalFrame oldFrame = VisatApp.getApp().findInternalFrame(oldBand);
-//                    if (oldFrame != null) {
-//                        VisatApp.getApp().getDesktopPane().closeFrame(oldFrame);
-//                    }
+                    ProductSceneViewTopComponent psvTopComponent = getProductSceneViewTopComponent(oldBand);
+                    WINDOW_MANAGER.closeWindow(psvTopComponent);
                     radianceProduct.removeBand(oldBand);
                 }
                 radianceProduct.addBand(newBand);
-                // todo - fix this
-//                VisatApp.getApp().openProductSceneView(newBand);
+                OpenImageViewAction.openImageView(newBand);
             } catch (InterruptedException e) {
                 appContext.handleError(e.getMessage(), e);
             } catch (ExecutionException e) {
@@ -238,4 +227,12 @@ class LabelingDialog extends ModelessDialog {
             }
         }
     }
+
+    private static ProductSceneViewTopComponent getProductSceneViewTopComponent(RasterDataNode raster) {
+        return WindowUtilities.getOpened(ProductSceneViewTopComponent.class)
+                .filter(topComponent -> raster == topComponent.getView().getRaster())
+                .findFirst()
+                .orElse(null);
+    }
+
 }

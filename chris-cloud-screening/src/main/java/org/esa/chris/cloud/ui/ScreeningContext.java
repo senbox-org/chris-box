@@ -420,10 +420,7 @@ class ScreeningContext implements LabelingContext {
     private static Band createSyntheticBand(String name, RenderedImage sourceImage, ProgressMonitor pm) {
         final int dataType = ImageManager.getProductDataType(sourceImage.getSampleModel().getDataType());
         final Band band = new Band(name, dataType, sourceImage.getWidth(), sourceImage.getHeight());
-
-        band.setRasterData(RasterDataUtils.createRasterData(sourceImage, pm));
-        band.setSynthetic(true);
-        band.getSourceImage();
+        band.setSourceImage(sourceImage);
 
         return band;
     }
