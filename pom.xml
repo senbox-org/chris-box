@@ -86,7 +86,13 @@
             </dependency>
 
 
-            <!-- Ceres System Level Module ############################################# -->
+            <!-- SNAP Modules ############################################# -->
+
+            <dependency>
+                <groupId>org.esa.snap.netbeans</groupId>
+                <artifactId>doc-windows</artifactId>
+                <version>1.0</version>
+            </dependency>
 
             <dependency>
                 <groupId>org.esa.snap</groupId>
@@ -124,7 +130,6 @@
                 <version>${snap.version}</version>
             </dependency>
 
-            <!-- SNAP System Level Modules ############################################# -->
 
             <dependency>
                 <groupId>org.esa.snap</groupId>

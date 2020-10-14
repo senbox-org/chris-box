@@ -16,6 +16,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.esa.snap.netbeans</groupId>
+            <artifactId>doc-windows</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.esa.snap</groupId>
             <artifactId>ceres-core</artifactId>
         </dependency>
@@ -59,6 +63,10 @@
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-openide-util</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.netbeans.api</groupId>
+            <artifactId>org-openide-awt</artifactId>
         </dependency>
         <dependency>
             <groupId>org.netbeans.api</groupId>
