@@ -23,7 +23,7 @@
 * GUI stuff
   * migrate module.xml and actions ✔ 
   * use Bundle strings ✔
-* move cris reader help page from snap-help ✔ 
+* move chris reader help page from snap-help ✔ 
 * Check if help is working ✔
 * Migrate issues from old jira and add new migration issues ✔
 
@@ -31,11 +31,20 @@
   * Vertical striping correction ✔
   * noise-reduction ✔   
   * cloud screening
-    * rgb image and classified image are not opened for labeling
-    * final cloud_product image is not opened 
-    * results are the same
+    * results are the same ✔
+    * RGB image and classified image are not opened for labeling ✔
+    * User is not warned if she tries to close RGB or classification image✔
+    * Opened view are not closed ✔
+    * final cloud_product image is not opened ✔    
     * storing cloud_product does not work with "Save As...". 
-      https://senbox.atlassian.net/browse/CHRIS-17
+      https://senbox.atlassian.net/browse/CHRIS-17 ✔
+    * Cloud cluster/classes image is initially not correctly zoomed to full size
+      vhttps://senbox.atlassian.net/browse/CHRIS-21
+    * Cloud cluster/classes view not properly updated
+      https://senbox.atlassian.net/browse/CHRIS-20
+    * ArrayIndexOutOfBoundsException occurs when trying to compute probabilistic cloud mask
+      https://senbox.atlassian.net/browse/CHRIS-19
+  * atmospheric-correction    
     * Performing AC on NR product lead to exception:  
       https://senbox.atlassian.net/browse/CHRIS-18
     
