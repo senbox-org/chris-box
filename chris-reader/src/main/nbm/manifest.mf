@@ -4,5 +4,4 @@ AutoUpdate-Essential-Module: false
 OpenIDE-Module-Java-Dependencies: Java > 1.8
 OpenIDE-Module-Display-Category: SNAP Toolboxes
 OpenIDE-Module-Specification-Version: ${chris.nbmSpecVersion}
-OpenIDE-Module-Implementation-Version: ${chris.nbmImplVersion}
 OpenIDE-Module-Layer: org/esa/chris/dataio/layer.xml
