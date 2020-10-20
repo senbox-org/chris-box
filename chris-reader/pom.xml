@@ -11,6 +11,7 @@
     <name>CHRIS/Proba Product Reader</name>
     <artifactId>chris-reader</artifactId>
     <description>Enables SNAP to read CHRIS/Proba HDF4 data products.</description>
+    <version>2.9.9</version>
     <packaging>nbm</packaging>
 
 
