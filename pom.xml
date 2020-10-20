@@ -15,7 +15,7 @@
     <properties>
         <brandingToken>chris</brandingToken>
         <chris.version>${project.version}</chris.version>
-        <snap.version>8.0.0-SNAPSHOT</snap.version>
+        <snap.version>8.0.0</snap.version>
         <netbeans.version>RELEASE82</netbeans.version>
         <javahelp.version>2.0.05</javahelp.version>
         <chris.nbmSpecVersion>3.0.0</chris.nbmSpecVersion>
