@@ -39,7 +39,7 @@
     * storing cloud_product does not work with "Save As...". 
       https://senbox.atlassian.net/browse/CHRIS-17 ✔
     * Cloud cluster/classes image is initially not correctly zoomed to full size
-      vhttps://senbox.atlassian.net/browse/CHRIS-21
+      https://senbox.atlassian.net/browse/CHRIS-21 ✔
     * Cloud cluster/classes view not properly updated
       https://senbox.atlassian.net/browse/CHRIS-20
     * ArrayIndexOutOfBoundsException occurs when trying to compute probabilistic cloud mask
