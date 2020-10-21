@@ -41,6 +41,11 @@
             <artifactId>ceres-ui</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.esa.snap.netbeans</groupId>
+            <artifactId>tiled-editors</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
             <groupId>org.esa.snap</groupId>
             <artifactId>snap-core</artifactId>
         </dependency>

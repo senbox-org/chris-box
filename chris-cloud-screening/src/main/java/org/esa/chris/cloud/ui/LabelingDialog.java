@@ -32,6 +32,7 @@ import org.esa.snap.ui.ModelessDialog;
 import org.esa.snap.ui.PixelPositionListener;
 import org.esa.snap.ui.product.ProductSceneView;
 import org.openide.awt.UndoRedo;
+import org.openide.windows.TopComponent;
 
 import javax.swing.AbstractButton;
 import java.awt.event.MouseEvent;
@@ -94,13 +95,6 @@ class LabelingDialog extends ModelessDialog {
             }
         };
 
-        final String radianceProductName = screeningContext.getRadianceProduct().getName();
-        final String rgbFrameTitle = MessageFormat.format("{0} - RGB", radianceProductName);
-        colorFrame = createTopComponent(screeningContext.getColorView(), rgbFrameTitle);
-
-        final String classFrameTitle = MessageFormat.format("{0} - Classes", radianceProductName);
-        classFrame = createTopComponent(screeningContext.getClassView(), classFrameTitle);
-
         viewListener = new DocumentWindowManager.Listener<Object, ProductSceneView>() {
             @Override
             public void windowClosed(DocumentWindowManager.Event e) {
@@ -110,6 +104,16 @@ class LabelingDialog extends ModelessDialog {
             }
         };
         WINDOW_MANAGER.addListener(viewListener);
+
+        final String radianceProductName = screeningContext.getRadianceProduct().getName();
+        final String rgbFrameTitle = MessageFormat.format("{0} - RGB", radianceProductName);
+        colorFrame = createTopComponent(screeningContext.getColorView(), rgbFrameTitle);
+
+        final String classFrameTitle = MessageFormat.format("{0} - Classes", radianceProductName);
+        classFrame = createTopComponent(screeningContext.getClassView(), classFrameTitle);
+
+        WINDOW_MANAGER.openWindow(colorFrame);
+        WINDOW_MANAGER.openWindow(classFrame);
 
         final AbstractButton button = getButton(ID_APPLY);
         button.setText("Run");
@@ -170,9 +174,6 @@ class LabelingDialog extends ModelessDialog {
         UndoRedo.Manager undoManager = SnapApp.getDefault().getUndoManager(view.getProduct());
         VetoableClosePsvTopComponent psvTopComponent = new VetoableClosePsvTopComponent(view, undoManager);
         psvTopComponent.setDisplayName(title);
-        WINDOW_MANAGER.openWindow(psvTopComponent);
-        psvTopComponent.requestSelected();
-
 
         return psvTopComponent;
     }
