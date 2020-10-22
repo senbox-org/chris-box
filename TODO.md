@@ -46,7 +46,10 @@
       https://senbox.atlassian.net/browse/CHRIS-19 ✔
   * atmospheric-correction    
     * Performing AC on NR product lead to exception:  
-      https://senbox.atlassian.net/browse/CHRIS-18
+      https://senbox.atlassian.net/browse/CHRIS-18 ✔
+    * Results are a bit different compared to BEAM. 
+      Values are still reasonable, but it should be chekced why this happens.    
+      Check with another product.
     
 
 * check for todos in code
