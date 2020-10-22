@@ -261,9 +261,11 @@ public class ExtractEndmembersOp extends Operator {
                 }
             }
             for (int k = 0; k < clusters.length; ++k) {
-                if (count[k] > 0) {
+                int countValue = count[k];
+                if (countValue > 0) {
+                    double[] reflectance = reflectances[k];
                     for (int i = 0; i < reflAccessor.getSampleCount(); ++i) {
-                        reflectances[k][i] /= count[k];
+                        reflectance[i] /= countValue;
                     }
                 }
             }
@@ -275,7 +277,7 @@ public class ExtractEndmembersOp extends Operator {
 
     private static PixelAccessor createPixelAccessor(Operator op, Band[] bands) {
         final int w = bands[0].getRasterWidth();
-        final int h = bands[0].getRasterWidth();
+        final int h = bands[0].getRasterHeight();
         final Rectangle rectangle = new Rectangle(0, 0, w, h);
         final Tile[] tiles = new Tile[bands.length];
 

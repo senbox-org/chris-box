@@ -41,16 +41,14 @@
     * Cloud cluster/classes image is initially not correctly zoomed to full size
       https://senbox.atlassian.net/browse/CHRIS-21 ✔
     * Cloud cluster/classes view not properly updated
-      https://senbox.atlassian.net/browse/CHRIS-20
+      https://senbox.atlassian.net/browse/CHRIS-20 ✔
     * ArrayIndexOutOfBoundsException occurs when trying to compute probabilistic cloud mask
-      https://senbox.atlassian.net/browse/CHRIS-19
+      https://senbox.atlassian.net/browse/CHRIS-19 ✔
   * atmospheric-correction    
     * Performing AC on NR product lead to exception:  
       https://senbox.atlassian.net/browse/CHRIS-18
     
 
-* https://senbox.atlassian.net/browse/CHRIS-17
-* https://senbox.atlassian.net/browse/CHRIS-18
 * check for todos in code
 * fix enable state of actions (depending on selected product)
 * GUI stuff
