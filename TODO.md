@@ -48,8 +48,15 @@
     * Performing AC on NR product lead to exception:  
       https://senbox.atlassian.net/browse/CHRIS-18 ✔
     * Results are a bit different compared to BEAM. 
-      Values are still reasonable, but it should be chekced why this happens.    
+      Values are still reasonable, but it should be checked why this happens.    
       Check with another product.
+  * geometric correction
+    * Cannot be performed because of this issue
+      https://senbox.atlassian.net/browse/CHRIS-15
+  * Feature extraction
+    * Test if this is working
+  * TOA Reflectance Computation      
+    * Test if this is working
     
 
 * check for todos in code
