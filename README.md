@@ -31,7 +31,7 @@ Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-13
 You can submit bug reports and feature request to the [CHRIS-Box issue tracker](https://github.com/senbox-org/chris-box).
 
 More Information
-The most important source of information for the CHRIS-Box project is the CHRIS-Box Wiki.
+The most important source of information for the CHRIS-Box project is the [CHRIS-Box Wiki](https://senbox.atlassian.net/wiki/spaces/CHRIS/overview).
 
 Thank you for using the SNAP and the CHRIS-Box software!
 
