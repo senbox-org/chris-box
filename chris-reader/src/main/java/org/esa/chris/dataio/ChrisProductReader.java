@@ -17,6 +17,7 @@ package org.esa.chris.dataio;
 
 import com.bc.ceres.core.Assert;
 import com.bc.ceres.core.ProgressMonitor;
+import com.sun.jna.platform.win32.NTSecApi;
 import org.esa.chris.dataio.internal.DropoutCorrection;
 import org.esa.chris.dataio.internal.MaskRefinement;
 import org.esa.chris.dataio.internal.SunPositionCalculator;
@@ -37,6 +38,8 @@ import java.text.MessageFormat;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import static java.lang.Math.*;
@@ -54,6 +57,15 @@ public class ChrisProductReader extends AbstractProductReader {
     private static final Pattern CENTRE_TIME_HOUR_FORMAT = Pattern.compile("\\d\\d:\\d\\d:\\d\\d");
     private static final Pattern CENTRE_TIME_DAY_FRACTION_FORMAT = Pattern.compile("\\d\\.\\d*");
     private static final String DEFAULT_CENTRE_TIME = "00:00:00";
+    private static final Map<Integer, String> MODE_DESCRIPTION_MAP = new HashMap<>();
+    static {
+        MODE_DESCRIPTION_MAP.put(0, "Unknown Mode");
+        MODE_DESCRIPTION_MAP.put(1, "Mode 1 - Full swath width");
+        MODE_DESCRIPTION_MAP.put(2, "Mode 2 - Water Bands Mode | Full swath width");
+        MODE_DESCRIPTION_MAP.put(3, "Mode 3 - Land Channels Mode | Full swath width");
+        MODE_DESCRIPTION_MAP.put(4, "Mode 4 - Chlorophyll Band Set Mode | Full swath width");
+        MODE_DESCRIPTION_MAP.put(5, "Mode 5 - Land Channels Mode | Half swath width");
+    }
 
     private ChrisFile chrisFile;
 
@@ -137,10 +149,11 @@ public class ChrisProductReader extends AbstractProductReader {
 
     private Product createProduct(File inputFile) {
         final String name = FileUtils.getFilenameWithoutExtension(inputFile);
-        final String type = "CHRIS_M" + chrisFile.getGlobalAttribute(ChrisConstants.ATTR_NAME_CHRIS_MODE, 0);
-
+        int chrisMode = chrisFile.getGlobalAttribute(ChrisConstants.ATTR_NAME_CHRIS_MODE, 0);
+        final String type = "CHRIS_M" + chrisMode;
         final Product product = new Product(name, type, sceneRasterWidth, sceneRasterHeight, this);
         product.setFileLocation(chrisFile.getFile());
+        product.setDescription(MODE_DESCRIPTION_MAP.get(chrisMode));
 
         setStartAndEndTimes(product);
         addMetadataElements(product);
