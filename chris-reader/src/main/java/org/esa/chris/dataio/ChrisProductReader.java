@@ -37,6 +37,7 @@ import java.text.MessageFormat;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 import static java.lang.Math.*;
 
@@ -50,6 +51,9 @@ import static java.lang.Math.*;
 public class ChrisProductReader extends AbstractProductReader {
 
     private static final int NEIGHBORING_BAND_COUNT = 1;
+    private static final Pattern CENTRE_TIME_HOUR_FORMAT = Pattern.compile("\\d\\d:\\d\\d:\\d\\d");
+    private static final Pattern CENTRE_TIME_DAY_FRACTION_FORMAT = Pattern.compile("\\d\\.\\d*");
+    private static final String DEFAULT_CENTRE_TIME = "00:00:00";
 
     private ChrisFile chrisFile;
 
@@ -164,8 +168,8 @@ public class ChrisProductReader extends AbstractProductReader {
 
     private void setStartAndEndTimes(final Product product) {
         final String dateStr = chrisFile.getGlobalAttribute(ChrisConstants.ATTR_NAME_IMAGE_DATE, "2000-01-01");
-        final String timeStr = chrisFile.getGlobalAttribute(ChrisConstants.ATTR_NAME_IMAGE_CENTRE_TIME, "00:00:00");
-
+        String timeStr = chrisFile.getGlobalAttribute(ChrisConstants.ATTR_NAME_IMAGE_CENTRE_TIME, DEFAULT_CENTRE_TIME);
+        timeStr = formatTimeString(timeStr);
         try {
             final DateFormat dateFormat = ProductData.UTC.createDateFormat("yyyy-MM-dd HH:mm:ss");
             final Date date = dateFormat.parse(dateStr + " " + timeStr);
@@ -176,6 +180,24 @@ public class ChrisProductReader extends AbstractProductReader {
         } catch (ParseException ignored) {
             // ignore
         }
+    }
+
+    static String formatTimeString(String timeStr) {
+        if(CENTRE_TIME_HOUR_FORMAT.matcher(timeStr).matches()) {
+            return timeStr;
+        }
+        if(CENTRE_TIME_DAY_FRACTION_FORMAT.matcher(timeStr).matches()) {
+            double daysFraction = Double.parseDouble(timeStr);
+            double daysFractionInHours = daysFraction * 24;
+            int hours = (int) Math.floor(daysFractionInHours);
+            double hoursFraction = (daysFractionInHours - hours) * 60;
+            int minutes = (int) Math.floor(hoursFraction);
+            double minuteFraction = (hoursFraction - minutes) * 60;
+            int seconds = (int) Math.round(minuteFraction);
+
+            return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        }
+        return DEFAULT_CENTRE_TIME;
     }
 
     private void addMetadataElements(final Product product) {
