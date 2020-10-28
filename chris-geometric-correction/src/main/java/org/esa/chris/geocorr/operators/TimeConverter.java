@@ -58,6 +58,10 @@ import java.util.concurrent.ConcurrentSkipListMap;
 public class TimeConverter {
 
     private static final double SEVEN_DAYS_IN_MILLIS = 6.048E8;
+    private static final String REMOTE_UT1_URL = "ftp://maia.usno.navy.mil/ser7/finals.data";
+    private static final String REMOTE_TAI_URL = "ftp://maia.usno.navy.mil/ser7/leapsec.dat";
+    private static final String FILE_NAME_UT1 = "finals.data";
+    private static final String FILE_NAME_TAI = "leapsec.dat";
     /**
      * Internal TAI-UTC table.
      * <p/>
@@ -84,11 +88,6 @@ public class TimeConverter {
      * corresponds to 2000-01-01 00:00.
      */
     public static final double EPOCH_MJD2000 = 10957.0;
-    /**
-     * The epoch (millis) for the Modified Julian Date (MJD) which
-     * corresponds to 1858-11-17 00:00.
-     */
-    public static final long EPOCH_MJD_MILLIS = -3506716800000L;
     /**
      * The number of days between {@link #EPOCH_MJD} and {@link #EPOCH_JD}.
      */
@@ -200,8 +199,12 @@ public class TimeConverter {
         try {
             synchronized (this) {
                 pm.beginTask("Updating UT1 and leap second time tables", 100);
-                updateTAI("ftp://maia.usno.navy.mil/ser7/leapsec.dat", SubProgressMonitor.create(pm, 10));
-                updateUT1("ftp://maia.usno.navy.mil/ser7/finals.data", SubProgressMonitor.create(pm, 90));
+                try (InputStream stream = getRemoteInputStream(REMOTE_TAI_URL)) {
+                    updateTAI(stream, SubProgressMonitor.create(pm, 10));
+                }
+                try (InputStream stream = getRemoteInputStream(REMOTE_UT1_URL)) {
+                    updateUT1(stream, SubProgressMonitor.create(pm, 90));
+                }
             }
         } finally {
             pm.done();
@@ -211,8 +214,8 @@ public class TimeConverter {
     private static TimeConverter createInstance() throws IOException {
         final TimeConverter timeConverter = new TimeConverter();
 
-        readTAI("leapsec.dat", timeConverter.tai);
-        readUT1("finals.data", timeConverter.ut1);
+        readTAI(FILE_NAME_TAI, timeConverter.tai);
+        readUT1(FILE_NAME_UT1, timeConverter.ut1);
 
         return timeConverter;
     }
@@ -230,7 +233,7 @@ public class TimeConverter {
      */
     private long lastModified() {
         synchronized (this) {
-            final File file = getFile("finals.data");
+            final File file = getFile(FILE_NAME_UT1);
             if (file != null) {
                 return file.lastModified();
             }
@@ -241,58 +244,34 @@ public class TimeConverter {
     /**
      * Updates the internal UT1-UTC table with newer data read from a URL.
      *
-     * @param spec the string to parse a a URL.
+     * @param inputStream the input stream to read from
      * @param pm   the {@link ProgressMonitor}.
      *
      * @throws IOException if an error occurred.
      */
-    private void updateTAI(String spec, ProgressMonitor pm) throws IOException {
-        final URL url = new URL(spec);
-        final URLConnection connection = url.openConnection();
-
-        updateTAI(connection.getInputStream(), pm);
-    }
-
-    /**
-     * Updates the internal TAI-UTC table with newer data read from an input stream.
-     *
-     * @param is the input stream.
-     * @param pm the {@link ProgressMonitor}.
-     *
-     * @throws IOException if an error occurred while reading the TAI-UTC data from the input stream.
-     */
-    private void updateTAI(InputStream is, ProgressMonitor pm) throws IOException {
-        final String[] lines = readTAI(is, tai, pm);
-        writeLines("leapsec.dat", lines);
+    private void updateTAI(InputStream inputStream, ProgressMonitor pm) throws IOException {
+        final String[] lines = readTAI(inputStream, tai, pm);
+        writeLines(FILE_NAME_TAI, lines);
     }
 
     /**
      * Updates the internal UT1-UTC table with newer data read from a URL.
      *
-     * @param spec the string to parse a a URL.
+     * @param inputStream the input stream to read from
      * @param pm   the {@link ProgressMonitor}.
      *
      * @throws IOException if an error occurred.
      */
-    private void updateUT1(String spec, ProgressMonitor pm) throws IOException {
-        final URL url = new URL(spec);
-        final URLConnection connection = url.openConnection();
+    private void updateUT1(InputStream inputStream, ProgressMonitor pm) throws IOException {
+        final String[] lines = readUT1(inputStream, ut1, pm);
+        writeLines(FILE_NAME_UT1, lines);
 
-        updateUT1(connection.getInputStream(), pm);
     }
 
-    /**
-     * Updates the internal UT1-UTC table with newer data read from an input stream.
-     *
-     * @param is the input stream.
-     * @param pm the {@link ProgressMonitor}.
-     *
-     * @throws IOException if an error occurred while reading the UT1-UTC data from the input stream.
-     */
-    private void updateUT1(InputStream is, ProgressMonitor pm) throws IOException {
-        final String[] lines = readUT1(is, ut1, pm);
-        writeLines("finals.data", lines);
-
+    private InputStream getRemoteInputStream(String urlString) throws IOException {
+        final URL url = new URL(urlString);
+        final URLConnection connection = url.openConnection();
+        return connection.getInputStream();
     }
 
     private static void readTAI(String name, ConcurrentMap<Double, Double> map) throws IOException {
@@ -475,17 +454,6 @@ public class TimeConverter {
     }
 
     /**
-     * Returns the MJD2000 corresponding to a date.
-     *
-     * @param date the date.
-     *
-     * @return the MJD2000 corresponding to the date.
-     */
-    public static double dateToMJD2000(Date date) {
-        return date.getTime() / MILLIS_PER_DAY - EPOCH_MJD2000;
-    }
-
-    /**
      * Returns the date corresponding to a Modified Julian Date (MJD).
      *
      * @param mjd the MJD.
@@ -549,17 +517,6 @@ public class TimeConverter {
         }
 
         return gst;
-    }
-
-    /**
-     * Returns the date corresponding to a Julian Date (JD).
-     *
-     * @param jd the JD.
-     *
-     * @return the date corresponding to the JD.
-     */
-    public static Date jdToDate(double jd) {
-        return new Date(Math.round((EPOCH_JD + jd) * MILLIS_PER_DAY));
     }
 
     /**
