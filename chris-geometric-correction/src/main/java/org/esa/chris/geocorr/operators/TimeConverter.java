@@ -296,11 +296,8 @@ public class TimeConverter {
     }
 
     private static void readTAI(String name, ConcurrentMap<Double, Double> map) throws IOException {
-        final File finalsFile = getFile(name);
-        if (finalsFile == null) {
-            readTAI(TimeConverter.class.getResourceAsStream(name), map, ProgressMonitor.NULL);
-        } else {
-            readTAI(new BufferedInputStream(new FileInputStream(finalsFile)), map, ProgressMonitor.NULL);
+        try (InputStream inputStream = getInputStream(name)) {
+            readTAI(inputStream, map, ProgressMonitor.NULL);
         }
     }
 
@@ -332,11 +329,17 @@ public class TimeConverter {
     }
 
     private static void readUT1(String name, Map<Double, Double> map) throws IOException {
+        try (InputStream inputStream = getInputStream(name)) {
+            readUT1(inputStream, map, ProgressMonitor.NULL);
+        }
+    }
+
+    private static InputStream getInputStream(String name) throws FileNotFoundException {
         final File finalsFile = getFile(name);
         if (finalsFile == null) {
-            readUT1(TimeConverter.class.getResourceAsStream(name), map, ProgressMonitor.NULL);
+            return TimeConverter.class.getResourceAsStream(name);
         } else {
-            readUT1(new BufferedInputStream(new FileInputStream(finalsFile)), map, ProgressMonitor.NULL);
+            return new BufferedInputStream(new FileInputStream(finalsFile));
         }
     }
 
