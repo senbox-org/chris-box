@@ -57,6 +57,7 @@ import java.util.concurrent.ConcurrentSkipListMap;
  */
 public class TimeConverter {
 
+    private static final double SEVEN_DAYS_IN_MILLIS = 6.048E8;
     /**
      * Internal TAI-UTC table.
      * <p/>
@@ -183,23 +184,7 @@ public class TimeConverter {
      *         {@code false} otherwise.
      */
     public boolean isOutdated() {
-        return new Date().getTime() - lastModified() > 6.048E8;
-    }
-
-    /**
-     * Returns the date (in millis) when the time tables used by an
-     * instance of this class were last modified (updated).
-     *
-     * @return the date (millis) of last modification.
-     */
-    public long lastModified() {
-        synchronized (this) {
-            final File file = getFile("finals.data");
-            if (file != null) {
-                return file.lastModified();
-            }
-            return 0L;
-        }
+        return new Date().getTime() - lastModified() > SEVEN_DAYS_IN_MILLIS;
     }
 
     /**
@@ -235,6 +220,22 @@ public class TimeConverter {
     private TimeConverter() {
         tai = new ConcurrentSkipListMap<>();
         ut1 = new ConcurrentSkipListMap<>();
+    }
+
+    /**
+     * Returns the date (in millis) when the time tables used by an
+     * instance of this class were last modified (updated).
+     *
+     * @return the date (millis) of last modification.
+     */
+    private long lastModified() {
+        synchronized (this) {
+            final File file = getFile("finals.data");
+            if (file != null) {
+                return file.lastModified();
+            }
+            return 0L;
+        }
     }
 
     /**
