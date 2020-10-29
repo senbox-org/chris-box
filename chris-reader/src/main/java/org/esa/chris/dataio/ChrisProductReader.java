@@ -17,7 +17,6 @@ package org.esa.chris.dataio;
 
 import com.bc.ceres.core.Assert;
 import com.bc.ceres.core.ProgressMonitor;
-import com.sun.jna.platform.win32.NTSecApi;
 import org.esa.chris.dataio.internal.DropoutCorrection;
 import org.esa.chris.dataio.internal.MaskRefinement;
 import org.esa.chris.dataio.internal.SunPositionCalculator;
@@ -42,7 +41,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import static java.lang.Math.*;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 
 /**
  * Reader for CHRIS/Proba products.
@@ -358,8 +358,8 @@ public class ChrisProductReader extends AbstractProductReader {
         for (int i = 0; i < spectralBandCount; ++i) {
             for (final Flags flag : Flags.values()) {
 
-                final String name = new StringBuilder(rciBands[i].getName()).append("_").append(flag).toString();
-                final String expr = new StringBuilder(maskBands[i].getName()).append(".").append(flag).toString();
+                final String name = String.format("%s_%s", rciBands[i].getName(), flag);
+                final String expr = String.format("%s.%s", maskBands[i].getName(), flag);
                 product.addMask(name,
                                 expr, flag.getDescription(),
                                 flag.getColor(),
