@@ -35,6 +35,7 @@ import java.io.Writer;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -44,7 +45,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TimeZone;
-import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ConcurrentNavigableMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 
@@ -67,11 +67,11 @@ public class TimeConverter {
      * Since 1972-JAN-01 the difference between TAI and UTC
      * consists of leap-seconds only.
      */
-    private final ConcurrentNavigableMap<Double, Double> tai;
+    private ConcurrentNavigableMap<Double, Double> tai;
     /**
      * Internal UT1-UTC table.
      */
-    private final ConcurrentNavigableMap<Double, Double> ut1;
+    private ConcurrentNavigableMap<Double, Double> ut1;
     /**
      * The epoch (days) for the Julian Date (JD) which
      * corresponds to 4713-01-01 12:00 BC.
@@ -109,7 +109,6 @@ public class TimeConverter {
      * of this class is created.
      *
      * @return a reference to the single instance of this class.
-     *
      * @throws IOException if an error occurred.
      */
     public static TimeConverter getInstance() throws IOException {
@@ -128,7 +127,6 @@ public class TimeConverter {
      * for a Modified Julian Date (MJD) of interest.
      *
      * @param mjd the MJD.
-     *
      * @return the number of seconds GPS time runs ahead of UTC.
      */
     public final double deltaGPS(double mjd) {
@@ -140,7 +138,6 @@ public class TimeConverter {
      * for a Modified Julian Date (MJD) of interest.
      *
      * @param mjd the MJD.
-     *
      * @return the number of seconds TAI runs ahead of UTC.
      */
     public final double deltaTAI(double mjd) {
@@ -156,9 +153,8 @@ public class TimeConverter {
      * for a Modified Julian Date (MJD) of interest.
      *
      * @param mjd the MJD.
-     *
      * @return the number of seconds UT1 runs ahead of UTC. When UT1 lags
-     *         behind UTC the sign of the number returned is negative.
+     * behind UTC the sign of the number returned is negative.
      */
     public final double deltaUT1(double mjd) {
         if (mjd < ut1.firstKey()) {
@@ -178,8 +174,8 @@ public class TimeConverter {
      * instance of this class are older than seven days.
      *
      * @return {@code true}, when the time tables used by an
-     *         instance of this class are older than seven days,
-     *         {@code false} otherwise.
+     * instance of this class are older than seven days,
+     * {@code false} otherwise.
      */
     public boolean isOutdated() {
         return new Date().getTime() - lastModified() > SEVEN_DAYS_IN_MILLIS;
@@ -191,7 +187,6 @@ public class TimeConverter {
      * 'finals.dat' from ftp://maia.usno.navy.mil/ser7/
      *
      * @param pm the {@link ProgressMonitor}.
-     *
      * @throws IOException when an IO error occurred.
      */
     public void updateTimeTables(ProgressMonitor pm) throws IOException {
@@ -213,7 +208,7 @@ public class TimeConverter {
     private static TimeConverter createInstance() throws IOException {
         final TimeConverter timeConverter = new TimeConverter();
 
-        readTAI(FILE_NAME_TAI, timeConverter.tai);
+        timeConverter.tai = readTAI(FILE_NAME_TAI);
         readUT1(FILE_NAME_UT1, timeConverter.ut1);
 
         return timeConverter;
@@ -244,27 +239,31 @@ public class TimeConverter {
      * Updates the internal UT1-UTC table with newer data read from a URL.
      *
      * @param inputStream the input stream to read from
-     * @param pm   the {@link ProgressMonitor}.
-     *
+     * @param pm          the {@link ProgressMonitor}.
      * @throws IOException if an error occurred.
      */
     private void updateTAI(InputStream inputStream, ProgressMonitor pm) throws IOException {
-        final String[] lines = readTAI(inputStream, tai, pm);
-        writeLines(FILE_NAME_TAI, lines);
+        pm.beginTask("Updating leap second time tables", 10);
+        try {
+            File file = saveAsAuxdataFile(inputStream, FILE_NAME_TAI, SubProgressMonitor.create(pm, 7));
+            try (InputStream localInputStream = Files.newInputStream(file.toPath())) {
+                tai = readTAI(localInputStream, SubProgressMonitor.create(pm, 3));
+            }
+        } finally {
+            pm.done();
+        }
     }
 
     /**
      * Updates the internal UT1-UTC table with newer data read from a URL.
      *
      * @param inputStream the input stream to read from
-     * @param pm   the {@link ProgressMonitor}.
-     *
+     * @param pm          the {@link ProgressMonitor}.
      * @throws IOException if an error occurred.
      */
     private void updateUT1(InputStream inputStream, ProgressMonitor pm) throws IOException {
         final String[] lines = readUT1(inputStream, ut1, pm);
         writeLines(FILE_NAME_UT1, lines);
-
     }
 
     private InputStream getRemoteInputStream(String urlString) throws IOException {
@@ -273,37 +272,15 @@ public class TimeConverter {
         return connection.getInputStream();
     }
 
-    private static void readTAI(String name, ConcurrentMap<Double, Double> map) throws IOException {
+    private static ConcurrentNavigableMap<Double, Double> readTAI(String name) throws IOException {
         try (InputStream inputStream = getInputStream(name)) {
-            readTAI(inputStream, map, ProgressMonitor.NULL);
+            return readTAI(inputStream, ProgressMonitor.NULL);
         }
     }
 
-    private static String[] readTAI(InputStream is, Map<Double, Double> map, ProgressMonitor pm) throws IOException {
-        final String[] lines = readLines(is, "Reading TAI-UTC data", pm);
-
-        for (final String line : lines) {
-            final int datePos = line.indexOf("=JD");
-            final int timePos = line.indexOf("TAI-UTC=");
-            final int stopPos = line.indexOf(" S ");
-
-            if (datePos == -1 || timePos == -1 || stopPos == -1) {
-                continue; // try next line
-            }
-
-            final double jd;
-            final double ls;
-
-            try {
-                jd = Double.parseDouble(line.substring(datePos + 3, timePos));
-                ls = Double.parseDouble(line.substring(timePos + 8, stopPos));
-            } catch (NumberFormatException e) {
-                throw new IOException("An error occurred while parsing the TAI-UTC data.", e);
-            }
-            map.put(jd - MJD_TO_JD_OFFSET, ls);
-        }
-
-        return lines;
+    private static ConcurrentNavigableMap<Double, Double> readTAI(InputStream is, ProgressMonitor pm) throws IOException {
+        UsnoTaiUtcDecoder decoder = new UsnoTaiUtcDecoder();
+        return decoder.decode(is, pm);
     }
 
     private static void readUT1(String name, Map<Double, Double> map) throws IOException {
@@ -347,9 +324,7 @@ public class TimeConverter {
     }
 
     private static Writer getWriter(String fileName) {
-        final File auxDataDir = getAuxdataDir();
-        auxDataDir.mkdirs();
-        final File file = new File(auxDataDir, fileName);
+        final File file = getAuxdataFile(fileName);
         try {
             final OutputStream os = new FileOutputStream(file);
             return new BufferedWriter(new OutputStreamWriter(os, StandardCharsets.US_ASCII));
@@ -358,6 +333,13 @@ public class TimeConverter {
         }
 
         return null;
+    }
+
+    @NotNull
+    private static File getAuxdataFile(String fileName) {
+        final File auxDataDir = getAuxdataDir();
+        auxDataDir.mkdirs();
+        return new File(auxDataDir, fileName);
     }
 
     @NotNull
@@ -386,6 +368,23 @@ public class TimeConverter {
         }
 
         return lineList.toArray(new String[0]);
+    }
+
+    private static File saveAsAuxdataFile(InputStream stream, String fileName, ProgressMonitor pm) throws IOException {
+        final File file = getAuxdataFile(fileName);
+        pm.beginTask("Saving auxdata data", ProgressMonitor.UNKNOWN);
+        try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
+            int length;
+            byte[] bytes = new byte[1024];
+
+            // copy data from input stream to output stream
+            while ((length = stream.read(bytes)) != -1) {
+                fileOutputStream.write(bytes, 0, length);
+            }
+        } finally {
+            pm.done();
+        }
+        return file;
     }
 
     private static void writeLines(String fileName, String[] lines) throws IOException {
@@ -434,7 +433,6 @@ public class TimeConverter {
      * Returns the Julian Date (JD) corresponding to a date.
      *
      * @param date the date.
-     *
      * @return the JD corresponding to the date.
      */
     public static double dateToJD(Date date) {
@@ -445,7 +443,6 @@ public class TimeConverter {
      * Returns the Modified Julian Date (MJD) corresponding to a date.
      *
      * @param date the date.
-     *
      * @return the MJD corresponding to the date.
      */
     public static double dateToMJD(Date date) {
@@ -456,7 +453,6 @@ public class TimeConverter {
      * Returns the date corresponding to a Modified Julian Date (MJD).
      *
      * @param mjd the MJD.
-     *
      * @return the date corresponding to the MJD.
      */
     public static Date mjdToDate(double mjd) {
@@ -467,7 +463,6 @@ public class TimeConverter {
      * Returns the date corresponding to an MJD2000.
      *
      * @param mjd2000 the MJD2000.
-     *
      * @return the date corresponding to the MJD2000.
      */
     public static Date mjd2000ToDate(double mjd2000) {
@@ -480,7 +475,6 @@ public class TimeConverter {
      * Note that the unit of GST is radian (rad).
      *
      * @param mjd the UT1 expressed as Modified Julian Date (MJD).
-     *
      * @return the GST corresponding to the MJD given.
      */
     public static double mjdToGST(double mjd) {
@@ -522,7 +516,6 @@ public class TimeConverter {
      * Returns the Julian Date (JD) corresponding to a Modified Julian Date (JD).
      *
      * @param mjd the MJD.
-     *
      * @return the JD corresponding to the MJD.
      */
     public static double mjdToJD(double mjd) {
@@ -535,7 +528,6 @@ public class TimeConverter {
      * Note that the unit of GST is radian (rad).
      *
      * @param jd the UT1 expressed as Julian Date (JD).
-     *
      * @return the GST corresponding to the JD given.
      */
     public static double jdToGST(double jd) {
@@ -546,7 +538,6 @@ public class TimeConverter {
      * Returns the Modified Julian Date (MJD) corresponding to a Julian Date (JD).
      *
      * @param jd the JD.
-     *
      * @return the MJD corresponding to the JD.
      */
     public static double jdToMJD(double jd) {
@@ -559,7 +550,6 @@ public class TimeConverter {
      * @param year       the year.
      * @param month      the month (zero-based, e.g. use 0 for January and 11 for December).
      * @param dayOfMonth the day-of-month.
-     *
      * @return the Julian Date.
      */
     public static double julianDate(int year, int month, int dayOfMonth) {
@@ -575,7 +565,6 @@ public class TimeConverter {
      * @param hourOfDay  the hour-of-day.
      * @param minute     the minute.
      * @param second     the second.
-     *
      * @return the Julian Date.
      */
     public static double julianDate(int year, int month, int dayOfMonth, int hourOfDay, int minute, int second) {
