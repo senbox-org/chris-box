@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentNavigableMap;
  * @author Marco Peters
  * @since CHRIS-BOX 3.0
  */
-public interface TaiUtcDecoder {
+public interface TimeTableHandler {
 
     ConcurrentNavigableMap<Double, Double> decode(InputStream streamToDecode, ProgressMonitor pm) throws IOException;
 

@@ -35,7 +35,6 @@ import java.io.Writer;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -61,6 +60,7 @@ public class TimeConverter {
     private static final String REMOTE_TAI_URL = "ftp://maia.usno.navy.mil/ser7/leapsec.dat";
     private static final String FILE_NAME_UT1 = "finals.data";
     private static final String FILE_NAME_TAI = "leapsec.dat";
+    private final UsnoTaiUtcDecoder taiUtcDecoder;
     /**
      * Internal TAI-UTC table.
      * <p/>
@@ -193,9 +193,7 @@ public class TimeConverter {
         try {
             synchronized (this) {
                 pm.beginTask("Updating UT1 and leap second time tables", 100);
-                try (InputStream stream = getRemoteInputStream(REMOTE_TAI_URL)) {
-                    updateTAI(stream, SubProgressMonitor.create(pm, 10));
-                }
+                tai = taiUtcDecoder.updateFromRemote(pm);
                 try (InputStream stream = getRemoteInputStream(REMOTE_UT1_URL)) {
                     updateUT1(stream, SubProgressMonitor.create(pm, 90));
                 }
@@ -206,15 +204,17 @@ public class TimeConverter {
     }
 
     private static TimeConverter createInstance() throws IOException {
-        final TimeConverter timeConverter = new TimeConverter();
+        final UsnoTaiUtcDecoder taiUtcDecoder = new UsnoTaiUtcDecoder(TimeConverter.REMOTE_TAI_URL, TimeConverter.FILE_NAME_TAI);
+        final TimeConverter timeConverter = new TimeConverter(taiUtcDecoder);
 
-        timeConverter.tai = readTAI(FILE_NAME_TAI);
+        timeConverter.initTAI(ProgressMonitor.NULL);
         readUT1(FILE_NAME_UT1, timeConverter.ut1);
 
         return timeConverter;
     }
 
-    private TimeConverter() {
+    private TimeConverter(UsnoTaiUtcDecoder usnoTaiUtcDecoder) {
+        taiUtcDecoder = usnoTaiUtcDecoder;
         tai = new ConcurrentSkipListMap<>();
         ut1 = new ConcurrentSkipListMap<>();
     }
@@ -242,25 +242,6 @@ public class TimeConverter {
      * @param pm          the {@link ProgressMonitor}.
      * @throws IOException if an error occurred.
      */
-    private void updateTAI(InputStream inputStream, ProgressMonitor pm) throws IOException {
-        pm.beginTask("Updating leap second time tables", 10);
-        try {
-            File file = saveAsAuxdataFile(inputStream, FILE_NAME_TAI, SubProgressMonitor.create(pm, 7));
-            try (InputStream localInputStream = Files.newInputStream(file.toPath())) {
-                tai = readTAI(localInputStream, SubProgressMonitor.create(pm, 3));
-            }
-        } finally {
-            pm.done();
-        }
-    }
-
-    /**
-     * Updates the internal UT1-UTC table with newer data read from a URL.
-     *
-     * @param inputStream the input stream to read from
-     * @param pm          the {@link ProgressMonitor}.
-     * @throws IOException if an error occurred.
-     */
     private void updateUT1(InputStream inputStream, ProgressMonitor pm) throws IOException {
         final String[] lines = readUT1(inputStream, ut1, pm);
         writeLines(FILE_NAME_UT1, lines);
@@ -272,15 +253,8 @@ public class TimeConverter {
         return connection.getInputStream();
     }
 
-    private static ConcurrentNavigableMap<Double, Double> readTAI(String name) throws IOException {
-        try (InputStream inputStream = getInputStream(name)) {
-            return readTAI(inputStream, ProgressMonitor.NULL);
-        }
-    }
-
-    private static ConcurrentNavigableMap<Double, Double> readTAI(InputStream is, ProgressMonitor pm) throws IOException {
-        UsnoTaiUtcDecoder decoder = new UsnoTaiUtcDecoder();
-        return decoder.decode(is, pm);
+    private void initTAI(ProgressMonitor pm) throws IOException {
+        tai = taiUtcDecoder.initFromAuxdata(pm);
     }
 
     private static void readUT1(String name, Map<Double, Double> map) throws IOException {
