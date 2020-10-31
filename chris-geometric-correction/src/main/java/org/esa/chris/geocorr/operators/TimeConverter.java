@@ -18,31 +18,14 @@ package org.esa.chris.geocorr.operators;
 
 import com.bc.ceres.core.ProgressMonitor;
 import com.bc.ceres.core.SubProgressMonitor;
-import org.esa.snap.core.util.SystemUtils;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
-import java.net.URL;
-import java.net.URLConnection;
-import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Locale;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.TimeZone;
 import java.util.concurrent.ConcurrentNavigableMap;
 import java.util.concurrent.ConcurrentSkipListMap;
@@ -56,11 +39,14 @@ import java.util.concurrent.ConcurrentSkipListMap;
 public class TimeConverter {
 
     private static final double SEVEN_DAYS_IN_MILLIS = 6.048E8;
-    private static final String REMOTE_UT1_URL = "ftp://maia.usno.navy.mil/ser7/finals.data";
-    private static final String REMOTE_TAI_URL = "ftp://maia.usno.navy.mil/ser7/leapsec.dat";
-    private static final String FILE_NAME_UT1 = "finals.data";
+    private static final String REMOTE_UT1_URL = "https://datacenter.iers.org/data/latestVersion/10_FINALS.DATA_IAU2000_V2013_0110.txt";
+    //private static final String REMOTE_UT1_URL = "ftp://maia.usno.navy.mil/ser7/finals.data";
+    private static final String REMOTE_TAI_URL = "ftp://hpiers.obspm.fr/iers/bul/bulc/Leap_Second.dat";
+    //private static final String REMOTE_TAI_URL = "ftp://maia.usno.navy.mil/ser7/leapsec.dat";
+    private static final String FILE_NAME_UT1 = "finals.dat";
     private static final String FILE_NAME_TAI = "leapsec.dat";
-    private final UsnoTaiUtcDecoder taiUtcDecoder;
+    private final TimeTableHandler taiUtcHandler;
+    private final TimeTableHandler ut1UtcHandler;
     /**
      * Internal TAI-UTC table.
      * <p/>
@@ -178,7 +164,8 @@ public class TimeConverter {
      * {@code false} otherwise.
      */
     public boolean isOutdated() {
-        return new Date().getTime() - lastModified() > SEVEN_DAYS_IN_MILLIS;
+        final long now = new Date().getTime();
+        return now - Math.min(taiUtcHandler.lastUpdated(), ut1UtcHandler.lastUpdated()) > SEVEN_DAYS_IN_MILLIS;
     }
 
     /**
@@ -190,227 +177,15 @@ public class TimeConverter {
      * @throws IOException when an IO error occurred.
      */
     public void updateTimeTables(ProgressMonitor pm) throws IOException {
+        pm.beginTask("Updating UT1 and leap second time tables", 100);
         try {
             synchronized (this) {
-                pm.beginTask("Updating UT1 and leap second time tables", 100);
-                tai = taiUtcDecoder.updateFromRemote(pm);
-                try (InputStream stream = getRemoteInputStream(REMOTE_UT1_URL)) {
-                    updateUT1(stream, SubProgressMonitor.create(pm, 90));
-                }
+                tai = taiUtcHandler.updateFromRemote(SubProgressMonitor.create(pm, 20));
+                ut1 = ut1UtcHandler.updateFromRemote(SubProgressMonitor.create(pm, 80));
             }
         } finally {
             pm.done();
         }
-    }
-
-    private static TimeConverter createInstance() throws IOException {
-        final UsnoTaiUtcDecoder taiUtcDecoder = new UsnoTaiUtcDecoder(TimeConverter.REMOTE_TAI_URL, TimeConverter.FILE_NAME_TAI);
-        final TimeConverter timeConverter = new TimeConverter(taiUtcDecoder);
-
-        timeConverter.initTAI(ProgressMonitor.NULL);
-        readUT1(FILE_NAME_UT1, timeConverter.ut1);
-
-        return timeConverter;
-    }
-
-    private TimeConverter(UsnoTaiUtcDecoder usnoTaiUtcDecoder) {
-        taiUtcDecoder = usnoTaiUtcDecoder;
-        tai = new ConcurrentSkipListMap<>();
-        ut1 = new ConcurrentSkipListMap<>();
-    }
-
-    /**
-     * Returns the date (in millis) when the time tables used by an
-     * instance of this class were last modified (updated).
-     *
-     * @return the date (millis) of last modification.
-     */
-    private long lastModified() {
-        synchronized (this) {
-            final File file = getFile(FILE_NAME_UT1);
-            if (file != null) {
-                return file.lastModified();
-            }
-            return 0L;
-        }
-    }
-
-    /**
-     * Updates the internal UT1-UTC table with newer data read from a URL.
-     *
-     * @param inputStream the input stream to read from
-     * @param pm          the {@link ProgressMonitor}.
-     * @throws IOException if an error occurred.
-     */
-    private void updateUT1(InputStream inputStream, ProgressMonitor pm) throws IOException {
-        final String[] lines = readUT1(inputStream, ut1, pm);
-        writeLines(FILE_NAME_UT1, lines);
-    }
-
-    private InputStream getRemoteInputStream(String urlString) throws IOException {
-        final URL url = new URL(urlString);
-        final URLConnection connection = url.openConnection();
-        return connection.getInputStream();
-    }
-
-    private void initTAI(ProgressMonitor pm) throws IOException {
-        tai = taiUtcDecoder.initFromAuxdata(pm);
-    }
-
-    private static void readUT1(String name, Map<Double, Double> map) throws IOException {
-        try (InputStream inputStream = getInputStream(name)) {
-            readUT1(inputStream, map, ProgressMonitor.NULL);
-        }
-    }
-
-    private static InputStream getInputStream(String name) throws FileNotFoundException {
-        final File finalsFile = getFile(name);
-        if (finalsFile == null) {
-            return TimeConverter.class.getResourceAsStream(name);
-        } else {
-            return new BufferedInputStream(new FileInputStream(finalsFile));
-        }
-    }
-
-    private static String[] readUT1(InputStream is, Map<Double, Double> map, ProgressMonitor pm) throws IOException {
-        final String[] lines = readLines(is, "Reading UT1-UTC data", pm);
-
-        for (final String line : lines) {
-            final String mjdString = line.substring(7, 15);
-            final String utdString = line.substring(58, 68);
-            if (mjdString.trim().isEmpty() || utdString.trim().isEmpty()) {
-                continue; // try next line
-            }
-
-            final double mjd;
-            final double utd;
-
-            try {
-                mjd = Double.parseDouble(mjdString);
-                utd = Double.parseDouble(utdString);
-            } catch (NumberFormatException e) {
-                throw new IOException("An error occurred while parsing the UT1-UTC data.", e);
-            }
-            map.put(mjd, utd);
-        }
-
-        return lines;
-    }
-
-    private static Writer getWriter(String fileName) {
-        final File file = getAuxdataFile(fileName);
-        try {
-            final OutputStream os = new FileOutputStream(file);
-            return new BufferedWriter(new OutputStreamWriter(os, StandardCharsets.US_ASCII));
-        } catch (FileNotFoundException e) {
-            // ignore
-        }
-
-        return null;
-    }
-
-    @NotNull
-    private static File getAuxdataFile(String fileName) {
-        final File auxDataDir = getAuxdataDir();
-        auxDataDir.mkdirs();
-        return new File(auxDataDir, fileName);
-    }
-
-    @NotNull
-    private static File getAuxdataDir() {
-        return SystemUtils.getAuxDataPath().resolve("chris").resolve("geometric-correction").toFile();
-    }
-
-    private static String[] readLines(InputStream is, String taskName, ProgressMonitor pm) throws IOException {
-        final Scanner scanner = new Scanner(is, StandardCharsets.US_ASCII.name());
-        scanner.useLocale(Locale.US);
-
-        final ArrayList<String> lineList = new ArrayList<>();
-        try {
-            pm.beginTask(taskName, ProgressMonitor.UNKNOWN);
-            while (scanner.hasNextLine()) {
-                if (pm.isCanceled()) {
-                    throw new IOException("Cancelled by user request.");
-                }
-                final String line = scanner.nextLine();
-                lineList.add(line);
-                pm.worked(1);
-            }
-        } finally {
-            pm.done();
-            scanner.close();
-        }
-
-        return lineList.toArray(new String[0]);
-    }
-
-    private static File saveAsAuxdataFile(InputStream stream, String fileName, ProgressMonitor pm) throws IOException {
-        final File file = getAuxdataFile(fileName);
-        pm.beginTask("Saving auxdata data", ProgressMonitor.UNKNOWN);
-        try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
-            int length;
-            byte[] bytes = new byte[1024];
-
-            // copy data from input stream to output stream
-            while ((length = stream.read(bytes)) != -1) {
-                fileOutputStream.write(bytes, 0, length);
-            }
-        } finally {
-            pm.done();
-        }
-        return file;
-    }
-
-    private static void writeLines(String fileName, String[] lines) throws IOException {
-        final Writer writer = getWriter(fileName);
-
-        if (writer != null) {
-            try {
-                for (final String line : lines) {
-                    writer.write(line);
-                    writer.write("\n");
-                }
-            } finally {
-                try {
-                    writer.close();
-                } catch (IOException e) {
-                    // ignore
-                }
-            }
-        }
-    }
-
-    private static File getFile(String fileName) {
-        final File fileDir = getAuxdataDir();
-
-        final File file = new File(fileDir, fileName);
-        if (file.canRead()) {
-            return file;
-        }
-
-        return null;
-    }
-
-    private static double interpolate(double mjd, Map.Entry<Double, Double> floor, Map.Entry<Double, Double> ceiling) {
-        final double floorKey = floor.getKey();
-        final double floorValue = floor.getValue();
-        final double ceilingKey = ceiling.getKey();
-
-        if (floorKey == ceilingKey) {
-            return floorValue;
-        }
-
-        return floorValue + (ceiling.getValue() - floorValue) * ((mjd - floorKey) / (ceilingKey - floorKey));
-    }
-
-    /**
-     * Returns the Julian Date (JD) corresponding to a date.
-     *
-     * @param date the date.
-     * @return the JD corresponding to the date.
-     */
-    public static double dateToJD(Date date) {
-        return date.getTime() / MILLIS_PER_DAY - EPOCH_JD;
     }
 
     /**
@@ -421,79 +196,6 @@ public class TimeConverter {
      */
     public static double dateToMJD(Date date) {
         return date.getTime() / MILLIS_PER_DAY - EPOCH_MJD;
-    }
-
-    /**
-     * Returns the date corresponding to a Modified Julian Date (MJD).
-     *
-     * @param mjd the MJD.
-     * @return the date corresponding to the MJD.
-     */
-    public static Date mjdToDate(double mjd) {
-        return new Date(Math.round((EPOCH_MJD + mjd) * MILLIS_PER_DAY));
-    }
-
-    /**
-     * Returns the date corresponding to an MJD2000.
-     *
-     * @param mjd2000 the MJD2000.
-     * @return the date corresponding to the MJD2000.
-     */
-    public static Date mjd2000ToDate(double mjd2000) {
-        return new Date(Math.round((EPOCH_MJD2000 + mjd2000) * MILLIS_PER_DAY));
-    }
-
-    /**
-     * Converts UT1 into Greenwich Mean Sidereal Time (GST, IAU 1982 model).
-     * <p/>
-     * Note that the unit of GST is radian (rad).
-     *
-     * @param mjd the UT1 expressed as Modified Julian Date (MJD).
-     * @return the GST corresponding to the MJD given.
-     */
-    public static double mjdToGST(double mjd) {
-        // radians per sidereal second
-        final double secRad = 7.272205216643039903848712E-5;
-
-        // seconds per day, days per Julian century
-        final double daySec = 86400.0;
-        final double cenDay = 36525.0;
-
-        // reference epoch (J2000)
-        final double mjd0 = 51544.5;
-
-        // coefficients of IAU 1982 GMST-UT1 model
-        final double a = 24110.54841;
-        final double b = 8640184.812866;
-        final double c = 0.093104;
-        final double d = 6.2E-6;
-
-        final double mjd1 = Math.floor(mjd);
-        final double mjd2 = mjd - mjd1;
-
-        // Julian centuries since epoch
-        final double t = (mjd2 + (mjd1 - mjd0)) / cenDay;
-        // fractional part of MJD(UT1) in seconds
-        final double f = daySec * mjd2;
-
-        final double twoPi = 2.0 * Math.PI;
-        final double gst = (secRad * ((a + (b + (c - d * t) * t) * t) + f)) % twoPi;
-
-        if (gst < 0.0) {
-            return gst + twoPi;
-        }
-
-        return gst;
-    }
-
-    /**
-     * Returns the Julian Date (JD) corresponding to a Modified Julian Date (JD).
-     *
-     * @param mjd the MJD.
-     * @return the JD corresponding to the MJD.
-     */
-    public static double mjdToJD(double mjd) {
-        return mjd + MJD_TO_JD_OFFSET;
     }
 
     /**
@@ -530,6 +232,80 @@ public class TimeConverter {
         return julianDate(year, month, dayOfMonth, 0, 0, 0);
     }
 
+
+    /**
+     * Returns the Julian Date (JD) corresponding to a date.
+     *
+     * @param date the date.
+     * @return the JD corresponding to the date.
+     */
+    static double dateToJD(Date date) {
+        return date.getTime() / MILLIS_PER_DAY - EPOCH_JD;
+    }
+
+    /**
+     * Returns the date corresponding to a Modified Julian Date (MJD).
+     *
+     * @param mjd the MJD.
+     * @return the date corresponding to the MJD.
+     */
+    static Date mjdToDate(double mjd) {
+        return new Date(Math.round((EPOCH_MJD + mjd) * MILLIS_PER_DAY));
+    }
+
+    /**
+     * Returns the date corresponding to an MJD2000.
+     *
+     * @param mjd2000 the MJD2000.
+     * @return the date corresponding to the MJD2000.
+     */
+    static Date mjd2000ToDate(double mjd2000) {
+        return new Date(Math.round((EPOCH_MJD2000 + mjd2000) * MILLIS_PER_DAY));
+    }
+
+    /**
+     * Converts UT1 into Greenwich Mean Sidereal Time (GST, IAU 1982 model).
+     * <p/>
+     * Note that the unit of GST is radian (rad).
+     *
+     * @param mjd the UT1 expressed as Modified Julian Date (MJD).
+     * @return the GST corresponding to the MJD given.
+     */
+    static double mjdToGST(double mjd) {
+        // radians per sidereal second
+        final double secRad = 7.272205216643039903848712E-5;
+
+        // seconds per day, days per Julian century
+        final double daySec = 86400.0;
+        final double cenDay = 36525.0;
+
+        // reference epoch (J2000)
+        final double mjd0 = 51544.5;
+
+        // coefficients of IAU 1982 GMST-UT1 model
+        final double a = 24110.54841;
+        final double b = 8640184.812866;
+        final double c = 0.093104;
+        final double d = 6.2E-6;
+
+        final double mjd1 = Math.floor(mjd);
+        final double mjd2 = mjd - mjd1;
+
+        // Julian centuries since epoch
+        final double t = (mjd2 + (mjd1 - mjd0)) / cenDay;
+        // fractional part of MJD(UT1) in seconds
+        final double f = daySec * mjd2;
+
+        final double twoPi = 2.0 * Math.PI;
+        final double gst = (secRad * ((a + (b + (c - d * t) * t) * t) + f)) % twoPi;
+
+        if (gst < 0.0) {
+            return gst + twoPi;
+        }
+
+        return gst;
+    }
+
     /**
      * Calculates the Julian Date (JD) from the given parameter.
      *
@@ -541,7 +317,7 @@ public class TimeConverter {
      * @param second     the second.
      * @return the Julian Date.
      */
-    public static double julianDate(int year, int month, int dayOfMonth, int hourOfDay, int minute, int second) {
+    private static double julianDate(int year, int month, int dayOfMonth, int hourOfDay, int minute, int second) {
         final GregorianCalendar utc = new GregorianCalendar(TimeZone.getTimeZone("UTC"));
         utc.clear();
         utc.set(year, month, dayOfMonth, hourOfDay, minute, second);
@@ -549,4 +325,40 @@ public class TimeConverter {
 
         return utc.getTimeInMillis() / MILLIS_PER_DAY - EPOCH_JD;
     }
+
+    private static double interpolate(double mjd, Map.Entry<Double, Double> floor, Map.Entry<Double, Double> ceiling) {
+        final double floorKey = floor.getKey();
+        final double floorValue = floor.getValue();
+        final double ceilingKey = ceiling.getKey();
+
+        if (floorKey == ceilingKey) {
+            return floorValue;
+        }
+
+        return floorValue + (ceiling.getValue() - floorValue) * ((mjd - floorKey) / (ceilingKey - floorKey));
+    }
+
+    private static TimeConverter createInstance() throws IOException {
+        final TimeTableHandler taiUtcHandler = new TimeTableHandler(new UsnoTaiUtcDecoder(), TimeConverter.REMOTE_TAI_URL, TimeConverter.FILE_NAME_TAI);
+        final TimeTableHandler ut1UtcHandler = new TimeTableHandler(new UsnoUt1UtcDecoder(), TimeConverter.REMOTE_UT1_URL, TimeConverter.FILE_NAME_UT1);
+        return getTimeConverter(taiUtcHandler, ut1UtcHandler);
+    }
+
+    @NotNull
+    private static TimeConverter getTimeConverter(TimeTableHandler taiUtcHandler, TimeTableHandler ut1UtcHandler) throws IOException {
+        final TimeConverter timeConverter = new TimeConverter(taiUtcHandler, ut1UtcHandler);
+
+        timeConverter.tai = timeConverter.taiUtcHandler.initFromAuxdata(ProgressMonitor.NULL);
+        timeConverter.ut1 = timeConverter.ut1UtcHandler.initFromAuxdata(ProgressMonitor.NULL);
+
+        return timeConverter;
+    }
+
+    private TimeConverter(TimeTableHandler taiUtcHandler, TimeTableHandler ut1UtcHandler) {
+        this.taiUtcHandler = taiUtcHandler;
+        this.ut1UtcHandler = ut1UtcHandler;
+        tai = new ConcurrentSkipListMap<>();
+        ut1 = new ConcurrentSkipListMap<>();
+    }
+
 }
