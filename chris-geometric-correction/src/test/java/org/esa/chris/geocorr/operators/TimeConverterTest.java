@@ -39,6 +39,11 @@ public class TimeConverterTest {
 
     private static TimeConverter timeConverter;
 
+    @BeforeClass
+    public static void beforeClass() throws Exception {
+        timeConverter = TimeConverter.getInstance();
+    }
+
     @Test
     public void getInstance() throws IOException {
         assertNotNull(timeConverter);
@@ -84,19 +89,16 @@ public class TimeConverterTest {
         }
 
         // 1992-JAN-01
-        assertEquals(-0.1251669, timeConverter.deltaUT1(48622.0), 0.0);
+        assertEquals(-0.1251659, timeConverter.deltaUT1(48622.0), 0.0);
 
         // 2008-NOV-13
-        // NOTE: Failure of this tests usually occurs because newer time data are used for calculation
-        //assertEquals(-0.5391981, timeConverter.deltaUT1(54783.0), 0.0);
+        assertEquals(-0.5391942, timeConverter.deltaUT1(54783.0), 0.0);
 
         // 2008-NOV-13
-        // NOTE: Failure of this tests usually occurs because newer time data are used for calculation
-        //assertEquals(-0.5403142, timeConverter.deltaUT1(54784.0), 0.0);
+        assertEquals(-0.5403097, timeConverter.deltaUT1(54784.0), 0.0);
 
         // 2009-NOV-21
-        // NOTE: Failure of this tests usually occurs because newer time data are used for calculation
-        //assertEquals(0.1457441, timeConverter.deltaUT1(55156.0), 0.0);
+        assertEquals(0.1527877, timeConverter.deltaUT1(55156.0), 0.0);
     }
 
     @Test
@@ -157,8 +159,4 @@ public class TimeConverterTest {
         assertEquals(2451538.5, jd, 0.0);
     }
 
-    @BeforeClass
-    public static void beforeClass() throws Exception {
-        timeConverter = TimeConverter.getInstance();
-    }
 }

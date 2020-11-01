@@ -15,7 +15,7 @@ import java.util.concurrent.ConcurrentSkipListMap;
  * @since CHRIS-BOX 3.0
  */
 class UsnoTaiUtcDecoder implements TimeTableDecoder {
-    // Can decode ftp://maia.usno.navy.mil/ser7/leapsec.dat
+    public static final String REMOTE_TAI_URL = "ftp://maia.usno.navy.mil/ser7/leapsec.dat";
 
     public ConcurrentNavigableMap<Double, Double> decode(InputStream streamToDecode, ProgressMonitor pm) throws IOException {
         pm.beginTask("Decoding leap second TAI-UTC information", ProgressMonitor.UNKNOWN);

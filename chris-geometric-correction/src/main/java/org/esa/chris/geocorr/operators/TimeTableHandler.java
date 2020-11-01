@@ -2,6 +2,7 @@ package org.esa.chris.geocorr.operators;
 
 import com.bc.ceres.core.ProgressMonitor;
 import com.bc.ceres.core.SubProgressMonitor;
+import org.esa.chris.geocorr.AuxdataInstaller;
 import org.esa.chris.geocorr.GeoCorrUtils;
 import org.jetbrains.annotations.NotNull;
 
@@ -20,7 +21,7 @@ import java.util.concurrent.ConcurrentNavigableMap;
  * @author Marco Peters
  * @since CHRIS-BOX 3.0
  */
-public class TimeTableHandler {
+class TimeTableHandler {
 
     private final TimeTableDecoder decoder;
     private final String remoteUrl;
@@ -96,11 +97,10 @@ public class TimeTableHandler {
 
     private  InputStream getAuxdataInputStream(String name) throws FileNotFoundException {
         final File finalsFile = getAuxdataFile(name);
-        if (finalsFile.exists()) {
-            return new BufferedInputStream(new FileInputStream(finalsFile));
-        } else {
-            return decoder.getClass().getResourceAsStream(name);
+        if(!finalsFile.exists() && !AuxdataInstaller.activated.get()) {
+            AuxdataInstaller.activate();
         }
+        return new BufferedInputStream(new FileInputStream(finalsFile));
     }
 
     @NotNull

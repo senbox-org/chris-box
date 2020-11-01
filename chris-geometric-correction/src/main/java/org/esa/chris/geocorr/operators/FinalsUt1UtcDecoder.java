@@ -14,11 +14,12 @@ import java.util.concurrent.ConcurrentSkipListMap;
  * @author Marco Peters
  * @since CHRIS-BOX-3.0
  */
-class UsnoUt1UtcDecoder implements TimeTableDecoder {
+class FinalsUt1UtcDecoder implements TimeTableDecoder {
+    public static final String REMOTE_DEFAULT_URL = "https://datacenter.iers.org/data/latestVersion/10_FINALS.DATA_IAU2000_V2013_0110.txt";
     // Can decode
     // * ftp://maia.usno.navy.mil/ser7/finals.data
     // * https://datacenter.iers.org/data/latestVersion/10_FINALS.DATA_IAU2000_V2013_0110.txt
-    // * ftp://cddis.gsfc.nasa.gov/pub/products/iers/finals2000A.data
+    // * and probably ftp://cddis.gsfc.nasa.gov/pub/products/iers/finals2000A.data
 
     
     @Override

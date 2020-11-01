@@ -39,10 +39,6 @@ import java.util.concurrent.ConcurrentSkipListMap;
 public class TimeConverter {
 
     private static final double SEVEN_DAYS_IN_MILLIS = 6.048E8;
-    private static final String REMOTE_UT1_URL = "https://datacenter.iers.org/data/latestVersion/10_FINALS.DATA_IAU2000_V2013_0110.txt";
-    //private static final String REMOTE_UT1_URL = "ftp://maia.usno.navy.mil/ser7/finals.data";
-    private static final String REMOTE_TAI_URL = "ftp://hpiers.obspm.fr/iers/bul/bulc/Leap_Second.dat";
-    //private static final String REMOTE_TAI_URL = "ftp://maia.usno.navy.mil/ser7/leapsec.dat";
     private static final String FILE_NAME_UT1 = "finals.dat";
     private static final String FILE_NAME_TAI = "leapsec.dat";
     private final TimeTableHandler taiUtcHandler;
@@ -180,8 +176,8 @@ public class TimeConverter {
         pm.beginTask("Updating UT1 and leap second time tables", 100);
         try {
             synchronized (this) {
-                tai = taiUtcHandler.updateFromRemote(SubProgressMonitor.create(pm, 20));
-                ut1 = ut1UtcHandler.updateFromRemote(SubProgressMonitor.create(pm, 80));
+                tai = taiUtcHandler.updateFromRemote(SubProgressMonitor.create(pm, 60));
+                ut1 = ut1UtcHandler.updateFromRemote(SubProgressMonitor.create(pm, 40));
             }
         } finally {
             pm.done();
@@ -339,8 +335,8 @@ public class TimeConverter {
     }
 
     private static TimeConverter createInstance() throws IOException {
-        final TimeTableHandler taiUtcHandler = new TimeTableHandler(new UsnoTaiUtcDecoder(), TimeConverter.REMOTE_TAI_URL, TimeConverter.FILE_NAME_TAI);
-        final TimeTableHandler ut1UtcHandler = new TimeTableHandler(new UsnoUt1UtcDecoder(), TimeConverter.REMOTE_UT1_URL, TimeConverter.FILE_NAME_UT1);
+        final TimeTableHandler taiUtcHandler = new TimeTableHandler(new IersBull60TaiUtcDecoder(), IersBull60TaiUtcDecoder.REMOTE_DEFAULT_URL, TimeConverter.FILE_NAME_TAI);
+        final TimeTableHandler ut1UtcHandler = new TimeTableHandler(new FinalsUt1UtcDecoder(), FinalsUt1UtcDecoder.REMOTE_DEFAULT_URL, TimeConverter.FILE_NAME_UT1);
         return getTimeConverter(taiUtcHandler, ut1UtcHandler);
     }
 

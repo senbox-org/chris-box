@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * Activator installing auxiliary data when the runtime is started.
+ */
 public class AuxdataInstaller implements Activator {
 
     public static AtomicBoolean activated = new AtomicBoolean(false);
@@ -18,14 +21,8 @@ public class AuxdataInstaller implements Activator {
         if (!activated.getAndSet(true)) {
 
             Path sourceDirPath = ResourceInstaller.findModuleCodeBasePath(AuxdataInstaller.class).resolve("auxdata");
-            ModuleMetadata moduleMetadata = SystemUtils.loadModuleMetadata(AuxdataInstaller.class);
 
-            String version = "unknown";
-            if (moduleMetadata != null) {
-                version = moduleMetadata.getVersion();
-            }
-
-            Path auxdataDirectory = GeoCorrUtils.getAuxdataDir().resolve(version);
+            Path auxdataDirectory = GeoCorrUtils.getAuxdataDir();
             final ResourceInstaller resourceInstaller = new ResourceInstaller(sourceDirPath, auxdataDirectory);
 
             try {
