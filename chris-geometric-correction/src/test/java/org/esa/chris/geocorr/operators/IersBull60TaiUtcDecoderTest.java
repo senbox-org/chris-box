@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 /**
  * @author Marco Peters
  */
-public class IersBull60TaUtcDecoderTest {
+public class IersBull60TaiUtcDecoderTest {
 
     @Test
     public void testDecodedData() {

@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentNavigableMap;
  * @author Marco Peters
  * @since CHRIS-BOX 3.0
  */
-public class IersBull60TaUtcDecoder implements TimeTableDecoder {
+public class IersBull60TaiUtcDecoder implements TimeTableDecoder {
     @Override
     public ConcurrentNavigableMap<Double, Double> decode(InputStream streamToDecode, ProgressMonitor pm) throws IOException {
         throw new RuntimeException("NotImplemented");
