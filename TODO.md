@@ -29,7 +29,6 @@
 
 * Check results are the same as in BEAM
   * Vertical striping correction ✔
-  * noise-reduction ✔   
   * cloud screening
     * results are the same ✔
     * RGB image and classified image are not opened for labeling ✔
@@ -52,11 +51,17 @@
       Check with another product.
   * MP: geometric correction
     * Cannot be performed because of this issue
-      https://senbox.atlassian.net/browse/CHRIS-15
+      https://senbox.atlassian.net/browse/CHRIS-15 ✔
+  * SE: TOA Reflectance Computation      
+    * Test if this is working ✔
+    * https://senbox.atlassian.net/browse/CHRIS-18 ✔
+      Masks change after processing TOA Reflectance
+  * noise-reduction   
+    Noise reduction creates horizontal stripes in radiance_1
+    https://senbox.atlassian.net/browse/CHRIS-25
   * SE: Feature extraction
     * Test if this is working
-  * SE: TOA Reflectance Computation      
-    * Test if this is working
+    
     
 
 * check for todos in code
