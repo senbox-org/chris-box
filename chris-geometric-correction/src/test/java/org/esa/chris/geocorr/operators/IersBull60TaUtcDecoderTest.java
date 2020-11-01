@@ -6,7 +6,6 @@ import static org.junit.Assert.*;
 
 /**
  * @author Marco Peters
- * @since
  */
 public class IersBull60TaUtcDecoderTest {
 

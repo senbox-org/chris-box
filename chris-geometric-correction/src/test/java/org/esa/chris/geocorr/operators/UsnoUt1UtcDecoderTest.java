@@ -17,7 +17,7 @@ public class UsnoUt1UtcDecoderTest {
     @Test
     public void testDecodedData() throws IOException {
         final UsnoUt1UtcDecoder decoder = new UsnoUt1UtcDecoder();
-        final InputStream inputStream = UsnoUt1UtcDecoderTest.class.getResourceAsStream("test_finals.data");
+        final InputStream inputStream = UsnoUt1UtcDecoderTest.class.getResourceAsStream("test_usno_finals.data");
         final ConcurrentNavigableMap<Double, Double> timeDataTable = decoder.decode(inputStream, ProgressMonitor.NULL);
 
         assertEquals(48622.0, timeDataTable.firstKey(), 1.0E-6);
