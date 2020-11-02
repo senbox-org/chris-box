@@ -165,9 +165,7 @@ public class TimeConverter {
     }
 
     /**
-     * Updates the time tables used by an instance of this class by
-     * fetching the latest versions of  the files 'leapsec.dat' and
-     * 'finals.dat' from ftp://maia.usno.navy.mil/ser7/
+     * Updates the time tables used by an instance of this class from the provided {@link TimeTableHandler}
      *
      * @param pm the {@link ProgressMonitor}.
      * @throws IOException when an IO error occurred.
