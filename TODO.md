@@ -60,7 +60,7 @@
     Noise reduction creates horizontal stripes in radiance_1
     https://senbox.atlassian.net/browse/CHRIS-25✔
   * SE: Feature extraction
-    * Test if this is working
+    * Test if this is working ✔
     
     
 
