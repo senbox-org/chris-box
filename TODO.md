@@ -58,7 +58,7 @@
       Masks change after processing TOA Reflectance
   * noise-reduction   
     Noise reduction creates horizontal stripes in radiance_1
-    https://senbox.atlassian.net/browse/CHRIS-25
+    https://senbox.atlassian.net/browse/CHRIS-25✔
   * SE: Feature extraction
     * Test if this is working
     
