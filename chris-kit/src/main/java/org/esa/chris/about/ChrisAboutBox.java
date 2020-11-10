@@ -45,7 +45,7 @@ public class ChrisAboutBox extends JPanel {
     private JPanel createVersionPanel() {
         Calendar utc = Calendar.getInstance(TimeZone.getTimeZone("UTC"), Locale.ENGLISH);
         int year = utc.get(Calendar.YEAR);
-        JLabel copyRightLabel = new JLabel("<html><b>© 2007-" + year + " Brockmann Consult GmbH and University of Valencia</b>", SwingConstants.CENTER);
+        JLabel copyRightLabel = new JLabel("<html><b>© 2007-" + year + " Brockmann Consult GmbH, University of Valencia and Swansea University</b>", SwingConstants.CENTER);
 
         final ModuleInfo moduleInfo = Modules.getDefault().ownerOf(ChrisAboutBox.class);
         JLabel versionLabel = new JLabel("<html><b>Chris-Box version " + moduleInfo.getImplementationVersion() + "</b>", SwingConstants.CENTER);
