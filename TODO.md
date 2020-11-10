@@ -61,9 +61,10 @@
     https://senbox.atlassian.net/browse/CHRIS-25✔
   * SE: Feature extraction
     * Test if this is working ✔
+  * SE: Add about-box https://senbox.atlassian.net/browse/CHRIS-6
+    * About box added ✔
+    * Update Image about_chris.png
     
-    
-
 * check for todos in code
 * fix enable state of actions (depending on selected product)
 * GUI stuff
@@ -80,9 +81,13 @@
 * check references in help files (to other help files an external links)
 * place chrisbox-ac-lut-formatted-1nm.img somewhere and update location in readme.txt
 * update copyright year in ops and where else?
+* update ReleaseNotes.md
 
 * Deploy to maven nexus from travis
 
 * check for beam occurrences again
 * check for visat occurrences again
 
+
+
+[CHRIS-6]: https://senbox.atlassian.net/browse/CHRIS-6

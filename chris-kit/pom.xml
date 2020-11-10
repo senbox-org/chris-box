@@ -72,6 +72,14 @@
             <groupId>org.esa.chris</groupId>
             <artifactId>chris-noise-reduction</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.netbeans.api</groupId>
+            <artifactId>org-openide-modules</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.esa.snap</groupId>
+            <artifactId>snap-rcp</artifactId>
+        </dependency>
     </dependencies>
 
     <properties>
