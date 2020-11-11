@@ -63,7 +63,7 @@
     * Test if this is working ✔
   * SE: Add about-box https://senbox.atlassian.net/browse/CHRIS-6
     * About box added ✔
-    * Update Image about_chris.png
+    * Update Image about_chris.png ✔
     
 * fix enable state of actions (depending on selected product)
 * check for todos in code
