@@ -65,7 +65,7 @@
     * About box added ✔
     * Update Image about_chris.png ✔
     
-* fix enable state of actions (depending on selected product)
+* fix enable state of actions (depending on selected product SE: ✔
 * check for todos in code
 * replace TiePointGeoCoding
 
