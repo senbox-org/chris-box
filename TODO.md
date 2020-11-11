@@ -65,28 +65,30 @@
     * About box added ✔
     * Update Image about_chris.png
     
-* check for todos in code
 * fix enable state of actions (depending on selected product)
-* GUI stuff
-  * fix createInternalFrame, disposeInternalFrame in LabelingDialog
-* Maybe provide a NoiseReduction Operator which combine the three steps, or document it 
-  and provide a graph. Same for cloud screening? 
+* check for todos in code
 * replace TiePointGeoCoding
+
+* Migrate wiki pages from the old confluence and update, maybe move some content to the help pages.
+* update links in manifest.mf files
+* check references in help files (to other help files an external links)
+* update copyright year in ops and where else?
+* update ReleaseNotes.md
 
 * find place for 
   * http://www.brockmann-consult.de/beam/data/Archive_CHRIS_Tags_12000_38000_Telemetry_Data.zip
   * http://194.78.233.110/products/data/CHRIS_Additional_data/index.html
-* Migrate wiki pages from the old confluence and update, maybe move some content to the help pages.
-* update links in manifest.mf files
-* check references in help files (to other help files an external links)
-* place chrisbox-ac-lut-formatted-1nm.img somewhere and update location in readme.txt
-* update copyright year in ops and where else?
-* update ReleaseNotes.md
+  * place chrisbox-ac-lut-formatted-1nm.img somewhere and update location in readme.txt
 
 * Deploy to maven nexus from travis
 
 * check for beam occurrences again
 * check for visat occurrences again
+
+Ideas:
+* Maybe provide a NoiseReduction Operator which combine the three steps, or document it 
+  and provide a graph. Same for cloud screening? 
+
 
 
 
