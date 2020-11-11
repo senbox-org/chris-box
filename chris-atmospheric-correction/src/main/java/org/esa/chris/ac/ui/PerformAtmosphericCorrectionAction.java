@@ -25,12 +25,16 @@ import org.esa.snap.ui.ModelessDialog;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.awt.ActionRegistration;
-import org.openide.util.ContextAwareAction;
 import org.openide.util.Lookup;
+import org.openide.util.LookupEvent;
+import org.openide.util.LookupListener;
 import org.openide.util.NbBundle;
+import org.openide.util.Utilities;
+import org.openide.util.WeakListeners;
 
 import javax.swing.Action;
 import java.awt.event.ActionEvent;
+import java.util.Collection;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -52,21 +56,31 @@ import java.util.concurrent.atomic.AtomicReference;
         "CTL_PerformAtmosphericCorrectionAction_MenuText=Atmospheric Correction...",
         "CTL_PerformAtmosphericCorrectionAction_ShortDescription=Calculates surface reflectances for the selected CHRIS/Proba product"
 })
-public class PerformAtmosphericCorrectionAction extends AbstractSnapAction implements ContextAwareAction {
+public class PerformAtmosphericCorrectionAction extends AbstractSnapAction implements LookupListener {
     private final AtomicReference<ModelessDialog> dialog;
+    private final Lookup.Result<Product> lookupResult;
 
     public PerformAtmosphericCorrectionAction() {
         putValue(Action.NAME, Bundle.CTL_PerformAtmosphericCorrectionAction_MenuText());
         putValue(Action.SHORT_DESCRIPTION, Bundle.CTL_PerformAtmosphericCorrectionAction_ShortDescription());
         setHelpId("chrisAtmosphericCorrectionTool");
         dialog = new AtomicReference<>();
+
+        Lookup lookup = Utilities.actionsGlobalContext();
+        lookupResult = lookup.lookupResult(Product.class);
+        lookupResult.addLookupListener(WeakListeners.create(LookupListener.class, this, lookupResult));
+        setEnabled(false);
     }
 
     @Override
-    public Action createContextAwareInstance(Lookup actionContext) {
-        Product selectedProduct = getAppContext().getSelectedProduct();
-        setEnabled(new AtmosphericCorrectionProductFilter().accept(selectedProduct));
-        return this;
+    public void resultChanged(LookupEvent ev) {
+        Collection<? extends Product> products = lookupResult.allInstances();
+        boolean enable = false;
+        AtmosphericCorrectionProductFilter productFilter = new AtmosphericCorrectionProductFilter();
+        for (Product product : products) {
+            enable = enable || productFilter.accept(product);
+        }
+        setEnabled(enable);
     }
 
     @Override

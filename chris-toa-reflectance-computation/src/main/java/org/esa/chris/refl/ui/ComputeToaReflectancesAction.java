@@ -25,12 +25,16 @@ import org.esa.snap.ui.ModelessDialog;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.awt.ActionRegistration;
-import org.openide.util.ContextAwareAction;
 import org.openide.util.Lookup;
+import org.openide.util.LookupEvent;
+import org.openide.util.LookupListener;
 import org.openide.util.NbBundle;
+import org.openide.util.Utilities;
+import org.openide.util.WeakListeners;
 
 import javax.swing.Action;
 import java.awt.event.ActionEvent;
+import java.util.Collection;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -53,33 +57,39 @@ import java.util.concurrent.atomic.AtomicReference;
         "CTL_ComputeToaReflectancesAction_MenuText=TOA Reflectance Computation...",
         "CTL_ComputeToaReflectancesAction_ShortDescription=Computes TOA reflectances for the selected CHRIS/Proba product"
 })
-public class ComputeToaReflectancesAction extends AbstractSnapAction implements ContextAwareAction {
+public class ComputeToaReflectancesAction extends AbstractSnapAction implements LookupListener {
+
     private final AtomicReference<ModelessDialog> dialog;
+    private final Lookup.Result<Product> lookupResult;
 
     public ComputeToaReflectancesAction() {
         putValue(Action.NAME, Bundle.CTL_ComputeToaReflectancesAction_MenuText());
         putValue(Action.SHORT_DESCRIPTION, Bundle.CTL_ComputeToaReflectancesAction_ShortDescription());
         setHelpId("chrisToaReflectanceComputationTool");
-
         dialog = new AtomicReference<>();
+
+        Lookup lookup = Utilities.actionsGlobalContext();
+        lookupResult = lookup.lookupResult(Product.class);
+        lookupResult.addLookupListener(WeakListeners.create(LookupListener.class, this, lookupResult));
+        setEnabled(false);
+    }
+
+    @Override
+    public void resultChanged(LookupEvent ev) {
+        Collection<? extends Product> products = lookupResult.allInstances();
+        boolean enable = false;
+        for (Product product : products) {
+            enable = enable || (product.getProductType().startsWith("CHRIS_M") &&
+                                OpUtils.findBands(product, "radiance").length != 0);
+
+        }
+        setEnabled(enable);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         dialog.compareAndSet(null, createDialog(getAppContext()));
         dialog.get().show();
-    }
-
-    @Override
-    public Action createContextAwareInstance(Lookup actionContext) {
-        Product selectedProduct = getAppContext().getSelectedProduct();
-        final boolean enabled = selectedProduct == null ||
-                selectedProduct.getProductType().startsWith("CHRIS_M") &&
-                        OpUtils.findBands(selectedProduct, "radiance").length != 0;
-
-        setEnabled(enabled);
-
-        return this;
     }
 
     private ModelessDialog createDialog(AppContext appContext) {

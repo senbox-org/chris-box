@@ -24,12 +24,16 @@ import org.esa.snap.ui.ModelessDialog;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.awt.ActionRegistration;
-import org.openide.util.ContextAwareAction;
 import org.openide.util.Lookup;
+import org.openide.util.LookupEvent;
+import org.openide.util.LookupListener;
 import org.openide.util.NbBundle;
+import org.openide.util.Utilities;
+import org.openide.util.WeakListeners;
 
 import javax.swing.Action;
 import java.awt.event.ActionEvent;
+import java.util.Collection;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -51,22 +55,32 @@ import java.util.concurrent.atomic.AtomicReference;
         "CTL_CloudScreeningAction_MenuText=Cloud Screening...",
         "CTL_CloudScreeningAction_ShortDescription=Calculates the cloud mask for the selected CHRIS/Proba product"
 })
-public class CloudScreeningAction extends AbstractSnapAction implements ContextAwareAction {
+public class CloudScreeningAction extends AbstractSnapAction implements LookupListener {
 
     private final AtomicReference<ModelessDialog> dialog;
+    private final Lookup.Result<Product> lookupResult;
 
     public CloudScreeningAction() {
         putValue(Action.NAME, Bundle.CTL_CloudScreeningAction_MenuText());
         putValue(Action.SHORT_DESCRIPTION, Bundle.CTL_CloudScreeningAction_ShortDescription());
         setHelpId("chrisCloudScreeningTools");
         dialog = new AtomicReference<>();
+
+        Lookup lookup = Utilities.actionsGlobalContext();
+        lookupResult = lookup.lookupResult(Product.class);
+        lookupResult.addLookupListener(WeakListeners.create(LookupListener.class, this, lookupResult));
+        setEnabled(false);
     }
 
     @Override
-    public Action createContextAwareInstance(Lookup actionContext) {
-        Product selectedProduct = getAppContext().getSelectedProduct();
-        setEnabled(new CloudScreeningProductFilter().accept(selectedProduct));
-        return this;
+    public void resultChanged(LookupEvent ev) {
+        Collection<? extends Product> products = lookupResult.allInstances();
+        boolean enable = false;
+        CloudScreeningProductFilter productFilter = new CloudScreeningProductFilter();
+        for (Product product : products) {
+            enable = enable || productFilter.accept(product);
+        }
+        setEnabled(enable);
     }
 
     @Override

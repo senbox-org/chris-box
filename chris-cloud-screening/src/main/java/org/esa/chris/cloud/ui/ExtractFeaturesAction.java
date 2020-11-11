@@ -25,12 +25,16 @@ import org.esa.snap.ui.ModelessDialog;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.awt.ActionRegistration;
-import org.openide.util.ContextAwareAction;
 import org.openide.util.Lookup;
+import org.openide.util.LookupEvent;
+import org.openide.util.LookupListener;
 import org.openide.util.NbBundle;
+import org.openide.util.Utilities;
+import org.openide.util.WeakListeners;
 
 import javax.swing.Action;
 import java.awt.event.ActionEvent;
+import java.util.Collection;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -53,26 +57,31 @@ import java.util.concurrent.atomic.AtomicReference;
         "CTL_ExtractFeaturesAction_ShortDescription=Extracts features from the selected CHRIS/Proba product which are used for cloud screening"
 })
 
-public class ExtractFeaturesAction extends AbstractSnapAction implements ContextAwareAction {
+public class ExtractFeaturesAction extends AbstractSnapAction implements LookupListener {
     private final AtomicReference<ModelessDialog> dialog;
+    private final Lookup.Result<Product> lookupResult;
 
     public ExtractFeaturesAction() {
         putValue(Action.NAME, Bundle.CTL_ExtractFeaturesAction_MenuText());
         putValue(Action.SHORT_DESCRIPTION, Bundle.CTL_ExtractFeaturesAction_ShortDescription());
         setHelpId("chrisExtractFeaturesTools");
         dialog = new AtomicReference<>();
+
+        Lookup lookup = Utilities.actionsGlobalContext();
+        lookupResult = lookup.lookupResult(Product.class);
+        lookupResult.addLookupListener(WeakListeners.create(LookupListener.class, this, lookupResult));
+        setEnabled(false);
     }
 
     @Override
-    public Action createContextAwareInstance(Lookup actionContext) {
-        Product selectedProduct = getAppContext().getSelectedProduct();
-        boolean enabled = selectedProduct == null ||
-                selectedProduct.getProductType().startsWith("CHRIS_M") &&
-                        OpUtils.findBands(selectedProduct, "toa_refl").length >= 18;
-
-        setEnabled(enabled);
-
-        return this;
+    public void resultChanged(LookupEvent ev) {
+        Collection<? extends Product> products = lookupResult.allInstances();
+        boolean enable = false;
+        for (Product product : products) {
+            enable = enable || (product.getProductType().startsWith("CHRIS_M") &&
+                                OpUtils.findBands(product, "toa_refl").length >= 18);
+        }
+        setEnabled(enable);
     }
 
     @Override

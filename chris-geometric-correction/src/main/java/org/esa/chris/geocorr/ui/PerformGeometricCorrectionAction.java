@@ -27,14 +27,18 @@ import org.esa.snap.ui.ModelessDialog;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.awt.ActionRegistration;
-import org.openide.util.ContextAwareAction;
 import org.openide.util.Lookup;
+import org.openide.util.LookupEvent;
+import org.openide.util.LookupListener;
 import org.openide.util.NbBundle;
+import org.openide.util.Utilities;
+import org.openide.util.WeakListeners;
 
 import javax.swing.Action;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -49,15 +53,15 @@ import java.util.concurrent.atomic.AtomicReference;
         displayName = "#CTL_PerformGeometricCorrectionAction_MenuText",
         popupText = "#CTL_PerformGeometricCorrectionAction_ShortDescription"
 )
-        @ActionReference(
-                path = "Menu/Optical/CHRIS-Proba Tools",
-                position = 4
-        )
+@ActionReference(
+        path = "Menu/Optical/CHRIS-Proba Tools",
+        position = 4
+)
 @NbBundle.Messages({
         "CTL_PerformGeometricCorrectionAction_MenuText=Geometric Correction...",
         "CTL_PerformGeometricCorrectionAction_ShortDescription=Performs the geometric correction for the selected CHRIS/Proba product"
 })
-public class PerformGeometricCorrectionAction extends AbstractSnapAction implements ContextAwareAction {
+public class PerformGeometricCorrectionAction extends AbstractSnapAction implements LookupListener {
 
     private static final String TITLE = "CHRIS/Proba Geometric Correction";
     private static final String KEY_FETCH_LATEST_TIME_TABLES = "chris.geoCorrection.fetchLatestTimeTables";
@@ -68,19 +72,29 @@ public class PerformGeometricCorrectionAction extends AbstractSnapAction impleme
             "Do you want to fetch the latest time tables now?";
 
     private final AtomicReference<ModelessDialog> dialog;
+    private final Lookup.Result<Product> lookupResult;
 
     public PerformGeometricCorrectionAction() {
         putValue(Action.NAME, Bundle.CTL_PerformGeometricCorrectionAction_MenuText());
         putValue(Action.SHORT_DESCRIPTION, Bundle.CTL_PerformGeometricCorrectionAction_ShortDescription());
         setHelpId("chrisGeometricCorrectionTool");
         dialog = new AtomicReference<>();
+
+        Lookup lookup = Utilities.actionsGlobalContext();
+        lookupResult = lookup.lookupResult(Product.class);
+        lookupResult.addLookupListener(WeakListeners.create(LookupListener.class, this, lookupResult));
+        setEnabled(false);
     }
 
     @Override
-    public Action createContextAwareInstance(Lookup actionContext) {
-        final Product selectedProduct = getAppContext().getSelectedProduct();
-        setEnabled(new GeometricCorrectionProductFilter().accept(selectedProduct));
-        return this;
+    public void resultChanged(LookupEvent ev) {
+        Collection<? extends Product> products = lookupResult.allInstances();
+        boolean enable = false;
+        GeometricCorrectionProductFilter productFilter = new GeometricCorrectionProductFilter();
+        for (Product product : products) {
+            enable = enable || productFilter.accept(product);
+        }
+        setEnabled(enable);
     }
 
     @Override

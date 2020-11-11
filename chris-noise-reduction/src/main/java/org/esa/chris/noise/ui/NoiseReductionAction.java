@@ -28,9 +28,12 @@ import org.esa.snap.ui.ModalDialog;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.awt.ActionRegistration;
-import org.openide.util.ContextAwareAction;
 import org.openide.util.Lookup;
+import org.openide.util.LookupEvent;
+import org.openide.util.LookupListener;
 import org.openide.util.NbBundle;
+import org.openide.util.Utilities;
+import org.openide.util.WeakListeners;
 
 import javax.swing.Action;
 import javax.swing.JOptionPane;
@@ -38,6 +41,7 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,6 +51,7 @@ import java.util.Map;
  *
  * @author Marco Peters
  * @author Ralf Quast
+ * @author Sabine Embacher
  */
 @ActionID(
         category = "Tools",
@@ -64,17 +69,34 @@ import java.util.Map;
         "CTL_NoiseReductionAction_MenuText=Noise Reduction...",
         "CTL_NoiseReductionAction_ShortDescription=Performs the noise reduction for the selected CHRIS/Proba product"
 })
-public class NoiseReductionAction extends AbstractSnapAction implements ContextAwareAction {
+public class NoiseReductionAction extends AbstractSnapAction implements LookupListener {
 
     static final String SOURCE_NAME_PATTERN = "${sourceName}";
 
     private static final String DIALOG_TITLE = "CHRIS/Proba Noise Reduction";
     private static final String SOURCE_NAME_REGEX = "\\$\\{sourceName}";
+    private final Lookup.Result<Product> lookupResult;
 
     public NoiseReductionAction() {
         putValue(Action.NAME, Bundle.CTL_NoiseReductionAction_MenuText());
         putValue(Action.SHORT_DESCRIPTION, Bundle.CTL_NoiseReductionAction_ShortDescription());
         setHelpId("chrisNoiseReductionTool");
+
+        Lookup lookup = Utilities.actionsGlobalContext();
+        lookupResult = lookup.lookupResult(Product.class);
+        lookupResult.addLookupListener(WeakListeners.create(LookupListener.class, this, lookupResult));
+        setEnabled(false);
+    }
+
+    @Override
+    public void resultChanged(LookupEvent ev) {
+        Collection<? extends Product> products = lookupResult.allInstances();
+        boolean enable = false;
+        NoiseReductionProductFilter productFilter = new NoiseReductionProductFilter();
+        for (Product product : products) {
+            enable = enable || productFilter.accept(product);
+        }
+        setEnabled(enable);
     }
 
     @Override
@@ -118,7 +140,7 @@ public class NoiseReductionAction extends AbstractSnapAction implements ContextA
                             String fileList = StringUtils.arrayToString(
                                     existingFilePathList.toArray(new String[0]), "\n");
                             String message = "The specified output file(s)\n{0}\nalready exists.\n\n" +
-                                    "Do you want to overwrite the existing file(s)?";
+                                             "Do you want to overwrite the existing file(s)?";
                             String formatedMessage = MessageFormat.format(message, fileList);
                             final int answer = JOptionPane.showConfirmDialog(this.getJDialog(), formatedMessage,
                                                                              DIALOG_TITLE, JOptionPane.YES_NO_OPTION);
@@ -146,13 +168,6 @@ public class NoiseReductionAction extends AbstractSnapAction implements ContextA
                 }
             }
         }
-    }
-
-    @Override
-    public Action createContextAwareInstance(Lookup actionContext) {
-        Product selectedProduct = getAppContext().getSelectedProduct();
-        setEnabled(new NoiseReductionProductFilter().accept(selectedProduct));
-        return this;
     }
 
     private void performNoiseReduction(NoiseReductionPresenter presenter,
@@ -188,7 +203,6 @@ public class NoiseReductionAction extends AbstractSnapAction implements ContextA
 
         return new File(unresolvedTargetFile.getParentFile(), resolvedFileName);
     }
-
 
     private File createDestripingFactorsTargetFile(File targetFile) {
         final String basename = FileUtils.getFilenameWithoutExtension(targetFile);
