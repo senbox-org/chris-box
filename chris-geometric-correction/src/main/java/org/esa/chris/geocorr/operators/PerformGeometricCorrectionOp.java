@@ -18,6 +18,15 @@ package org.esa.chris.geocorr.operators;
 import org.esa.chris.geocorr.operators.IctDataRecord.IctDataReader;
 import org.esa.chris.geocorr.operators.TelemetryFinder.Telemetry;
 import org.esa.chris.util.OpUtils;
+import org.esa.snap.core.dataio.geocoding.ComponentFactory;
+import org.esa.snap.core.dataio.geocoding.ComponentGeoCoding;
+import org.esa.snap.core.dataio.geocoding.ForwardCoding;
+import org.esa.snap.core.dataio.geocoding.GeoChecks;
+import org.esa.snap.core.dataio.geocoding.GeoRaster;
+import org.esa.snap.core.dataio.geocoding.InverseCoding;
+import org.esa.snap.core.dataio.geocoding.forward.TiePointBilinearForward;
+import org.esa.snap.core.dataio.geocoding.inverse.TiePointInverse;
+import org.esa.snap.core.dataio.geocoding.util.RasterUtils;
 import org.esa.snap.core.datamodel.PointingFactoryRegistry;
 import org.esa.snap.core.datamodel.Product;
 import org.esa.snap.core.datamodel.TiePointGeoCoding;
@@ -44,10 +53,10 @@ import java.util.List;
  * @since CHRIS-Box 1.5
  */
 @OperatorMetadata(alias = "chris.PerformGeometricCorrection",
-                  version = "1.0",
-                  authors = "Ralf Quast, Marco Zühlke",
-                  copyright = "(c) 2010 by Brockmann Consult",
-                  description = "Performs the geometric correction for a CHRIS/Proba RCI.")
+        version = "1.0",
+        authors = "Ralf Quast, Marco Zühlke",
+        copyright = "(c) 2010 by Brockmann Consult",
+        description = "Performs the geometric correction for a CHRIS/Proba RCI.")
 public class PerformGeometricCorrectionOp extends Operator {
 
     /**
@@ -60,16 +69,16 @@ public class PerformGeometricCorrectionOp extends Operator {
     public static final double DELAY = 0.999;
 
     @Parameter(alias = ALIAS_TELEMETRY_REPOSITORY, label = "Telemetry repository", defaultValue = ".",
-               description = "The directory searched for CHRIS telemetry data", notNull = true, notEmpty = true)
+            description = "The directory searched for CHRIS telemetry data", notNull = true, notEmpty = true)
     private File telemetryRepository;
 
     @Parameter(label = "Use target altitude", defaultValue = "true",
-               description = "If true, the pixel lines-of-sight are intersected with a modified WGS-84 ellipsoid," +
-                             "which increased by the nominal target altitude")
+            description = "If true, the pixel lines-of-sight are intersected with a modified WGS-84 ellipsoid," +
+                          "which increased by the nominal target altitude")
     private boolean useTargetAltitude;
 
     @Parameter(label = "Include pitch and roll angles (for diagnostics only)", defaultValue = "false",
-               description = "If true, the target product will include instrument pitch and roll angles per pixel")
+            description = "If true, the target product will include instrument pitch and roll angles per pixel")
     private boolean includePitchAndRoll;
 
     @SourceProduct(type = "CHRIS_M[012345][0A]?(_NR)?(_TOA_REFL)?(_AC)?")
@@ -116,10 +125,11 @@ public class PerformGeometricCorrectionOp extends Operator {
         final int w = targetProduct.getSceneRasterWidth();
         final int h = targetProduct.getSceneRasterHeight();
 
-        final float[] lons = new float[w * h];
-        final float[] lats = new float[w * h];
-        final float[] vaas = new float[w * h];
-        final float[] vzas = new float[w * h];
+        int size = w * h;
+        final float[] lons = new float[size];
+        final float[] lats = new float[size];
+        final float[] vaas = new float[size];
+        final float[] vzas = new float[size];
 
         for (int row = 0; row < h; row++) {
             final int y = backscanning ? h - 1 - row : row;
@@ -131,14 +141,16 @@ public class PerformGeometricCorrectionOp extends Operator {
             }
         }
 
-        final TiePointGrid lonGrid = addTiePointGrid(targetProduct, "lon", w, h, lons, "Longitude (deg)", "deg");
-        final TiePointGrid latGrid = addTiePointGrid(targetProduct, "lat", w, h, lats, "Latitude (deg)", "deg");
+        final String lonVarName = "lon";
+        final String latVarName = "lat";
+        addTiePointGrid(targetProduct, lonVarName, w, h, lons, "Longitude (deg)", "deg");
+        addTiePointGrid(targetProduct, latVarName, w, h, lats, "Latitude (deg)", "deg");
         addTiePointGrid(targetProduct, "vaa", w, h, vaas, "View azimuth angle (deg)", "deg");
         addTiePointGrid(targetProduct, "vza", w, h, vzas, "View zenith angle (deg)", "deg");
 
         if (includePitchAndRoll) {
-            final float[] ipas = new float[w * h];
-            final float[] iras = new float[w * h];
+            final float[] ipas = new float[size];
+            final float[] iras = new float[size];
             for (int row = 0; row < h; row++) {
                 final int y = backscanning ? h - 1 - row : row;
                 for (int x = 0; x < w; x++) {
@@ -149,8 +161,19 @@ public class PerformGeometricCorrectionOp extends Operator {
             addTiePointGrid(targetProduct, "ipa", w, h, ipas, "Instrument pitch angle (rad)", "rad");
             addTiePointGrid(targetProduct, "ira", w, h, iras, "Instrument roll angle (rad)", "rad");
         }
+        double[] lonData = new double[size];
+        double[] latData = new double[size];
+        for (int i = 0; i < lons.length; i++) {
+            lonData[i] = lons[i];
+            latData[i] = lats[i];
+        }
+        double resolutionInKm = RasterUtils.computeResolutionInKm(lonData, latData, w, h);
+        final GeoRaster geoRaster = new GeoRaster(lonData, latData, lonVarName, latVarName,
+                                                  w, h, resolutionInKm);
+        final ForwardCoding forward = ComponentFactory.getForward(TiePointBilinearForward.KEY);
+        final InverseCoding inverse = ComponentFactory.getInverse(TiePointInverse.KEY);
+        targetProduct.setSceneGeoCoding(new ComponentGeoCoding(geoRaster, forward, inverse, GeoChecks.ANTIMERIDIAN));
 
-        targetProduct.setSceneGeoCoding(new TiePointGeoCoding(latGrid, lonGrid));
         targetProduct.setPointingFactory(PointingFactoryRegistry.getInstance().getPointingFactory(productType));
 
         return targetProduct;
