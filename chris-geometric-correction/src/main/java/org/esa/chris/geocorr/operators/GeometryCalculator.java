@@ -85,7 +85,6 @@ class GeometryCalculator {
     }
 
     void calculate(boolean useTargetAltitude) {
-        // TODO: rq/rq -  REVISE CODE BELOW
         // The last element of ict_njd corresponds to the acquisition setup time, that occurs 390s before the start of acquisition.
         final double acquisitionSetupTime = ictData.ict1 - (10.0 + 390.0) / TimeConverter.SECONDS_PER_DAY - JD2001;
         double[] ict_njd = {
@@ -184,12 +183,6 @@ class GeometryCalculator {
         double[] trjU = interpolate(gps_njd, transposedEci[U], trjT);
         double[] trjV = interpolate(gps_njd, transposedEci[V], trjT);
         double[] trjW = interpolate(gps_njd, transposedEci[W], trjT);
-
-        // todo - remove this code block
-        double[] iR = new double[trjT.length];
-        for (int i = 0; i < iR.length; i++) {
-            iR[i] = Math.sqrt(trjX[i] * trjX[i] + trjY[i] * trjY[i] + trjZ[i] * trjZ[i]);
-        }
 
         // ==v==v== Get Orbital Plane Vector ==================================================
         // ---- Calculates normal vector to orbital plane --------------------------
@@ -338,11 +331,6 @@ class GeometryCalculator {
             trjV = interpolate(gps_njd, transposedEci[4], trjT);
             trjW = interpolate(gps_njd, transposedEci[5], trjT);
 
-            iR = new double[trjT.length];
-            for (int i = 0; i < iR.length; i++) {
-                iR[i] = Math.sqrt(trjX[i] * trjX[i] + trjY[i] * trjY[i] + trjZ[i] * trjZ[i]);
-            }
-
             // ==v==v== Get Orbital Plane Vector ==================================================
             // ---- Calculates normal vector to orbital plane --------------------------
             uWop = VectorMath.unitVectors(VectorMath.vectorProducts(trjX, trjY, trjZ, trjU, trjV, trjW));
@@ -381,7 +369,6 @@ class GeometryCalculator {
         }
 
         final double[][] target = iTGT0;
-        // TODO: rq/rq -  REVISE CODE ABOVE
 
         /*
            CALCULATE VIEWING GEOMETRY AND POSITIONS

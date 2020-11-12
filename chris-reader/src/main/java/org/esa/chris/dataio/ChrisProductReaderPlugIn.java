@@ -50,7 +50,6 @@ public class ChrisProductReaderPlugIn implements ProductReaderPlugIn {
             return DecodeQualification.UNABLE;
         }
 
-        // @todo 2 rq/rq write test for this logic!
         if (file.isFile() && file.getPath().toLowerCase().endsWith(ChrisConstants.DEFAULT_FILE_EXTENSION)) {
             NetcdfFile ncFile = null;
             try {

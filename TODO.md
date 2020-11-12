@@ -77,15 +77,17 @@
   * update links in manifest.mf files ✔
     * link to JIRA  and versions in manifest.mf files are now working
    
-* check for todos in code
+* check for todos in code SE: ✔
 
 * Migrate wiki pages from the old confluence and update, maybe move some content to the help pages.
-* check references in help files (to other help files an external links)
-* update copyright year in ops and where else?
+* SE: check references in help files (to other help files an external links) create new images
+* SE: update copyright year in ops and where else?
 * update ReleaseNotes.md
 
-* check for beam occurrences again
-* check for visat occurrences again
+* SE: check for beam occurrences again
+* SE: check for visat occurrences again
 
+later:
+------
 * Deployment to maven nexus from travis
 

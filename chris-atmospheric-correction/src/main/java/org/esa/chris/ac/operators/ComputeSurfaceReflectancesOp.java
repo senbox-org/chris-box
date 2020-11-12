@@ -158,7 +158,6 @@ public class ComputeSurfaceReflectancesOp extends Operator {
         saa = OpUtils.getAnnotationDouble(sourceProduct, ChrisConstants.ATTR_NAME_SOLAR_AZIMUTH_ANGLE);
         sza = OpUtils.getAnnotationDouble(sourceProduct, ChrisConstants.ATTR_NAME_SOLAR_ZENITH_ANGLE);
         alt = OpUtils.getAnnotationDouble(sourceProduct, ChrisConstants.ATTR_NAME_TARGET_ALT) / 1000.0;
-        // todo - further validation
 
         // get source bands
         toaBands = OpUtils.findBands(sourceProduct, "radiance");
@@ -446,8 +445,6 @@ public class ComputeSurfaceReflectancesOp extends Operator {
             aot550 = tableFactory.getMinAot();
             aot550 = findMaxAot(tableFactory, darkPixels, aot550, 0.05, lowerVis, upperVis);
             aot550 = findMaxAot(tableFactory, darkPixels, aot550, 0.005, lowerVis, upperVis);
-
-            // todo - refine AOT land here (rq-20100428)
 
             if (aot550 == tableFactory.getMinAot()) {
                 final double fza = OpUtils.getAnnotationDouble(sourceProduct,
