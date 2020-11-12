@@ -2,7 +2,8 @@ Manifest-Version: 1.0
 OpenIDE-Module-Display-Category: SNAP Toolboxes
 AutoUpdate-Show-In-Client: true
 AutoUpdate-Essential-Module: false
-OpenIDE-Module-Specification-Version: ${chris.nbmSpecVersion}
+OpenIDE-Module-Specification-Version: ${chrisbox.nbmSpecVersion}
+OpenIDE-Module-Implementation-Version: ${chrisbox.nbmImplVersion}
 OpenIDE-Module-Long-Description: The CHRIS-Box is a SNAP extension dedicated to the exploitation of CHRIS/Proba data
  <p>The changes for this version can be viewed in our
  <a href="https://senbox.atlassian.net/issues/?jql=project%20%3D%20CHRIS%20AND%20fixVersion%20%3D%20${chrisbox.majorVersion}.${chrisbox.minorVersion}.${chrisbox.incrementalVersion}">issue tracker</a></p>

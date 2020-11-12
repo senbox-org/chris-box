@@ -74,11 +74,12 @@
         * now located at http://step.esa.int/auxdata/chris-box/chrisbox-ac-lut-formatted-1nm.img
   * fix enable state of actions (depending on selected product SE: ✔
   * replace TiePointGeoCoding SE: ✔
+  * update links in manifest.mf files ✔
+    * link to JIRA  and versions in manifest.mf files are now working
    
 * check for todos in code
 
 * Migrate wiki pages from the old confluence and update, maybe move some content to the help pages.
-* update links in manifest.mf files
 * check references in help files (to other help files an external links)
 * update copyright year in ops and where else?
 * update ReleaseNotes.md

@@ -14,13 +14,14 @@
 
     <properties>
         <brandingToken>chris</brandingToken>
-        <chris.version>${project.version}</chris.version>
+        <chrisbox.version>${project.version}</chrisbox.version>
         <snap.version>8.0.0</snap.version>
         <netbeans.version>RELEASE82</netbeans.version>
         <javahelp.version>2.0.05</javahelp.version>
-        <chris.nbmSpecVersion>3.0.0</chris.nbmSpecVersion>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jdkToolsPath>${java.home}/../lib/tools.jar</jdkToolsPath>
+        <maven.build.timestamp.format>yyyyMMdd</maven.build.timestamp.format>
+        <buildDate>${maven.build.timestamp}</buildDate>
     </properties>
 
     <!-- Note:
@@ -47,42 +48,42 @@
             <dependency>
                 <groupId>org.esa.chris</groupId>
                 <artifactId>chris-reader</artifactId>
-                <version>${chris.version}</version>
+                <version>${chrisbox.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.esa.chris</groupId>
                 <artifactId>chris-util</artifactId>
-                <version>${chris.version}</version>
+                <version>${chrisbox.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.esa.chris</groupId>
                 <artifactId>chris-atmospheric-correction</artifactId>
-                <version>${chris.version}</version>
+                <version>${chrisbox.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.esa.chris</groupId>
                 <artifactId>chris-atmospheric-correction-lut</artifactId>
-                <version>${chris.version}</version>
+                <version>${chrisbox.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.esa.chris</groupId>
                 <artifactId>chris-toa-reflectance-computation</artifactId>
-                <version>${chris.version}</version>
+                <version>${chrisbox.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.esa.chris</groupId>
                 <artifactId>chris-cloud-screening</artifactId>
-                <version>${chris.version}</version>
+                <version>${chrisbox.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.esa.chris</groupId>
                 <artifactId>chris-geometric-correction</artifactId>
-                <version>${chris.version}</version>
+                <version>${chrisbox.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.esa.chris</groupId>
                 <artifactId>chris-noise-reduction</artifactId>
-                <version>${chris.version}</version>
+                <version>${chrisbox.version}</version>
             </dependency>
 
 
@@ -423,13 +424,39 @@
                 <version>3.0.0</version>
                 <executions>
                     <execution>
+                        <id>create-nbmSpecVersion</id>
+                        <goals>
+                            <goal>regex-property</goal>
+                        </goals>
+                        <configuration>
+                            <name>chrisbox.nbmSpecVersion</name>
+                            <value>${chrisbox.version}</value>
+                            <regex>(-SNAPSHOT)|(-rc[0-9]+)</regex>
+                            <replacement>.0</replacement>
+                            <failIfNoMatch>false</failIfNoMatch>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>create-nbmImplVersion</id>
+                        <goals>
+                            <goal>regex-property</goal>
+                        </goals>
+                        <configuration>
+                            <name>chrisbox.nbmImplVersion</name>
+                            <value>${chrisbox.version}</value>
+                            <regex>(-SNAPSHOT)|(-rc[0-9]+)</regex>
+                            <replacement>.${buildDate}</replacement>
+                            <failIfNoMatch>false</failIfNoMatch>
+                        </configuration>
+                    </execution>
+                    <execution>
                         <id>parse-version</id>
                         <goals>
                             <goal>parse-version</goal>
                         </goals>
                         <configuration>
                             <propertyPrefix>chrisbox</propertyPrefix>
-                            <versionString>${chris.nbmSpecVersion}</versionString>
+                            <versionString>${chrisbox.version}</versionString>
                         </configuration>
                     </execution>
                     <execution>
@@ -508,6 +535,7 @@
                 <groupId>org.apache.netbeans.utilities</groupId>
                 <artifactId>nbm-maven-plugin</artifactId>
             </plugin>
+
         </plugins>
 
         <pluginManagement>
