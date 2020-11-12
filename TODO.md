@@ -67,7 +67,7 @@
     
 * fix enable state of actions (depending on selected product SE: ✔
 * check for todos in code
-* replace TiePointGeoCoding
+* replace TiePointGeoCoding SE: ✔
 
 * Migrate wiki pages from the old confluence and update, maybe move some content to the help pages.
 * update links in manifest.mf files
