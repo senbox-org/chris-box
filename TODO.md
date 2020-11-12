@@ -64,10 +64,18 @@
   * SE: Add about-box https://senbox.atlassian.net/browse/CHRIS-6
     * About box added ✔
     * Update Image about_chris.png ✔
-    
-* fix enable state of actions (depending on selected product SE: ✔
+    * find place for ✔ 
+      * http://www.brockmann-consult.de/beam/data/Archive_CHRIS_Tags_12000_38000_Telemetry_Data.zip ✔
+          * now located at http://step.esa.int/auxdata/chris-box/Archive_CHRIS_Tags_12000_38000_Telemetry_Data.zip
+          * New telemetry archive is http://step.esa.int/auxdata/chris-box/Archive_CHRIS_Telemetry_Data_20201028.zip
+      * http://194.78.233.110/products/data/CHRIS_Additional_data/index.html ✔
+        * no replacement needed. This will be further used.
+      * place chrisbox-ac-lut-formatted-1nm.img somewhere and update location in readme.txt ✔
+        * now located at http://step.esa.int/auxdata/chris-box/chrisbox-ac-lut-formatted-1nm.img
+  * fix enable state of actions (depending on selected product SE: ✔
+  * replace TiePointGeoCoding SE: ✔
+   
 * check for todos in code
-* replace TiePointGeoCoding SE: ✔
 
 * Migrate wiki pages from the old confluence and update, maybe move some content to the help pages.
 * update links in manifest.mf files
@@ -75,17 +83,8 @@
 * update copyright year in ops and where else?
 * update ReleaseNotes.md
 
-* find place for 
-  * http://www.brockmann-consult.de/beam/data/Archive_CHRIS_Tags_12000_38000_Telemetry_Data.zip
-      * now located at http://step.esa.int/auxdata/chris-box/Archive_CHRIS_Tags_12000_38000_Telemetry_Data.zip
-      * Can be deleted after we have a new archive.
-  * http://194.78.233.110/products/data/CHRIS_Additional_data/index.html ✔
-    * no replacement needed. This will be further used.
-  * place chrisbox-ac-lut-formatted-1nm.img somewhere and update location in readme.txt ✔
-    * now located at http://step.esa.int/auxdata/chris-box/chrisbox-ac-lut-formatted-1nm.img
-
-* Deploy to maven nexus from travis
-
 * check for beam occurrences again
 * check for visat occurrences again
+
+* Deployment to maven nexus from travis
 
