@@ -41,7 +41,6 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,7 +58,8 @@ import java.util.Map;
 )
 @ActionRegistration(
         displayName = "#CTL_NoiseReductionAction_MenuText",
-        popupText = "#CTL_NoiseReductionAction_ShortDescription"
+        popupText = "#CTL_NoiseReductionAction_ShortDescription",
+        lazy = false
 )
 @ActionReference(
         path = "Menu/Optical/CHRIS-Proba Tools",
@@ -75,28 +75,23 @@ public class NoiseReductionAction extends AbstractSnapAction implements LookupLi
 
     private static final String DIALOG_TITLE = "CHRIS/Proba Noise Reduction";
     private static final String SOURCE_NAME_REGEX = "\\$\\{sourceName}";
-    private final Lookup.Result<Product> lookupResult;
 
     public NoiseReductionAction() {
         putValue(Action.NAME, Bundle.CTL_NoiseReductionAction_MenuText());
         putValue(Action.SHORT_DESCRIPTION, Bundle.CTL_NoiseReductionAction_ShortDescription());
         setHelpId("chrisNoiseReductionTool");
 
-        Lookup lookup = Utilities.actionsGlobalContext();
-        lookupResult = lookup.lookupResult(Product.class);
+        final Lookup lookup = Utilities.actionsGlobalContext();
+        final Lookup.Result<Product> lookupResult = lookup.lookupResult(Product.class);
         lookupResult.addLookupListener(WeakListeners.create(LookupListener.class, this, lookupResult));
         setEnabled(false);
     }
 
     @Override
     public void resultChanged(LookupEvent ev) {
-        Collection<? extends Product> products = lookupResult.allInstances();
-        boolean enable = false;
-        NoiseReductionProductFilter productFilter = new NoiseReductionProductFilter();
-        for (Product product : products) {
-            enable = enable || productFilter.accept(product);
-        }
-        setEnabled(enable);
+        final Product selectedProduct = getAppContext().getSelectedProduct();
+        final NoiseReductionProductFilter productFilter = new NoiseReductionProductFilter();
+        setEnabled(productFilter.accept(selectedProduct));
     }
 
     @Override

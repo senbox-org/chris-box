@@ -34,7 +34,6 @@ import org.openide.util.WeakListeners;
 
 import javax.swing.Action;
 import java.awt.event.ActionEvent;
-import java.util.Collection;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -46,7 +45,8 @@ import java.util.concurrent.atomic.AtomicReference;
 )
 @ActionRegistration(
         displayName = "#CTL_ComputeToaReflectancesAction_MenuText",
-        popupText = "#CTL_ComputeToaReflectancesAction_ShortDescription"
+        popupText = "#CTL_ComputeToaReflectancesAction_ShortDescription",
+        lazy = false
 )
 @ActionReference(
         path = "Menu/Optical/CHRIS-Proba Tools",
@@ -60,7 +60,6 @@ import java.util.concurrent.atomic.AtomicReference;
 public class ComputeToaReflectancesAction extends AbstractSnapAction implements LookupListener {
 
     private final AtomicReference<ModelessDialog> dialog;
-    private final Lookup.Result<Product> lookupResult;
 
     public ComputeToaReflectancesAction() {
         putValue(Action.NAME, Bundle.CTL_ComputeToaReflectancesAction_MenuText());
@@ -68,21 +67,18 @@ public class ComputeToaReflectancesAction extends AbstractSnapAction implements 
         setHelpId("chrisToaReflectanceComputationTool");
         dialog = new AtomicReference<>();
 
-        Lookup lookup = Utilities.actionsGlobalContext();
-        lookupResult = lookup.lookupResult(Product.class);
+        final Lookup lookup = Utilities.actionsGlobalContext();
+        final Lookup.Result<Product> lookupResult = lookup.lookupResult(Product.class);
         lookupResult.addLookupListener(WeakListeners.create(LookupListener.class, this, lookupResult));
         setEnabled(false);
     }
 
     @Override
     public void resultChanged(LookupEvent ev) {
-        Collection<? extends Product> products = lookupResult.allInstances();
-        boolean enable = false;
-        for (Product product : products) {
-            enable = enable || (product.getProductType().startsWith("CHRIS_M") &&
-                                OpUtils.findBands(product, "radiance").length != 0);
-
-        }
+        final Product selectedProduct = getAppContext().getSelectedProduct();
+        final boolean enable = selectedProduct != null
+                               && selectedProduct.getProductType().startsWith("CHRIS_M")
+                               && OpUtils.findBands(selectedProduct, "radiance").length != 0;
         setEnabled(enable);
     }
 

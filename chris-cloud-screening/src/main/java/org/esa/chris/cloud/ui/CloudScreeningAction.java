@@ -33,7 +33,6 @@ import org.openide.util.WeakListeners;
 
 import javax.swing.Action;
 import java.awt.event.ActionEvent;
-import java.util.Collection;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -45,7 +44,8 @@ import java.util.concurrent.atomic.AtomicReference;
 )
 @ActionRegistration(
         displayName = "#CTL_CloudScreeningAction_MenuText",
-        popupText = "#CTL_CloudScreeningAction_ShortDescription"
+        popupText = "#CTL_CloudScreeningAction_ShortDescription",
+        lazy = false
 )
 @ActionReference(
         path = "Menu/Optical/CHRIS-Proba Tools",
@@ -58,7 +58,6 @@ import java.util.concurrent.atomic.AtomicReference;
 public class CloudScreeningAction extends AbstractSnapAction implements LookupListener {
 
     private final AtomicReference<ModelessDialog> dialog;
-    private final Lookup.Result<Product> lookupResult;
 
     public CloudScreeningAction() {
         putValue(Action.NAME, Bundle.CTL_CloudScreeningAction_MenuText());
@@ -66,21 +65,17 @@ public class CloudScreeningAction extends AbstractSnapAction implements LookupLi
         setHelpId("chrisCloudScreeningTools");
         dialog = new AtomicReference<>();
 
-        Lookup lookup = Utilities.actionsGlobalContext();
-        lookupResult = lookup.lookupResult(Product.class);
+        final Lookup lookup = Utilities.actionsGlobalContext();
+        final Lookup.Result<Product> lookupResult = lookup.lookupResult(Product.class);
         lookupResult.addLookupListener(WeakListeners.create(LookupListener.class, this, lookupResult));
         setEnabled(false);
     }
 
     @Override
     public void resultChanged(LookupEvent ev) {
-        Collection<? extends Product> products = lookupResult.allInstances();
-        boolean enable = false;
-        CloudScreeningProductFilter productFilter = new CloudScreeningProductFilter();
-        for (Product product : products) {
-            enable = enable || productFilter.accept(product);
-        }
-        setEnabled(enable);
+        final Product selectedProduct = getAppContext().getSelectedProduct();
+        final CloudScreeningProductFilter productFilter = new CloudScreeningProductFilter();
+        setEnabled(productFilter.accept(selectedProduct));
     }
 
     @Override

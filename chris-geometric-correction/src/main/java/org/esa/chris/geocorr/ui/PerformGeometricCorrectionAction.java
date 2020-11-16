@@ -38,7 +38,6 @@ import javax.swing.Action;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -51,7 +50,8 @@ import java.util.concurrent.atomic.AtomicReference;
 )
 @ActionRegistration(
         displayName = "#CTL_PerformGeometricCorrectionAction_MenuText",
-        popupText = "#CTL_PerformGeometricCorrectionAction_ShortDescription"
+        popupText = "#CTL_PerformGeometricCorrectionAction_ShortDescription",
+        lazy = false
 )
 @ActionReference(
         path = "Menu/Optical/CHRIS-Proba Tools",
@@ -72,7 +72,6 @@ public class PerformGeometricCorrectionAction extends AbstractSnapAction impleme
             "Do you want to fetch the latest time tables now?";
 
     private final AtomicReference<ModelessDialog> dialog;
-    private final Lookup.Result<Product> lookupResult;
 
     public PerformGeometricCorrectionAction() {
         putValue(Action.NAME, Bundle.CTL_PerformGeometricCorrectionAction_MenuText());
@@ -80,21 +79,17 @@ public class PerformGeometricCorrectionAction extends AbstractSnapAction impleme
         setHelpId("chrisGeometricCorrectionTool");
         dialog = new AtomicReference<>();
 
-        Lookup lookup = Utilities.actionsGlobalContext();
-        lookupResult = lookup.lookupResult(Product.class);
+        final Lookup lookup = Utilities.actionsGlobalContext();
+        final Lookup.Result<Product> lookupResult = lookup.lookupResult(Product.class);
         lookupResult.addLookupListener(WeakListeners.create(LookupListener.class, this, lookupResult));
         setEnabled(false);
     }
 
     @Override
     public void resultChanged(LookupEvent ev) {
-        Collection<? extends Product> products = lookupResult.allInstances();
-        boolean enable = false;
-        GeometricCorrectionProductFilter productFilter = new GeometricCorrectionProductFilter();
-        for (Product product : products) {
-            enable = enable || productFilter.accept(product);
-        }
-        setEnabled(enable);
+        final Product selectedProduct = getAppContext().getSelectedProduct();
+        final GeometricCorrectionProductFilter productFilter = new GeometricCorrectionProductFilter();
+        setEnabled(productFilter.accept(selectedProduct));
     }
 
     @Override

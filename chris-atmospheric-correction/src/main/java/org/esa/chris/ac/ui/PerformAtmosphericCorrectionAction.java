@@ -34,7 +34,6 @@ import org.openide.util.WeakListeners;
 
 import javax.swing.Action;
 import java.awt.event.ActionEvent;
-import java.util.Collection;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -46,7 +45,8 @@ import java.util.concurrent.atomic.AtomicReference;
 )
 @ActionRegistration(
         displayName = "#CTL_PerformAtmosphericCorrectionAction_MenuText",
-        popupText = "#CTL_PerformAtmosphericCorrectionAction_ShortDescription"
+        popupText = "#CTL_PerformAtmosphericCorrectionAction_ShortDescription",
+        lazy = false
 )
 @ActionReference(
         path = "Menu/Optical/CHRIS-Proba Tools",
@@ -58,7 +58,6 @@ import java.util.concurrent.atomic.AtomicReference;
 })
 public class PerformAtmosphericCorrectionAction extends AbstractSnapAction implements LookupListener {
     private final AtomicReference<ModelessDialog> dialog;
-    private final Lookup.Result<Product> lookupResult;
 
     public PerformAtmosphericCorrectionAction() {
         putValue(Action.NAME, Bundle.CTL_PerformAtmosphericCorrectionAction_MenuText());
@@ -66,21 +65,17 @@ public class PerformAtmosphericCorrectionAction extends AbstractSnapAction imple
         setHelpId("chrisAtmosphericCorrectionTool");
         dialog = new AtomicReference<>();
 
-        Lookup lookup = Utilities.actionsGlobalContext();
-        lookupResult = lookup.lookupResult(Product.class);
+        final Lookup lookup = Utilities.actionsGlobalContext();
+        final Lookup.Result<Product> lookupResult = lookup.lookupResult(Product.class);
         lookupResult.addLookupListener(WeakListeners.create(LookupListener.class, this, lookupResult));
         setEnabled(false);
     }
 
     @Override
     public void resultChanged(LookupEvent ev) {
-        Collection<? extends Product> products = lookupResult.allInstances();
-        boolean enable = false;
-        AtmosphericCorrectionProductFilter productFilter = new AtmosphericCorrectionProductFilter();
-        for (Product product : products) {
-            enable = enable || productFilter.accept(product);
-        }
-        setEnabled(enable);
+        final Product selectedProduct = getAppContext().getSelectedProduct();
+        final AtmosphericCorrectionProductFilter productFilter = new AtmosphericCorrectionProductFilter();
+        setEnabled(productFilter.accept(selectedProduct));
     }
 
     @Override
