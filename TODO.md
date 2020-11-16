@@ -81,6 +81,7 @@
 
 * Migrate wiki pages from the old confluence and update, maybe move some content to the help pages.
 * SE: check references in help files (to other help files an external links) create new images
+       nearly finished
 * SE: update copyright year in ops and where else?
 * update ReleaseNotes.md
 

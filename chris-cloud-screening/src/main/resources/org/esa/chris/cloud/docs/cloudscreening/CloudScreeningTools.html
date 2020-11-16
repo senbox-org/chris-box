@@ -32,8 +32,9 @@
       <td class="header">&nbsp; CHRIS/Proba Cloud Screening</td>
 
       <td class="header" align="right"><a href=
-      "../../index.html"><img src="../images/snap_header.jpg"
-      border="0" /></a></td>
+                                                  "nbdocs://org.esa.snap.snap.help/org/esa/snap/snap/help/docs/general/overview/SnapOverview.html"><img
+              src="../images/snap_header.jpg"
+              border="0"/></a></td>
     </tr>
   </table>
 
@@ -51,34 +52,38 @@
   steps:</b></p>
 
   <ol>
-    <li><b>TOA Reflectance Computation:</b> <a href=
-    "../reflectancecomputation/ReflectanceComputationTool.html">Top-of-Atmosphere
-    reflectance</a> is estimated from the CHRIS products to remove
-    in practice the dependence on particular illumination
-    conditions (day of the year and angular configuration).</li>
+    <li><b>TOA Reflectance Computation:</b> <a
+            href="nbdocs://org.esa.snap.snap.help/org/esa/chris/refl/docs/toareflectancecomputation/ToaReflectanceComputationTool.html">Top-of-Atmosphere
+      reflectance</a> is estimated from the CHRIS products to remove
+      in practice the dependence on particular illumination
+      conditions (day of the year and angular configuration).
+    </li>
 
     <li><b>Feature extraction:</b> physically-inspired features are
-    extracted to increase separability of clouds and surface taking
-    into account that the measured spectral signature depends on
-    the illumination (TOA reflectance is already estimated), the
-    atmosphere (oxygen and water vapor atmospheric absorptions are
-    used to estimate the optical path related to the cloud height),
-    and the surface (spectral whiteness and brightness helps to
-    characterize the cloud's spectral behavior).</li>
+      extracted to increase separability of clouds and surface taking
+      into account that the measured spectral signature depends on
+      the illumination (TOA reflectance is already estimated), the
+      atmosphere (oxygen and water vapor atmospheric absorptions are
+      used to estimate the optical path related to the cloud height),
+      and the surface (spectral whiteness and brightness helps to
+      characterize the cloud's spectral behavior).
+    </li>
 
-    <li><b>Image clustering:</b> an unsupervised <a href=
-    "../clusteranalysis/EM.html">Expectation-Maximization</a> (EM)
-    <a href="../clusteranalysis/ClusterAnalysis.html">clustering
-    algorithm</a> is performed on the extracted features in order
-    to separate clouds from the ground-cover while obtaining
-    posterior probabilities of each pixel to each cluster.</li>
+    <li><b>Image clustering:</b> an unsupervised <a
+            href="nbdocs://org.esa.snap.snap.help/org/esa/snap/snap/cluster/analysis/docs/clusteranalysis/EM.html">Expectation-Maximization</a>
+      (EM)
+      <a href="nbdocs://org.esa.snap.snap.help/org/esa/snap/snap/cluster/analysis/docs/clusteranalysis/ClusterAnalysis.html">clustering
+        algorithm</a> is performed on the extracted features in order
+      to separate clouds from the ground-cover while obtaining
+      posterior probabilities of each pixel to each cluster.
+    </li>
 
     <li><b>Cluster labeling:</b> resulting clusters are
-    subsequently labeled by the user. Once all clusters
-    corresponding to clouds have been identified, it is
-    straightforward to merge all the clusters belonging to a cloud
-    type (cloud-clusters). In the clustering of the extracted
-    features, the EM algorithm provides a probabilistic membership
+      subsequently labeled by the user. Once all clusters
+      corresponding to clouds have been identified, it is
+      straightforward to merge all the clusters belonging to a cloud
+      type (cloud-clusters). In the clustering of the extracted
+      features, the EM algorithm provides a probabilistic membership
     for each cluster, thus the probability of being cloud is
     computed as the sum of the posteriors of the
     cloud-clusters.</li>
@@ -163,13 +168,13 @@
   resulting image of the clustering. Additionally a window is
   opened showing a table with an entry for each class.</p>
 
-  <p class="inote"><b>Hint:</b><br />
-  Use the <b>Tile Evenly</b> command in the <b>Window</b> menu to
-  display both scenes side by side.<br />
-  It's also useful to synchronize both views. Use the chain symbol
-  in the <a href=
-  "visat/NavigationWindow.html#synchronise">Navigation Window</a>
-  for that purpose.</p>
+  <p class="inote"><b>Hint:</b><br/>
+    Use the <b>Tile Evenly</b> command in the <b>Window</b> menu to
+    display both scenes side by side.<br/>
+    It's also useful to synchronize both views. Use the chain symbol
+    in the <a href="nbdocs://org.esa.snap.snap.help/org/esa/snap/snap/help/desktop/NavigationWindow.html#synchronise">Navigation
+      Window</a>
+    for that purpose.</p>
 
   <p align="center"><img src="images/CloudLabelingWindows.png" alt=
   "Manual Cloud Labeling" /></p>
@@ -249,16 +254,18 @@
   and around cloud borders or thin semitransparent clouds.</p>
 
   <p class="inote"><b class="note">Note:</b> In these cases, the
-  default options of the <b>Compute Cloud Mask</b> command in the
-  <b>CHRIS/Proba Tools</b> submenu could be inappropriate. If
-  resulting clusters are not satisfactory, the user should run
-  again the steps of the cloud screening algorithm with the
-  following options:<br />
-  - To select the most appropriate extracted features as source
-  bands in the <a href="../clusteranalysis/EM.html">cluster
-  analysis</a>.<br />
-  - To change the number of clusters in the <a href=
-  "../clusteranalysis/EM.html">cluster analysis</a>.</p>
+    default options of the <b>Compute Cloud Mask</b> command in the
+    <b>CHRIS/Proba Tools</b> submenu could be inappropriate. If
+    resulting clusters are not satisfactory, the user should run
+    again the steps of the cloud screening algorithm with the
+    following options:<br/>
+    - To select the most appropriate extracted features as source
+    bands in the <a
+            href="nbdocs://org.esa.snap.snap.help/org/esa/snap/snap/cluster/analysis/docs/clusteranalysis/EM.html">cluster
+      analysis</a>.<br/>
+    - To change the number of clusters in the <a href=
+                                                         "nbdocs://org.esa.snap.snap.help/org/esa/snap/snap/cluster/analysis/docs/clusteranalysis/EM.html">cluster
+      analysis</a>.</p>
   <hr />
 </body>
 </html>
