@@ -25,8 +25,10 @@
 <table class="header">
     <tr class="header">
         <td class="header">&nbsp; Import CHRIS</td>
-        
-    <td class="header" align="right"><a href="nbdocs://org.esa.snap.snap.help/org/esa/snap/snap/help/docs/general/overview/SnapOverview.html"><img src="images/snap_header.jpg" border=0></a></td>
+
+        <td class="header" align="right"><a
+                href="nbdocs://org.esa.snap.snap.help/org/esa/snap/snap/help/docs/general/overview/SnapOverview.html"><img
+                src="images/snap_header.jpg" border=0></a></td>
     </tr>
 </table>
 
@@ -36,10 +38,17 @@
 
 <p class="inote">
     A brief description about the sensor characteristics can be found at
-    <object classid="java:org.netbeans.modules.javahelp.BrowserDisplayer">     
-        <param name="content" value="https://earth.esa.int/web/guest/missions/esa-operational-eo-missions/proba">
-        <param name="text" value="<html><u>https://earth.esa.int/web/guest/missions/esa-operational-eo-missions/proba</u></html>">
+    <object classid="java:org.netbeans.modules.javahelp.BrowserDisplayer">
+        <param name="content"
+               value="https://earth.esa.int/web/guest/missions/esa-operational-eo-missions/proba/instruments/chris">
+        <param name="text" value="<html><u>ESA Earth Online</u></html>">
     </object>
+    and latest data can be downloaded from
+    <object classid="java:org.netbeans.modules.javahelp.BrowserDisplayer">
+        <param name="content" value="https://earth.esa.int/web/guest/missions/esa-operational-eo-missions/proba">
+        <param name="text" value="<html><u>EO Cat</u></html>">
+    </object>
+    .
 </p>
 
 <h4>Features</h4>
@@ -47,35 +56,39 @@
 <p>The following features characterize the reader:</p>
 
 <ul>
-    <li>Autodetection of all available product modes (1-5).</li>	
-    <li>Backscanning correction.</li>
-	    <p>Images 2 and 4 are flipped vertically in order to align all images equally.</p>
+    <li>Autodetection of all available product modes (1-5).</li>
+    <li>Backscanning correction.
+        <p>Images 2 and 4 are flipped vertically in order to align all images equally.</p>
+    </li>
     <li>Removing of preceding and trailing blank (calibration and padding) pixels on every line.
-	Their number is different for each product mode.</li>
-    <li>Usage of a No-data mask. </li>
-	    <p>One of the errors affecting CHRIS images is the fact that transmission
-		of channel 2 randomly produces wrong odd pixels in image rows (drop-outs).
-		A mask of invalid pixels is available only for product version v4.1.
-		A mask refinement algorithm is used to improve this mask. For other product versions one 
-		is calculated from scratch.</p>		
-    <li>Drop-out correction</li>
-	    <p>The reader tries to corrrect all drop-out pixels by making use 
-		of both spatial and spectral information of the wrong pixel and its neighbours.
-		Each invalid pixel is replaced by a weighted average of the values of the neighbouring 
-		pixels.
-		</p>
-		<p>
-		In order to avoid the poor performance of spatial filters in border or inhomogeneous areas, 
-		the contribution of each neighbour is weighted by its similarity to the corrected pixel. 
-		In particular, this similarity is the inverse of the Euclidean distance, 
-		which is computed locally using the closer upper and bottom spectral bands to the corrected band. 
-		The result of this process is similar to a spatial interpolation but taking into account the similarity 
-		with neighbours.
-		</p>
-		<p>
-	     Values of bands with errors (indicated by the CHRIS quality mask) are not included in the computation of the spectral distance.
-		</p>
-    
+        Their number is different for each product mode.
+    </li>
+    <li>Usage of a No-data mask.
+        <p>One of the errors affecting CHRIS images is the fact that transmission
+            of channel 2 randomly produces wrong odd pixels in image rows (drop-outs).
+            A mask of invalid pixels is available only for product version v4.1.
+            A mask refinement algorithm is used to improve this mask. For other product versions one
+            is calculated from scratch.</p>
+    </li>
+    <li>Drop-out correction
+        <p>The reader tries to corrrect all drop-out pixels by making use
+            of both spatial and spectral information of the wrong pixel and its neighbours.
+            Each invalid pixel is replaced by a weighted average of the values of the neighbouring
+            pixels.
+        </p>
+        <p>
+            In order to avoid the poor performance of spatial filters in border or inhomogeneous areas,
+            the contribution of each neighbour is weighted by its similarity to the corrected pixel.
+            In particular, this similarity is the inverse of the Euclidean distance,
+            which is computed locally using the closer upper and bottom spectral bands to the corrected band.
+            The result of this process is similar to a spatial interpolation but taking into account the similarity
+            with neighbours.
+        </p>
+        <p>
+            Values of bands with errors (indicated by the CHRIS quality mask) are not included in the computation of the
+            spectral distance.
+        </p>
+    </li>
 </ul>
 
 
