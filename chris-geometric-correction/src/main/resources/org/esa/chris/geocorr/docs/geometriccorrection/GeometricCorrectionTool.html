@@ -130,8 +130,7 @@
   "http://194.78.233.110/products/data/CHRIS_Additional_data/index.html">
   http://194.78.233.110/products/data/CHRIS_Additional_data/index.html</a>.
   Older packed telemetry data can be downloaded from <a href=
-  "http://www.brockmann-consult.de/beam/data/Archive_CHRIS_Tags_12000_38000_Telemetry_Data.zip">
-  http://www.brockmann-consult.de/beam/data/Archive_CHRIS_Tags_12000_38000_Telemetry_Data.zip</a>.
+  "http://step.esa.int/auxdata/chris-box/Archive_CHRIS_Telemetry_Data_20201028.zip">http://step.esa.int/auxdata/chris-box/Archive_CHRIS_Telemetry_Data_20201028.zip</a>.
   The algorithm requires that archive is available unpacked on the
   local file system.</p>
 
@@ -199,7 +198,8 @@
     +---+---+---+
     | 7 | 8 | 9 |
     +---+---+---+
-</pre>Besides latitude and longitude, the user may specify a GCP's
+</pre>
+      Besides latitude and longitude, the user may specify a GCP's
 altitude by adding something like <code>Madrid (alt[m] =
 750)</code> to the description of a GCP. This is optional and not
 required, but improves the calculation of the instrument's pointing
@@ -245,8 +245,8 @@ target's altitude is used.
   <p>The user will be asked to update the auxiliary time tables,
   which are included in the module. The required time tables are
   updated at <a href=
-  "ftp://maia.usno.navy.mil/ser7/">ftp://maia.usno.navy.mil/ser7/</a>
-  every week. The user must let the time tables be updated
+  "ftp://hpiers.obspm.fr/iers/bul/bulc/Leap_Second.dat">ftp://hpiers.obspm.fr/iers/bul/bulc/Leap_Second.dat</a>.
+    The user must let the time tables be updated
   regularly, if he works with recent CHRIS/Proba products.</p>
 
   <p align="center"><img src="images/gc-time-tables.png" alt=
@@ -282,7 +282,7 @@ target's altitude is used.
 
   <p class="i1"><b>Telemetry repository:</b> This field is used to
   specify the directory, which contains the CHRIS telemetry data.
-  Note that the parent directory of the source product is searched
+    <b>Note</b> that the parent directory of the source product is searched
   for CHRIS telemetry data <em>before</em> the local repository
   is.</p>
 
