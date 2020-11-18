@@ -37,6 +37,17 @@ p {
     font-weight: normal;
     text-decoration: none;
     font-style: normal;
+    font-size: 13pt;
+}
+
+code {
+    color: blue;
+    font-family: courier new, courier, Monospaced, cursive;
+    text-align: left;
+    font-weight: normal;
+    text-decoration: none;
+    font-style: normal;
+    font-size: 13pt;
 }
 
 h1 {

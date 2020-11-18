@@ -33,10 +33,11 @@
             Correction
         </td>
 
-        <td class="header" align="right"><a href=
-                                                    "nbdocs://org.esa.snap.snap.help/org/esa/snap/snap/help/docs/general/overview/SnapOverview.html"><img
-                src="../images/snap_header.jpg" border=
-                "0"/></a></td>
+        <td class="header" align="right">
+            <a href="nbdocs://org.esa.snap.snap.help/org/esa/snap/snap/help/docs/general/overview/SnapOverview.html">
+                <img src="../images/snap_header.jpg" border="0"/>
+            </a>
+        </td>
     </tr>
 </table>
 
@@ -127,13 +128,25 @@
 <p>It must be noted that the method requires the corresponding
     telemetry for each acquisition.</p>
 
-<p>An archive of updated telemetry data is accesible at <a href=
-                                                                   "http://194.78.233.110/products/data/CHRIS_Additional_data/index.html">
-    http://194.78.233.110/products/data/CHRIS_Additional_data/index.html</a>.
-    Older packed telemetry data can be downloaded from <a href=
-                                                                  "http://step.esa.int/auxdata/chris-box/Archive_CHRIS_Telemetry_Data_20201028.zip">http://step.esa.int/auxdata/chris-box/Archive_CHRIS_Telemetry_Data_20201028.zip</a>.
+<p>An archive of updated telemetry data is accesible at
+    <object classid="java:org.netbeans.modules.javahelp.BrowserDisplayer">
+        <param name="content" value="http://194.78.233.110/products/data/CHRIS_Additional_data/">
+        <param name="text"
+               value="<html><u>http://194.78.233.110/products/data/CHRIS_Additional_data/index.html</u></html>">
+        <param name="textFontSize" value="13pt">
+    </object>
+    <br>
+    Older packed telemetry data can be downloaded from
+    <object classid="java:org.netbeans.modules.javahelp.BrowserDisplayer">
+        <param name="content" value="http://step.esa.int/auxdata/chris-box/Archive_CHRIS_Telemetry_Data_20201028.zip">
+        <param name="text"
+               value="<html><u>http://step.esa.int/auxdata/chris-box/Archive_CHRIS_Telemetry_Data_20201028.zip</u></html>">
+        <param name="textFontSize" value="13pt">
+    </object>
+    <br>
     The algorithm requires that archive is available unpacked on the
-    local file system.</p>
+    local file system.
+</p>
 
 <p><b>Note:</b><br>
     The server uses an old security protocol. That's why users will see warnings when accessing the server. But after
@@ -153,9 +166,13 @@
         have been removed in the meta data date value, which is
         <em>2008-05-01</em></li>
 
-    <li>Connect to the <a href=
-                                  "http://194.78.233.110/products/data/CHRIS_Additional_data/index.html">
-        telemetry archive</a></li>
+    <li>Connect to the
+        <object classid="java:org.netbeans.modules.javahelp.BrowserDisplayer">
+            <param name="content" value="http://194.78.233.110/products/data/CHRIS_Additional_data/">
+            <param name="text" value="<html><u>telemetry archive</u></html>">
+            <param name="textFontSize" value="13pt">
+        </object>
+    </li>
 
     <li>Use a filter <b>*.[Target
         Name]?????_CHRIS_center_times_[Date]_*</b> to locate the
@@ -254,17 +271,24 @@ command prompt.
 
 <p>The user will be asked to update the auxiliary time tables,
     which are included in the module. The required time tables are
-    updated at <a href=
-                          "ftp://hpiers.obspm.fr/iers/bul/bulc/Leap_Second.dat">ftp://hpiers.obspm.fr/iers/bul/bulc/Leap_Second.dat</a>.
+    updated at
+    <object classid="java:org.netbeans.modules.javahelp.BrowserDisplayer">
+        <param name="content" value="ftp://hpiers.obspm.fr/iers/bul/bulc/Leap_Second.dat">
+        <param name="text" value="<html><u>ftp://hpiers.obspm.fr/iers/bul/bulc/Leap_Second.dat</u></html>">
+        <param name="textFontSize" value="13pt">
+    </object>
+    <br>
     The user must let the time tables be updated
-    regularly, if he works with recent CHRIS/Proba products.</p>
+    regularly, if he works with recent CHRIS/Proba products.
+</p>
 
-<p align="center"><img src="images/gc-time-tables.png" alt=
-        "Update Time Tables Dialog"/></p>
+<p align="center">
+    <img src="images/gc-time-tables.png" alt="Update Time Tables Dialog"/></p>
 
 <h5>Source Product Group</h5>
 
-<p class="i1"><b>Name:</b> Here the user specifies the name of
+<p class="i1">
+    <b>Name:</b> Here the user specifies the name of
     the source product. The combo box presents a list of all products
     open in SNAP. The user may select one of these or, by clicking
     on the button next to the combo box, choose a product from the
@@ -272,56 +296,65 @@ command prompt.
 
 <h5>Target Product Group</h5>
 
-<p class="i1"><b>Name:</b> Used to specify the name of the target
-    product.</p>
+<p class="i1">
+    <b>Name:</b> Used to specify the name of the target product.</p>
 
-<p class="i1"><b>Save as:</b> Used to specify whether the target
+<p class="i1">
+    <b>Save as:</b> Used to specify whether the target
     product should be saved to the file system. The combo box
     presents a list of file formats, currently BEAM-DIMAP, GeoTIFF,
     and HDF5. The text field allows to specify a target
     directory.</p>
 
-<p class="i1"><b>Open in SNAP:</b> Used to specify whether the
+<p class="i1">
+    <b>Open in SNAP:</b> Used to specify whether the
     target product should be opened in SNAP. When the target
     product is not saved, it is opened in SNAP automatically.</p>
 
-<p align="center"><img src="images/gc-parameters.png" alt=
-        "Geometric Correction Parameters"/></p>
+<p align="center">
+    <img src="images/gc-parameters.png" alt="Geometric Correction Parameters"/></p>
 
 <h5>Processing Parameters Panel</h5>
 
-<p class="i1"><b>Telemetry repository:</b> This field is used to
-    specify the directory, which contains the CHRIS telemetry data.
+<p class="i1">
+    <b>Telemetry repository:</b> This field is used to
+    specify the directory, which contains the CHRIS telemetry data.<br>
     <b>Note</b> that the parent directory of the source product is searched
     for CHRIS telemetry data <em>before</em> the local repository
     is.</p>
 
-<p class="i1"><b>Use target altitude:</b> This field is used to
+<p class="i1">
+    <b>Use target altitude:</b> This field is used to
     specify that the nominal target altitude shall be taken into
     account when calculating the longitude and latitude coordinates,
     i.e. the pixel lines-of-sight are intersected with a modified
     WGS-84 ellipsoid, which is increased by the nominal target
-    altitude. <em>Note that the resulting geo-coding is more accurate
+    altitude.
+    <em>Note that the resulting geo-coding is more accurate
         when option has been checked, but not suitable for
         ortho-rectification.</em>.</p>
 
-<p class="i1"><b>Include pitch and roll angles:</b> This field is
+<p class="i1">
+    <b>Include pitch and roll angles:</b> This field is
     used to specify that the instrument pitch and roll angles, which
     are calculated, shall be included in the product. This option is
     for diagnostics only.</p>
 
 <h5>Button Group</h5>
 
-<p class="i1"><b>Run</b> Creates the target product. The
+<p class="i1">
+    <b>Run</b> Creates the target product. The
     geometric correction is actually deferred until the target band
     data are accessed, either by writing the product to the file
     system or by viewing the band data. When the <b>Save as</b>
     option is checked, the atmospheric correction is triggered
     automatically.</p>
 
-<p class="i1"><b>Close</b> Closes the dialog.</p>
+<p class="i1">
+    <b>Close</b> Closes the dialog.</p>
 
-<p class="i1"><b>Help</b> Displays this page in SNAP Help.</p>
+<p class="i1">
+    <b>Help</b> Displays this page in SNAP Help.</p>
 <hr/>
 </body>
 </html>
