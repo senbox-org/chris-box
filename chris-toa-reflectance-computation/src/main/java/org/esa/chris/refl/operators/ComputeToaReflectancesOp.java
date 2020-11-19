@@ -73,8 +73,8 @@ public class ComputeToaReflectancesOp extends Operator {
 
     @Override
     public void initialize() throws OperatorException {
-        sourceBandMap = new HashMap<Band, Band>(sourceProduct.getNumBands());
-        conversionFactorMap = new HashMap<Band, Double>(sourceProduct.getNumBands());
+        sourceBandMap = new HashMap<>(sourceProduct.getNumBands());
+        conversionFactorMap = new HashMap<>(sourceProduct.getNumBands());
 
         final double solarZenithAngle = OpUtils.getAnnotationDouble(sourceProduct,
                                                                     ChrisConstants.ATTR_NAME_SOLAR_ZENITH_ANGLE);
