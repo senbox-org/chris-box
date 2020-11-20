@@ -237,9 +237,12 @@ public class ComputeDestripingFactorsOp extends Operator {
                     double r1 = getDouble(rci, 0, y);
 
                     for (int x = 1; x < rci.getWidth(); ++x) {
-                        final double r2 = getDouble(rci, x, y);
+                        double r2 = getDouble(rci, x, y);
 
-                        if (!edgeMask[panorama.getY(j, y)][x] && isValid(mask, x, y) && isValid(mask, x, y)) {
+                        if (!edgeMask[panorama.getY(j, y)][x] && isValid(mask, x, y)) {
+                            // prevent NaN values in p ny e.g. division by zero or log(0)
+                            r1 = avoidZero(r1);
+                            r2 = avoidZero(r2);
                             p[x] += log(r2 / r1);
                             ++count[x];
                         }
@@ -279,12 +282,19 @@ public class ComputeDestripingFactorsOp extends Operator {
             pm.worked(1);
             // 6. Compute the correction factors
             for (int x = targetTile.getMinX(); x < targetTile.getMinX() + targetTile.getWidth(); ++x) {
-                setDouble(targetTile, x, 0, exp(-p[x]));
+                setTargetDouble(targetTile, x, exp(-p[x]));
             }
             pm.worked(1);
         } finally {
             pm.done();
         }
+    }
+
+    private double avoidZero(double r1) {
+        if(r1 == 0) {
+            return 1;
+        }
+        return r1;
     }
 
     private static boolean isValid(Tile mask, int x, int y) {
@@ -432,12 +442,12 @@ public class ComputeDestripingFactorsOp extends Operator {
         }
     }
 
-    private void setDouble(Tile tile, int x, int y, double v) {
+    private void setTargetDouble(Tile tile, int x, double v) {
         if (slitCorrection) {
             // combine slit and vertical striping correction into a single correction factor
-            tile.setSample(x, y, v / slitNoiseFactors[x]);
+            tile.setSample(x, 0, v / slitNoiseFactors[x]);
         } else {
-            tile.setSample(x, y, v);
+            tile.setSample(x, 0, v);
         }
     }
 
