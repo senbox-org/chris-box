@@ -48,7 +48,7 @@ import static java.lang.Math.min;
 @OperatorMetadata(alias = "chris.CorrectDropouts",
                   version = "1.0",
                   authors = "Ralf Quast",
-                  copyright = "(c) 2007 by Brockmann Consult",
+                  copyright = "(c) 2007-2020 by Brockmann Consult",
                   description = "Carries out the dropout correction for a CHRIS/Proba RCI.")
 public class CorrectDropoutsOp extends Operator {
 

@@ -49,7 +49,7 @@ import static java.lang.Math.*;
 @OperatorMetadata(alias = "chris.ComputeToaReflectances",
                   version = "1.0",
                   authors = "Ralf Quast",
-                  copyright = "(c) 2007 by Brockmann Consult",
+                  copyright = "(c) 2007-2020 by Brockmann Consult",
                   description = "Computes TOA reflectances from a CHRIS/Proba RCI.")
 public class ComputeToaReflectancesOp extends Operator {
 

@@ -55,7 +55,7 @@ import static java.lang.Math.toRadians;
 @OperatorMetadata(alias = "chris.ExtractFeatures",
                   version = "1.0",
                   authors = "Ralf Quast",
-                  copyright = "(c) 2007 by Brockmann Consult",
+                  copyright = "(c) 2007-2020 by Brockmann Consult",
                   description = "Extracts features from TOA reflectances needed for cloud screening.")
 public class ExtractFeaturesOp extends Operator {
 

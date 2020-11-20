@@ -43,7 +43,7 @@ import java.text.MessageFormat;
 @OperatorMetadata(alias = "chris.ApplyDestripingFactors",
                   version = "1.0",
                   authors = "Ralf Quast",
-                  copyright = "(c) 2007 by Brockmann Consult",
+                  copyright = "(c) 2007-2020 by Brockmann Consult",
                   description = "Applies a precomputed set of destriping factors to a CHRIS/Proba RCI.")
 public class ApplyDestripingFactorsOp extends Operator {
 

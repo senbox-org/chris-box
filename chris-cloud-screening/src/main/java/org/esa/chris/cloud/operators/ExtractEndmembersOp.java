@@ -50,7 +50,7 @@ import java.util.ArrayList;
 @OperatorMetadata(alias = "chris.ExtractEndmembers",
                   version = "1.0",
                   authors = "Ralf Quast, Marco Zühlke",
-                  copyright = "(c) 2008 Brockmann Consult",
+                  copyright = "(c) 2008-2020 Brockmann Consult",
                   description = "Finds endmembers for calculating cloud abundances.",
                   internal = true)
 public class ExtractEndmembersOp extends Operator {

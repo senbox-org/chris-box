@@ -40,7 +40,7 @@ import java.util.Comparator;
 @OperatorMetadata(alias = "chris.FindClusters",
                   version = "1.0",
                   authors = "Ralf Quast",
-                  copyright = "(c) 2008 by Brockmann Consult",
+                  copyright = "(c) 2008-2020 by Brockmann Consult",
                   description = "Performs an expectation-maximization (EM) cluster analysis.",
                   internal = true)
 public class FindClustersOp extends Operator {

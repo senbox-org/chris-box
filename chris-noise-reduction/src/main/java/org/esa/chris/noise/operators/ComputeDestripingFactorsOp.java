@@ -60,7 +60,7 @@ import static java.lang.Math.sqrt;
 @OperatorMetadata(alias = "chris.ComputeDestripingFactors",
                   version = "1.0",
                   authors = "Ralf Quast",
-                  copyright = "(c) 2007 by Brockmann Consult",
+                  copyright = "(c) 2007-2020 by Brockmann Consult",
                   description = "Computes the destriping factors for the given CHRIS/Proba RCIs.")
 public class ComputeDestripingFactorsOp extends Operator {
 

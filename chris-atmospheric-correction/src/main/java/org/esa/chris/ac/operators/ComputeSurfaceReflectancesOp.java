@@ -66,7 +66,7 @@ import java.util.Map;
 @OperatorMetadata(alias = "chris.ComputeSurfaceReflectances",
                   version = "1.0",
                   authors = "Ralf Quast",
-                  copyright = "(c) 2008 by Brockmann Consult",
+                  copyright = "(c) 2008-2020 by Brockmann Consult",
                   description = "Computes surface reflectances from a CHRIS/Proba RCI with cloud product.")
 public class ComputeSurfaceReflectancesOp extends Operator {
     // the number of dark pixels

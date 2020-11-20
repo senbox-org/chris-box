@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 Brockmann Consult GmbH (info@brockmann-consult.de)
+ * Copyright (C) 2010-2020 Brockmann Consult GmbH (info@brockmann-consult.de)
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -39,7 +39,7 @@ import org.esa.snap.core.gpf.annotations.TargetProduct;
 @OperatorMetadata(alias = "chris.Classify",
                   version = "1.0",
                   authors = "Ralf Quast",
-                  copyright = "(c) 2008 by Brockmann Consult",
+                  copyright = "(c) 2008-2020 by Brockmann Consult",
                   description = "Classifies features extracted from TOA reflectances.",
                   internal = true)
 public class ClassifyOp extends Operator {
