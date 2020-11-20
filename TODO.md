@@ -79,25 +79,11 @@
   * Migrate wiki pages from the old confluence and update, maybe move some content to the help pages. ✔
   * check for todos in code SE: ✔
 * SE: check references in help files (to other help files an external links) create new images ✔
-
 * [CHRIS-11] It is not possible to cancel processing ✔
-  * Noice Reduction Processing \
-    Cancelling works, but it takes time. ✔
-  * Cloud Screening Processing \
-    Cancelling works, but it takes time. ✔
-  * Atmospheric Correction Processing \
-    Cancelling works, but it generates an exception which is not displayed to the user. ✔
-  * Geometric Correction Processing \
-    Cancelling works fine. ✔ \
-    ++++++++++++++++++++++++++++++++++
-  * TOA Reflectance Computation \
-    Cancelling works fine. ✔
-  * Feature Extraction Computation \
-    The processing is too fast, so I cannot click the button in time. ✔
+* update ReleaseNotes.md
   
      
 * SE: update copyright year in ops and where else?
-* update ReleaseNotes.md
 
 * SE: check for beam occurrences again
 * SE: check for visat occurrences again
