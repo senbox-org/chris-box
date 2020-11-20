@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+
+	<servers>
+	<!-- current SNAP nexus at tilaa server -->
+        <server>
+            <id>snap-repo-public</id>
+            <username>env.NEXUS_USER</username>
+            <password>env.NEXUS_PASS</password>
+        </server>
+  </servers>
+
+</settings>

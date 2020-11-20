@@ -4,3 +4,11 @@ language: java
 
 jdk:
   - openjdk8
+
+deploy:
+  provider: script
+  script: "mvn -B deploy --settings .travis.mvn.settings.xml -DskipTests=true"
+  skip_cleanup: true
+# deploy only if tagged
+#  on:
+#    tags: true
