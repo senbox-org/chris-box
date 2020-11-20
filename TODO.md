@@ -83,9 +83,8 @@
 * update ReleaseNotes.md ✔
 * update copyright year in ops and where else ✔
 * increase operator versions ✔     
-
-* SE: check for beam occurrences again
-* SE: check for visat occurrences again
+* check for beam occurrences again ✔
+* check for visat occurrences again ✔
 
 later:
 ------
