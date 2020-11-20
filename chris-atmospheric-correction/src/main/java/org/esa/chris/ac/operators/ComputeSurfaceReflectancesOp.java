@@ -64,7 +64,7 @@ import java.util.Map;
  * @since CHRIS-BOX 1.0
  */
 @OperatorMetadata(alias = "chris.ComputeSurfaceReflectances",
-                  version = "1.0",
+                  version = "1.1",
                   authors = "Ralf Quast",
                   copyright = "(c) 2008-2020 by Brockmann Consult",
                   description = "Computes surface reflectances from a CHRIS/Proba RCI with cloud product.")

@@ -58,7 +58,7 @@ import static java.lang.Math.sqrt;
  * @author Marco Zühlke
  */
 @OperatorMetadata(alias = "chris.ComputeDestripingFactors",
-                  version = "1.0",
+                  version = "1.1",
                   authors = "Ralf Quast",
                   copyright = "(c) 2007-2020 by Brockmann Consult",
                   description = "Computes the destriping factors for the given CHRIS/Proba RCIs.")

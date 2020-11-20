@@ -46,7 +46,7 @@ import static java.lang.Math.min;
  * @author Ralf Quast
  */
 @OperatorMetadata(alias = "chris.CorrectDropouts",
-                  version = "1.0",
+                  version = "1.1",
                   authors = "Ralf Quast",
                   copyright = "(c) 2007-2020 by Brockmann Consult",
                   description = "Carries out the dropout correction for a CHRIS/Proba RCI.")

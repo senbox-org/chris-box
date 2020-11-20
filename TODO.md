@@ -82,7 +82,7 @@
 * [CHRIS-11] It is not possible to cancel processing ✔
 * update ReleaseNotes.md ✔
 * update copyright year in ops and where else ✔
-     
+* increase operator versions ✔     
 
 * SE: check for beam occurrences again
 * SE: check for visat occurrences again

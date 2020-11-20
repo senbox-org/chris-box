@@ -47,7 +47,7 @@ import static java.lang.Math.*;
  * @author Ralf Quast
  */
 @OperatorMetadata(alias = "chris.ComputeToaReflectances",
-                  version = "1.0",
+                  version = "1.1",
                   authors = "Ralf Quast",
                   copyright = "(c) 2007-2020 by Brockmann Consult",
                   description = "Computes TOA reflectances from a CHRIS/Proba RCI.")

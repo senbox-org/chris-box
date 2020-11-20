@@ -38,7 +38,7 @@ import java.util.Comparator;
  * @author Ralf Quast
  */
 @OperatorMetadata(alias = "chris.FindClusters",
-                  version = "1.0",
+                  version = "1.1",
                   authors = "Ralf Quast",
                   copyright = "(c) 2008-2020 by Brockmann Consult",
                   description = "Performs an expectation-maximization (EM) cluster analysis.",

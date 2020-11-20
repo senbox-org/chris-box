@@ -37,7 +37,7 @@ import org.esa.snap.core.gpf.annotations.TargetProduct;
  * @since CHRIS-BOX 1.0
  */
 @OperatorMetadata(alias = "chris.Classify",
-                  version = "1.0",
+                  version = "1.1",
                   authors = "Ralf Quast",
                   copyright = "(c) 2008-2020 by Brockmann Consult",
                   description = "Classifies features extracted from TOA reflectances.",

@@ -53,7 +53,7 @@ import java.util.List;
  * @since CHRIS-Box 1.5
  */
 @OperatorMetadata(alias = "chris.PerformGeometricCorrection",
-        version = "1.0",
+        version = "1.1",
         authors = "Ralf Quast, Marco Zühlke",
         copyright = "(c) 2010 by Brockmann Consult",
         description = "Performs the geometric correction for a CHRIS/Proba RCI.")
