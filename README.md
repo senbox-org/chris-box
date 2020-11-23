@@ -33,6 +33,9 @@ You can submit bug reports and feature request to the [CHRIS-Box issue tracker](
 ## More Information
 The most important source of information for the CHRIS-Box project is the [CHRIS-Box Wiki](https://senbox.atlassian.net/wiki/spaces/CHRIS/overview).
 
+## Developing
+A brief guide on how to build CHRIS-BOX and start developing can be found the [CHRIS-Box Wiki](https://senbox.atlassian.net/wiki/x/AoB_UQ) too. 
+
 Thank you for using the SNAP and the CHRIS-Box software!
 
 Copyright © 2010-2020 by Brockmann Consult (info@brockmann-consult.de). All rights reserved.
