@@ -28,7 +28,10 @@ You have received a copy of the GNU General Public License along with this progr
 Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 ## Issue reporting
-You can submit bug reports and feature request to the [CHRIS-Box issue tracker](https://github.com/senbox-org/chris-box).
+Issues and feature requests should be reported in the 
+[STEP user forum](https://senbox.atlassian.net/wiki/spaces/SNAP/pages/321126402/Collection+of+FAQs). 
+This is the best way to discuss such reports. The developers will file accepted issues in 
+the [CHRIS-Box issue tracker](https://github.com/senbox-org/chris-box).
 
 ## More Information
 The most important source of information for the CHRIS-Box project is the [CHRIS-Box Wiki](https://senbox.atlassian.net/wiki/spaces/CHRIS/overview).
