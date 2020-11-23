@@ -85,8 +85,5 @@
 * increase operator versions ✔     
 * check for beam occurrences again ✔
 * check for visat occurrences again ✔
-
-later:
-------
-* Deployment to maven nexus from travis
+* Deployment to maven nexus from travis ✔
 
