@@ -15,7 +15,7 @@ SNAP and the CHRIS-Box are developed under contract to ESA/ESRIN.
 The CHRIS-Box software has been developed by 
 * [Universidad de Valencia](http://www.uv.es) (L. Alonso, L. Gomez-Chova, L. Guanter, J. Moreno), 
 * [University of Swansea](http://www.swan.ac.uk) (P. North, W. Grey) 
-* [http://www.brockmann-consult.de](Brockmann Consult GmbH) Brockmann Consult (SNAP Team).
+* [Brockmann Consult GmbH](http://www.brockmann-consult.de) (SNAP Team).
 
 
 ## License
@@ -30,7 +30,7 @@ Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-13
 ## Issue reporting
 You can submit bug reports and feature request to the [CHRIS-Box issue tracker](https://github.com/senbox-org/chris-box).
 
-More Information
+## More Information
 The most important source of information for the CHRIS-Box project is the [CHRIS-Box Wiki](https://senbox.atlassian.net/wiki/spaces/CHRIS/overview).
 
 Thank you for using the SNAP and the CHRIS-Box software!
