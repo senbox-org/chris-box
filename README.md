@@ -1,7 +1,5 @@
 # CHRIS-Box for SNAP [![Build Status](https://travis-ci.org/senbox-org/chris-box.svg?branch=master)](https://travis-ci.org/senbox-org/chris-box)
 
-
-
 ## Introduction
 The CHRIS-Box project has been brought into life in order to support users of data of the CHRIS sensor onboard of the 
 ESA Proba platform. The CHRIS-Box comprises the following add-on modules for SNAP:

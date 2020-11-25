@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.esa.chris</groupId>
         <artifactId>chris-box</artifactId>
-        <version>3.0.0-SNAPSHOT</version>
+        <version>3.0.0</version>
     </parent>
 
     <name>CHRIS/Proba Noise Reduction</name>

@@ -1,8 +1,8 @@
 CHRIS-BOX Release Notes
 =======================
 
-Changes in CHRIS-BOX 3.0
-------------------------
+Changes in CHRIS-BOX 3.0.0
+--------------------------
 The focus for this version of CHRIS-BOX was the migration of the tools from BEAM to SNAP.
 While doing this also some issues have been fixed. For example that the leap second time 
 tables couldn't be updated anymore or that noise reduction could produce black images. 
