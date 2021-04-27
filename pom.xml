@@ -11,6 +11,7 @@
     <packaging>pom</packaging>
 
     <description>The CHRIS-Box is a SNAP extension dedicated to the exploitation of CHRIS/Proba data</description>
+    <url>https://senbox.atlassian.net/wiki/spaces/CHRIS/overview</url>
 
     <properties>
         <brandingToken>chris</brandingToken>
@@ -555,6 +556,7 @@
                     <configuration>
                         <moduleType>normal</moduleType>
                         <licenseName>GPL 3</licenseName>
+                        <homePageUrl>https://senbox.atlassian.net/wiki/spaces/CHRIS/overview</homePageUrl>
                         <licenseFile>${project.basedir}/../LICENSE.html</licenseFile>
                         <cluster>${brandingToken}</cluster>
                         <brandingToken>${brandingToken}</brandingToken>
