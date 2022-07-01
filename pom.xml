@@ -7,7 +7,7 @@
     <name>CHRIS-Box</name>
     <groupId>org.esa.chris</groupId>
     <artifactId>chris-box</artifactId>
-    <version>3.1.0-SNAPSHOT</version>
+    <version>3.1.0</version>
     <packaging>pom</packaging>
 
     <description>The CHRIS-Box is a SNAP extension dedicated to the exploitation of CHRIS/Proba data</description>
