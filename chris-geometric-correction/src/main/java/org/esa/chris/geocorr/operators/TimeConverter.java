@@ -18,7 +18,6 @@ package org.esa.chris.geocorr.operators;
 
 import com.bc.ceres.core.ProgressMonitor;
 import com.bc.ceres.core.SubProgressMonitor;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.text.MessageFormat;
@@ -338,7 +337,6 @@ public class TimeConverter {
         return getTimeConverter(taiUtcHandler, ut1UtcHandler);
     }
 
-    @NotNull
     private static TimeConverter getTimeConverter(TimeTableHandler taiUtcHandler, TimeTableHandler ut1UtcHandler) throws IOException {
         final TimeConverter timeConverter = new TimeConverter(taiUtcHandler, ut1UtcHandler);
 

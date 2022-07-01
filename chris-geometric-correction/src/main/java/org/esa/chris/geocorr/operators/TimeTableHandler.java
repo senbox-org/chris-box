@@ -4,7 +4,6 @@ import com.bc.ceres.core.ProgressMonitor;
 import com.bc.ceres.core.SubProgressMonitor;
 import org.esa.chris.geocorr.AuxdataInstaller;
 import org.esa.chris.geocorr.GeoCorrUtils;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -103,7 +102,6 @@ class TimeTableHandler {
         return new BufferedInputStream(new FileInputStream(finalsFile));
     }
 
-    @NotNull
     static File getAuxdataFile(String fileName) {
         final File auxDataDir = GeoCorrUtils.getAuxdataDir().toFile();
         auxDataDir.mkdirs();
