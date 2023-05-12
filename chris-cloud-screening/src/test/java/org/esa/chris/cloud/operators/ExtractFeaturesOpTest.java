@@ -75,8 +75,8 @@ public class ExtractFeaturesOpTest {
         Assert.assertEquals(rowCount, table[1].length);
 
         for (int i = 0; i < rowCount; ++i) {
-            Assert.assertEquals(x.get(i), new Double(table[0][i]));
-            Assert.assertEquals(y.get(i), new Double(table[1][i]));
+            Assert.assertEquals(x.get(i), table[0][i], 1.0e-6);
+            Assert.assertEquals(y.get(i), table[1][i], 1.0e-6);
         }
     }
 }

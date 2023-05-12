@@ -15,7 +15,6 @@
  */
 package org.esa.chris.cloud.operators.lut;
 
-import org.esa.chris.cloud.operators.lut.ImageBand;
 import org.esa.snap.core.datamodel.ProductData;
 import org.junit.Assert;
 import org.junit.Test;
@@ -68,19 +67,15 @@ public class ImageBandTest {
         assertEachElementEquals(7, data);
     }
 
-    @SuppressWarnings({"UnnecessaryBoxing"})
     private static RenderedImage createTestImage(int value, int imageW, int imageH) {
-        return ConstantDescriptor.create(new Float(imageW),
-                                         new Float(imageH),
-                                         new Integer[]{value},
-                                         createRenderingHints(imageW, imageH, TILE_W, TILE_H));
+        return ConstantDescriptor.create((float) imageW, (float) imageH,
+                new Integer[]{value}, createRenderingHints(imageW, imageH, TILE_W, TILE_H));
     }
 
     private static RenderingHints createRenderingHints(int imageW, int imageH, int tileW, int tileH) {
-        final SampleModel sm =
-                new ComponentSampleModelJAI(DataBuffer.TYPE_INT, imageW, imageH, 1, imageW, new int[]{0});
-        final ImageLayout imageLayout =
-                new ImageLayout(0, 0, imageW, imageH, 0, 0, tileW, tileH, sm, PlanarImage.createColorModel(sm));
+        final SampleModel sm = new ComponentSampleModelJAI(DataBuffer.TYPE_INT, imageW, imageH, 1, imageW, new int[]{0});
+        final ImageLayout imageLayout = new ImageLayout(0, 0, imageW, imageH, 0, 0, tileW, tileH, sm,
+                PlanarImage.createColorModel(sm));
 
         final RenderingHints renderingHints = new RenderingHints(JAI.KEY_TILE_CACHE, null);
         renderingHints.put(JAI.KEY_IMAGE_LAYOUT, imageLayout);
