@@ -37,7 +37,7 @@ import org.esa.snap.core.gpf.annotations.OperatorMetadata;
 import org.esa.snap.core.gpf.annotations.Parameter;
 import org.esa.snap.core.gpf.annotations.SourceProduct;
 import org.esa.snap.core.gpf.annotations.TargetProperty;
-import org.esa.snap.unmixing.Endmember;
+import eu.esa.opt.unmixing.Endmember;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;

@@ -17,6 +17,7 @@
         <brandingToken>chris</brandingToken>
         <chrisbox.version>${project.version}</chrisbox.version>
         <snap.version>10.0.0-SNAPSHOT</snap.version>
+        <opttbx.version>10.0.0-SNAPSHOT</opttbx.version>
         <snap-gui-lib.version>1.2.0</snap-gui-lib.version>
         <snap-help-system.version>1.0.0</snap-help-system.version>
         <netbeans.version>RELEASE113</netbeans.version>
@@ -184,9 +185,9 @@
                 <version>${snap.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.esa.snap</groupId>
-                <artifactId>snap-unmix</artifactId>
-                <version>${snap.version}</version>
+                <groupId>eu.esa.opt</groupId>
+                <artifactId>opttbx-unmix</artifactId>
+                <version>${opttbx.version}</version>
             </dependency>
 
             <dependency>

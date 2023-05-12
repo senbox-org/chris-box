@@ -15,7 +15,6 @@
  */
 package org.esa.chris.cloud.operators.lut;
 
-import org.esa.chris.cloud.operators.lut.ClassOpImage;
 import org.esa.snap.cluster.Distribution;
 import org.esa.snap.cluster.IndexFilter;
 import org.esa.snap.cluster.ProbabilityCalculator;

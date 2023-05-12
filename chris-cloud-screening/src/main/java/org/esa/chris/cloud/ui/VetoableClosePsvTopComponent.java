@@ -1,13 +1,12 @@
 package org.esa.chris.cloud.ui;
 
-import org.esa.snap.netbeans.tile.TileUtilities;
+import eu.esa.snap.netbeans.tile.TileUtilities;
 import org.esa.snap.rcp.util.Dialogs;
 import org.esa.snap.rcp.windows.ProductSceneViewTopComponent;
 import org.esa.snap.ui.product.ProductSceneView;
 import org.openide.awt.UndoRedo;
 
 import java.util.Arrays;
-import java.util.function.Predicate;
 
 /**
  * @author Marco Peters

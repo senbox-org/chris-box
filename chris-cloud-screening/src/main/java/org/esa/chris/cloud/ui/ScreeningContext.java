@@ -42,8 +42,8 @@ import org.esa.snap.core.gpf.OperatorSpi;
 import org.esa.snap.ui.product.ProductSceneImage;
 import org.esa.snap.ui.product.ProductSceneView;
 import org.esa.snap.core.image.ImageManager;
-import org.esa.snap.unmixing.Endmember;
-import org.esa.snap.unmixing.SpectralUnmixingOp;
+import eu.esa.opt.unmixing.Endmember;
+import eu.esa.opt.unmixing.SpectralUnmixingOp;
 import org.esa.snap.core.util.PropertyMap;
 
 import javax.media.jai.Histogram;

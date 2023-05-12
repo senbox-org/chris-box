@@ -15,7 +15,6 @@
  */
 package org.esa.chris.cloud.operators;
 
-import org.esa.chris.cloud.operators.ExtractEndmembersOp;
 import org.esa.snap.core.datamodel.Band;
 import org.esa.snap.core.datamodel.IndexCoding;
 import org.esa.snap.core.datamodel.Product;
