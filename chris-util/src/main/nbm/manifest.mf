@@ -4,3 +4,4 @@ AutoUpdate-Essential-Module: false
 OpenIDE-Module-Java-Dependencies: Java > 1.8
 OpenIDE-Module-Display-Category: SNAP Toolboxes
 OpenIDE-Module-Specification-Version: ${chrisbox.nbmSpecVersion}
+OpenIDE-Module-Implementation-Version: ${chrisbox.nbmImplVersion}
