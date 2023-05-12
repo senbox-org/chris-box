@@ -138,7 +138,7 @@ class NoiseReductionPresenter {
     }
 
     public Product[] getDestripingFactorsSourceProducts() {
-        Vector<Object> productVector = getProductTableModel().getDataVector();
+        Vector<Vector> productVector = getProductTableModel().getDataVector();
         Product[] products = new Product[productVector.size()];
         for (int i = 0; i < productVector.size(); i++) {
             products[i] = (Product) ((Vector) productVector.get(i)).get(1);
